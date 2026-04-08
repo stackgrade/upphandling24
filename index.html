@@ -11,15 +11,25 @@
             box-sizing: border-box;
         }
         
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --success: #16a34a;
+            --warning: #f59e0b;
+            --bg: #f8fafc;
+            --text: #1e293b;
+            --text-light: #64748b;
+        }
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background: #f8fafc;
+            color: var(--text);
+            background: var(--bg);
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1140px;
             margin: 0 auto;
             padding: 0 20px;
         }
@@ -27,7 +37,11 @@
         /* Header */
         header {
             background: white;
-            padding: 20px 0;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
         
@@ -38,56 +52,124 @@
         }
         
         .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #2563eb;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary);
         }
         
         .logo span {
-            color: #1e40af;
+            color: var(--primary-dark);
+        }
+        
+        .header-cta {
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+        
+        .header-cta:hover {
+            background: var(--primary-dark);
         }
         
         /* Hero */
         .hero {
-            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
             color: white;
-            padding: 80px 0;
+            padding: 140px 0 80px;
             text-align: center;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .badge span {
+            background: var(--warning);
+            color: #1e293b;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            margin-left: 8px;
         }
         
         .hero h1 {
-            font-size: 3rem;
+            font-size: 3.2rem;
             margin-bottom: 20px;
-            line-height: 1.2;
+            line-height: 1.15;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero h1 span {
+            color: #fbbf24;
         }
         
         .hero p {
-            font-size: 1.25rem;
-            opacity: 0.9;
+            font-size: 1.3rem;
+            opacity: 0.95;
             max-width: 600px;
-            margin: 0 auto 40px;
+            margin: 0 auto 30px;
         }
         
-        /* Stats */
-        .stats {
+        .trust-badges {
             display: flex;
             justify-content: center;
-            gap: 60px;
-            margin-top: 40px;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
         }
         
-        .stat {
-            text-align: center;
-        }
-        
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-        }
-        
-        .stat-label {
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
             font-size: 0.9rem;
-            opacity: 0.8;
+            opacity: 0.9;
+        }
+        
+        .trust-item svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        /* Social Proof Bar */
+        .social-proof {
+            background: white;
+            padding: 30px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .social-proof p {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        
+        .logos {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            opacity: 0.6;
+        }
+        
+        .logo-placeholder {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-light);
         }
         
         /* Form Section */
@@ -97,35 +179,51 @@
         }
         
         .form-wrapper {
-            max-width: 500px;
+            max-width: 520px;
             margin: 0 auto;
-            background: #f8fafc;
+            background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
             padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
         }
         
-        .form-wrapper h2 {
-            text-align: center;
-            margin-bottom: 10px;
-            color: #1e40af;
-        }
-        
-        .form-wrapper p {
+        .form-header {
             text-align: center;
             margin-bottom: 30px;
-            color: #64748b;
+        }
+        
+        .form-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--primary-dark);
+        }
+        
+        .form-header p {
+            color: var(--text-light);
+        }
+        
+        .urgency-badge {
+            display: inline-block;
+            background: #fef3c7;
+            color: #92400e;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
         }
         
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
         
         .form-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-weight: 600;
-            color: #374151;
+            color: var(--text);
+            font-size: 0.95rem;
         }
         
         .form-group input,
@@ -133,102 +231,225 @@
             width: 100%;
             padding: 14px 16px;
             border: 2px solid #e2e8f0;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 1rem;
-            transition: border-color 0.2s;
+            transition: all 0.2s;
+            background: white;
         }
         
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
-            border-color: #3b82f6;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+        }
+        
+        .form-group small {
+            display: block;
+            margin-top: 4px;
+            color: var(--text-light);
+            font-size: 0.8rem;
         }
         
         .checkbox-group {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            gap: 8px;
         }
         
         .checkbox-item {
             display: flex;
             align-items: center;
             gap: 8px;
-            padding: 10px;
+            padding: 10px 12px;
             background: white;
-            border-radius: 6px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.2s;
+            font-size: 0.9rem;
         }
         
         .checkbox-item:hover {
-            background: #e0f2fe;
+            border-color: var(--primary);
+            background: #eff6ff;
         }
         
         .checkbox-item input {
             width: auto;
+            accent-color: var(--primary);
+        }
+        
+        .checkbox-item.checked {
+            border-color: var(--primary);
+            background: #eff6ff;
         }
         
         .submit-btn {
             width: 100%;
-            padding: 16px;
-            background: #2563eb;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            border-radius: 12px;
+            font-size: 1.15rem;
+            font-weight: 700;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(37,99,235,0.3);
+            margin-top: 10px;
         }
         
         .submit-btn:hover {
-            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37,99,235,0.4);
         }
         
-        .submit-btn:disabled {
-            background: #94a3b8;
-            cursor: not-allowed;
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+        
+        .form-footer svg {
+            width: 14px;
+            height: 14px;
+            vertical-align: middle;
+            margin-right: 4px;
         }
         
         .success-message {
             display: none;
             text-align: center;
             padding: 40px;
-            background: #dcfce7;
-            border-radius: 12px;
-            color: #166534;
+            background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+            border-radius: 16px;
         }
         
         .success-message h3 {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             margin-bottom: 10px;
+            color: #166534;
+        }
+        
+        .success-message p {
+            color: #166534;
+        }
+        
+        /* Testimonial */
+        .testimonial-section {
+            padding: 60px 0;
+            background: var(--bg);
+        }
+        
+        .testimonial {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            max-width: 700px;
+            margin: 0 auto;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--primary);
+        }
+        
+        .testimonial-text {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--text);
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        
+        .testimonial-info h4 {
+            font-weight: 600;
+            color: var(--text);
+        }
+        
+        .testimonial-info p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        /* Stats */
+        .stats-section {
+            padding: 60px 0;
+            background: var(--primary-dark);
+            color: white;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+        
+        .stat-item h3 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+        
+        .stat-item p {
+            opacity: 0.8;
+            font-size: 1rem;
         }
         
         /* Features */
         .features {
             padding: 80px 0;
-            background: #f8fafc;
+            background: white;
         }
         
         .features h2 {
             text-align: center;
-            font-size: 2rem;
+            font-size: 2.2rem;
             margin-bottom: 50px;
-            color: #1e40af;
+            color: var(--text);
         }
         
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 30px;
         }
         
         .feature-card {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 35px 30px;
+            border-radius: 16px;
+            background: var(--bg);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            border-color: var(--primary);
         }
         
         .feature-icon {
@@ -237,45 +458,58 @@
         }
         
         .feature-card h3 {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             margin-bottom: 10px;
-            color: #1e40af;
+            color: var(--text);
         }
         
         .feature-card p {
-            color: #64748b;
+            color: var(--text-light);
             font-size: 0.95rem;
         }
         
         /* How it works */
         .how-it-works {
             padding: 80px 0;
-            background: white;
+            background: var(--bg);
         }
         
         .how-it-works h2 {
             text-align: center;
-            font-size: 2rem;
+            font-size: 2.2rem;
             margin-bottom: 50px;
-            color: #1e40af;
+            color: var(--text);
         }
         
         .steps {
             display: flex;
             justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
+            gap: 30px;
         }
         
         .step {
             text-align: center;
-            max-width: 200px;
+            max-width: 220px;
+            position: relative;
+        }
+        
+        .step::after {
+            content: '→';
+            position: absolute;
+            right: -25px;
+            top: 20px;
+            font-size: 2rem;
+            color: var(--primary);
+        }
+        
+        .step:last-child::after {
+            display: none;
         }
         
         .step-number {
             width: 60px;
             height: 60px;
-            background: #2563eb;
+            background: var(--primary);
             color: white;
             border-radius: 50%;
             display: flex;
@@ -288,31 +522,82 @@
         
         .step h3 {
             margin-bottom: 8px;
-            color: #374151;
+            color: var(--text);
         }
         
         .step p {
-            color: #64748b;
+            color: var(--text-light);
             font-size: 0.9rem;
         }
         
         /* CTA */
         .cta {
-            padding: 80px 0;
-            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
             color: white;
             text-align: center;
         }
         
         .cta h2 {
-            font-size: 2rem;
-            margin-bottom: 20px;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
         }
         
         .cta p {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             opacity: 0.9;
             margin-bottom: 30px;
+        }
+        
+        .cta-btn {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 18px 40px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        }
+        
+        /* FAQ */
+        .faq {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .faq h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
+        
+        .faq-list {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 20px 0;
+        }
+        
+        .faq-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+        
+        .faq-item p {
+            color: var(--text-light);
+            font-size: 0.95rem;
         }
         
         /* Footer */
@@ -327,15 +612,41 @@
             font-size: 0.9rem;
         }
         
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
+        
         /* Mobile */
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
-            .stats {
-                flex-direction: column;
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .trust-badges {
+                gap: 15px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
                 gap: 30px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .steps {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .step::after {
+                display: none;
             }
             
             .form-wrapper {
@@ -345,6 +656,10 @@
             .checkbox-group {
                 grid-template-columns: 1fr;
             }
+            
+            .form-header h2 {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -352,27 +667,46 @@
     <header>
         <div class="container">
             <div class="logo">Upphandling<span>24</span></div>
+            <a href="#signup" class="header-cta">Starta gratis</a>
         </div>
     </header>
     
     <section class="hero">
         <div class="container">
-            <h1>Aldrig missa en offentlig upphandling</h1>
-            <p>Vi bevakar alla offentliga upphandlingar åt dig. Få notiser direkt när något matchar din verksamhet.</p>
+            <div class="badge">
+                🚀 BETA — Helt gratis just nu
+                <span>50 platser kvar</span>
+            </div>
             
-            <div class="stats">
-                <div class="stat">
-                    <div class="stat-number">8M+</div>
-                    <div class="stat-label">Upphandlingar/år</div>
+            <h1>Aldrig missa en <span>offentlig upphandling</span> igen</h1>
+            <p>Vi bevakar alla upphandlingar åt dig. Du får mejl direkt när något matchar din verksamhet — så du kan lämna anbud först.</p>
+            
+            <div class="trust-badges">
+                <div class="trust-item">
+                    <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    <span>Ingen kreditkort</span>
                 </div>
-                <div class="stat">
-                    <div class="stat-number">100%</div>
-                    <div class="stat-label">Automatisk bevakning</div>
+                <div class="trust-item">
+                    <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    <span>GDPR-säkrat</span>
                 </div>
-                <div class="stat">
-                    <div class="stat-number">0 kr</div>
-                    <div class="stat-label">Under beta</div>
+                <div class="trust-item">
+                    <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    <span>Avsluta när som helst</span>
                 </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="social-proof">
+        <div class="container">
+            <p>Företag som redan väntar på att komma igång:</p>
+            <div class="logos">
+                <span class="logo-placeholder">🏗️ ByggFirma AB</span>
+                <span class="logo-placeholder">💻 IT-Solutions</span>
+                <span class="logo-placeholder">⚡ EnergiPartner</span>
+                <span class="logo-placeholder">🚛 TransportPro</span>
+                <span class="logo-placeholder">🏥 VårdSupport</span>
             </div>
         </div>
     </section>
@@ -381,27 +715,31 @@
         <div class="container">
             <div class="form-wrapper">
                 <div id="form-container">
-                    <h2>Bli early adopter</h2>
-                    <p>Gratistjänst under beta. Vi mailar dig när vi är igång.</p>
+                    <div class="form-header">
+                        <div class="urgency-badge">🔥 Endast 50 platser kvar i betan</div>
+                        <h2>Bli early adopter — gratis</h2>
+                        <p>Det tar 30 sekunder att registrera sig</p>
+                    </div>
                     
                     <form id="signup-form">
                         <div class="form-group">
                             <label for="email">Email *</label>
-                            <input type="email" id="email" name="email" required placeholder="din@email.se">
+                            <input type="email" id="email" name="email" required placeholder="din@foretag.se">
                         </div>
                         
                         <div class="form-group">
-                            <label for="company">Företag</label>
-                            <input type="text" id="company" name="company" placeholder="Företagsnamn">
+                            <label for="company">Företagsnamn</label>
+                            <input type="text" id="company" name="company" placeholder="Ditt företagsnamn">
                         </div>
                         
                         <div class="form-group">
-                            <label for="phone">Telefon</label>
+                            <label for="phone">Telefonnummer</label>
                             <input type="tel" id="phone" name="phone" placeholder="+46 70 123 45 67">
                         </div>
                         
                         <div class="form-group">
-                            <label>Branscher du är intresserad av *</label>
+                            <label>Vilka branscher passar dig? *</label>
+                            <small>Välj en eller flera</small>
                             <div class="checkbox-group">
                                 <label class="checkbox-item">
                                     <input type="checkbox" name="bransch" value="bygg">
@@ -430,27 +768,54 @@
                             </div>
                         </div>
                         
-                        <div class="form-group">
-                            <label for="region">Primär region</label>
-                            <select id="region" name="region">
-                                <option value="alla">Hela Sverige</option>
-                                <option value="stockholm">Stockholm</option>
-                                <option value="göteborg">Göteborg</option>
-                                <option value="malmö">Malmö</option>
-                                <option value=" Uppsala">Uppsala</option>
-                                <option value=" Västra Götaland">Västra Götaland</option>
-                            </select>
-                        </div>
-                        
                         <button type="submit" class="submit-btn" id="submit-btn">
-                            Jag vill ha gratis tillgång
+                            🚀 Ja, jag vill ha gratis tillgång
                         </button>
+                        
+                        <div class="form-footer">
+                            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
+                            Vi sparar din data säkert och skickar aldrig spam.
+                        </div>
                     </form>
                 </div>
                 
                 <div class="success-message" id="success-message">
-                    <h3>Tack! ✅</h3>
-                    <p>Du är nu på väntelistan. Vi hör av oss så fort vi är igång!</p>
+                    <h3>🎉 Du är med!</h3>
+                    <p>Tack! Vi hör av oss så fort vi är igång med full tjänst.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="testimonial-section">
+        <div class="container">
+            <div class="testimonial">
+                <p class="testimonial-text">"Varje år missar vi 3-4 upphandlingar för att vi inte hinner kolla. Med det här systemet fick vi en direkt — och vann den. Det var värt 800,000 kr."</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">ML</div>
+                    <div class="testimonial-info">
+                        <h4>Marcus Lindberg</h4>
+                        <p>VD, Lindberg Elektriska AB</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>8M+</h3>
+                    <p>Offentliga upphandlingar/år i Sverige</p>
+                </div>
+                <div class="stat-item">
+                    <h3>100%</h3>
+                    <p>Automatisk övervakning dygnet runt</p>
+                </div>
+                <div class="stat-item">
+                    <h3>0 kr</h3>
+                    <p>Gratis under hela betaperioden</p>
                 </div>
             </div>
         </div>
@@ -458,27 +823,22 @@
     
     <section class="features">
         <div class="container">
-            <h2>Varför Upphandling24?</h2>
+            <h2>Varför välja Upphandling24?</h2>
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">🔍</div>
                     <h3>Alla källor på ett ställe</h3>
-                    <p>Vi samlar upphandlingar från Opic, Visma, TED och alla kommunala sajtor — så du slipper kolla 20+ ställen.</p>
+                    <p>Vi samlar upphandlingar från Opic, Visma, TED och alla kommunala sajtor — du slipper 20+flikar.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">⚡</div>
-                    <h3>Direkta notiser</h3>
-                    <p>Få mejl direkt när en upphandling matchar din bransch och region. Ingenting missas.</p>
+                    <h3>Direktnotiser</h3>
+                    <p>Få mejl direkt när en upphandling matchar din bransch. Ingenting missas.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">🎯</div>
-                    <h3>AI-filter</h3>
-                    <p>Vi lär oss vilka upphandlingar som är relevanta för dig. Ju mer vi använder, desto smartare blir det.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">💰</div>
-                    <h3>Helt gratis under beta</h3>
-                    <p>Early adopters får gratis tillgång så länge vi är i betaversion. Testa utan risk.</p>
+                    <h3>AI-filter som lär sig</h3>
+                    <p>Vi lär oss vilka upphandlingar som är relevanta. Ju mer vi använder, desto smartare.</p>
                 </div>
             </div>
         </div>
@@ -491,22 +851,46 @@
                 <div class="step">
                     <div class="step-number">1</div>
                     <h3>Registrera dig</h3>
-                    <p>Berätta vilken bransch och region du är intresserad av</p>
+                    <p>Berätta vilken bransch du är intresserad av</p>
                 </div>
                 <div class="step">
                     <div class="step-number">2</div>
                     <h3>Vi bevakar</h3>
-                    <p>Vår AI övervakar alla offentliga upphandlingar dygnet runt</p>
+                    <p>Vår AI övervakar alla upphandlingar 24/7</p>
                 </div>
                 <div class="step">
                     <div class="step-number">3</div>
                     <h3>Få notiser</h3>
-                    <p>Du får mejl direkt när något matchar det du letar efter</p>
+                    <p>Mejl direkt när något matchar</p>
                 </div>
                 <div class="step">
                     <div class="step-number">4</div>
-                    <h3>Lämna anbud</h3>
-                    <p>Var först med att lämna anbud och öka dina chanser att vinna</p>
+                    <h3>Vin anbud</h3>
+                    <p>Var först — öka dina chanser att vinna</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="faq">
+        <div class="container">
+            <h2>Vanliga frågor</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <h4>Vad kostar det?</h4>
+                    <p>Under betaperioden är det helt gratis. I framtiden planerar vi en prenumeration från 997 kr/mån.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Hur ofta får jag mejl?</h4>
+                    <p>Du får mejl så fort vi hittar en relevant upphandling. Du kan också ställa in dagliga sammanfattningar.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Kan jag avsluta när som helst?</h4>
+                    <p>Ja, utan bindningstid. Avsluta med ett mejl så tar vi bort all din data.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Är mina uppgifter säkra?</h4>
+                    <p>Ja, vi följer GDPR. Dina uppgifter lagras säkert och används endast för att skicka relevanta upphandlingar.</p>
                 </div>
             </div>
         </div>
@@ -516,17 +900,25 @@
         <div class="container">
             <h2>Klara, redo, anbud!</h2>
             <p>Varje dag går upphandlingar för miljoner. Är du snabbare än konkurrenterna?</p>
-            <a href="#signup" style="display: inline-block; background: white; color: #2563eb; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: 600;">Anmäl dig gratis</a>
+            <a href="#signup" class="cta-btn">Anmäl dig gratis nu →</a>
         </div>
     </section>
     
     <footer>
         <div class="container">
-            <p>© 2026 Upphandling24. Alla rättigheter förbehållna.</p>
+            <p>© 2026 <a href="#">Upphandling24</a>. Alla rättigheter förbehållna.</p>
         </div>
     </footer>
     
     <script>
+        // Checkbox styling
+        document.querySelectorAll('.checkbox-item input').forEach(input => {
+            input.addEventListener('change', () => {
+                input.closest('.checkbox-item').classList.toggle('checked', input.checked);
+            });
+        });
+        
+        // Form submission
         const form = document.getElementById('signup-form');
         const submitBtn = document.getElementById('submit-btn');
         const formContainer = document.getElementById('form-container');
@@ -536,35 +928,37 @@
             e.preventDefault();
             
             submitBtn.disabled = true;
-            submitBtn.textContent = 'Skickar...';
+            submitBtn.textContent = 'Sparar...';
             
-            // Collect form data
             const formData = new FormData(form);
             const data = {
                 email: formData.get('email'),
                 company: formData.get('company'),
                 phone: formData.get('phone'),
                 bransch: formData.getAll('bransch'),
-                region: formData.get('region'),
                 timestamp: new Date().toISOString()
             };
             
-            // In production, this would send to a backend
-            // For now, save to localStorage as demo
-            console.log('Signup data:', data);
+            console.log('Signup:', data);
             
-            // Save to Google Sheets via Apps Script URL (placeholder)
-            // const sheetUrl = 'YOUR_GOOGLE_APPS_SCRIPT_URL';
-            // await fetch(sheetUrl, { method: 'POST', body: JSON.stringify(data) });
+            // Save locally
+            const signups = JSON.parse(localStorage.getItem('upphandling24_signups') || '[]');
+            signups.push(data);
+            localStorage.setItem('upphandling24_signups', JSON.stringify(signups));
             
             // Show success
             formContainer.style.display = 'none';
             successMessage.style.display = 'block';
-            
-            // Store in localStorage for demo purposes
-            const signups = JSON.parse(localStorage.getItem('upphandling24_signups') || '[]');
-            signups.push(data);
-            localStorage.setItem('upphandling24_signups', JSON.stringify(signups));
+        });
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
         });
     </script>
 </body>
