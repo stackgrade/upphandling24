@@ -700,7 +700,7 @@
         }
         
         // Google Apps Script URL (set this after deploying the Apps Script)
-        const GOOGLE_APPS_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL';
+        const GOOGLE_APPS_SCRIPT_URL = 'PLACEHOLDER_DEPLOY_APPS_SCRIPT_URL';
         
         // Submit to Google Sheet
         async function submitToGoogleSheet(data) {
@@ -743,7 +743,7 @@
             localStorage.setItem('TendAlert_preferences', JSON.stringify(preferences));
             
             // Submit to Google Sheet (when configured)
-            if (GOOGLE_APPS_SCRIPT_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL') {
+            if (GOOGLE_APPS_SCRIPT_URL !== 'PLACEHOLDER_DEPLOY_APPS_SCRIPT_URL') {
                 await submitToGoogleSheet(preferences);
             }
             

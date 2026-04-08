@@ -6,20 +6,23 @@
  * 1. Create new Google Sheet with headers in row 1:
  *    A: timestamp, B: email, C: company, D: phone, E: region, 
  *    F: bransch, G: frequency, H: keywords, I: source
- * 2. Extensions → Apps Script
+ * 2. Extensions → Apps Script (or go to script.google.com)
  * 3. Paste this code
- * 4. Deploy → New deployment → Web app
- * 5. Execute as: Me, Who has access: Anyone
- * 6. Copy URL
+ * 4. Replace 'YOUR_SHEET_ID_HERE' with your spreadsheet ID
+ * 5. Save (Ctrl+S)
+ * 6. Deploy → New deployment → Web app
+ * 7. Execute as: Me, Who has access: Anyone
+ * 8. Copy the deployment URL
  */
 
-// Configuration
+// Configuration - REPLACE THIS WITH YOUR SPREADSHEET ID
+const SHEET_ID = '1Wd4BwnV6s2LonuByKnPzewadwK1kypEL6Rqp65dHoxQ';
 const SHEET_NAME = 'Sheet1';
 
 // Main doPost handler (receives form data)
 function doPost(e) {
   try {
-    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
+    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName(SHEET_NAME);
     
     // Parse the incoming data
     let data;
@@ -52,7 +55,7 @@ function doPost(e) {
     return ContentService
       .createTextOutput(JSON.stringify({ 
         status: 'success', 
-        message: 'Data saved' 
+        message: 'Data saved to TendAlert spreadsheet' 
       }))
       .setMimeType(ContentService.MimeType.JSON);
       
@@ -69,7 +72,7 @@ function doPost(e) {
 
 // Test function - add some sample data
 function testAppend() {
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
+  const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName(SHEET_NAME);
   
   const testRow = [
     new Date().toISOString(),
@@ -84,66 +87,7 @@ function testAppend() {
   ];
   
   sheet.appendRow(testRow);
-  Logger.log('Test row added');
-}
-
-// Manual setup function to add headers
-function setupHeaders() {
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
-  
-  const headers = [
-    'timestamp',
-    'email',
-    'company',
-    'phone',
-    'region',
-    'bransch',
-    'frequency',
-    'keywords',
-    'source'
-  ];
-  
-  // Clear existing and add headers
-  sheet.clear();
-  sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
-  
-  // Format headers
-  sheet.getRange(1, 1, 1, headers.length)
-    .setFontWeight('bold')
-    .setBackground('#1e3a5f')
-    .setFontColor('white');
-  
-  // Set column widths
-  sheet.setColumnWidth(1, 180); // timestamp
-  sheet.setColumnWidth(2, 200); // email
-  sheet.setColumnWidth(3, 150); // company
-  sheet.setColumnWidth(4, 140); // phone
-  sheet.setColumnWidth(5, 120); // region
-  sheet.setColumnWidth(6, 200); // bransch
-  sheet.setColumnWidth(7, 80);  // frequency
-  sheet.setColumnWidth(8, 200); // keywords
-  sheet.setColumnWidth(9, 100); // source
-  
-  Logger.log('Headers set up successfully');
-}
-
-// Get all signups (for admin/dashboard)
-function getAllSignups() {
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
-  const data = sheet.getDataRange().getValues();
-  
-  // Skip header row
-  return data.slice(1).map(row => ({
-    timestamp: row[0],
-    email: row[1],
-    company: row[2],
-    phone: row[3],
-    region: row[4],
-    bransch: row[5],
-    frequency: row[6],
-    keywords: row[7],
-    source: row[8]
-  }));
+  Logger.log('Test row added to TendAlert spreadsheet');
 }
 
 // Simple GET handler for testing
@@ -152,7 +96,7 @@ function doGet(e) {
     .createTextOutput(JSON.stringify({ 
       status: 'ok', 
       message: 'TendAlert API is running',
-      signups: getAllSignups().length
+      spreadsheetId: SHEET_ID
     }))
     .setMimeType(ContentService.MimeType.JSON);
 }
