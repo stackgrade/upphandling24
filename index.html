@@ -982,10 +982,7 @@
                     </form>
                 </div>
                 
-                <div class="success-overlay" id="success-message">
-                    <h3>Du är med!</h3>
-                    <p>Tack! Vi hör av oss så fort vi är igång.</p>
-                </div>
+                <!-- Success state handled by redirect to setup page -->
             </div>
         </div>
     </section>
@@ -1136,8 +1133,6 @@
         
         // Form
         const form = document.getElementById('signup-form');
-        const formContainer = document.getElementById('form-container');
-        const successMessage = document.getElementById('success-message');
         
         form.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -1153,12 +1148,11 @@
             
             console.log('Signup:', data);
             
-            const signups = JSON.parse(localStorage.getItem('TendAlert_signups') || '[]');
-            signups.push(data);
-            localStorage.setItem('TendAlert_signups', JSON.stringify(signups));
+            // Save signup data
+            localStorage.setItem('TendAlert_signup', JSON.stringify(data));
             
-            formContainer.style.display = 'none';
-            successMessage.style.display = 'block';
+            // Redirect to setup page
+            window.location.href = 'modules/02_onboarding/setup.html';
         });
         
         // Smooth scroll
