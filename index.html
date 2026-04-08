@@ -1132,9 +1132,26 @@
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
         
         // Form
+        // Google Apps Script URL (set this after deploying the Apps Script)
+        const GOOGLE_APPS_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL';
+        
+        // Submit to Google Sheet
+        async function submitToGoogleSheet(data) {
+            try {
+                await fetch(GOOGLE_APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+            } catch (e) {
+                console.log('Google Sheet submission failed (expected in demo mode):', e.message);
+            }
+        }
+        
         const form = document.getElementById('signup-form');
         
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             const formData = new FormData(form);
@@ -1143,13 +1160,19 @@
                 company: formData.get('company'),
                 phone: formData.get('phone'),
                 bransch: formData.getAll('bransch'),
-                timestamp: new Date().toISOString()
+                timestamp: new Date().toISOString(),
+                source: 'landing'
             };
             
             console.log('Signup:', data);
             
-            // Save signup data
+            // Save to localStorage (for demo)
             localStorage.setItem('TendAlert_signup', JSON.stringify(data));
+            
+            // Submit to Google Sheet (when configured)
+            if (GOOGLE_APPS_SCRIPT_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL') {
+                await submitToGoogleSheet(data);
+            }
             
             // Redirect to setup page
             window.location.href = 'modules/02_onboarding/setup.html';

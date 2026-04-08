@@ -699,11 +699,28 @@
             document.getElementById('user-email').innerHTML = 'Notifieringar till: <strong>' + savedSignup.email + '</strong>';
         }
         
+        // Google Apps Script URL (set this after deploying the Apps Script)
+        const GOOGLE_APPS_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL';
+        
+        // Submit to Google Sheet
+        async function submitToGoogleSheet(data) {
+            try {
+                await fetch(GOOGLE_APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+            } catch (e) {
+                console.log('Google Sheet submission failed (expected in demo mode):', e.message);
+            }
+        }
+        
         // Form submission
         const form = document.getElementById('setup-form');
         const setupCard = document.getElementById('setup-card');
         
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             // Collect all preferences
@@ -716,13 +733,19 @@
                 frequency: formData.get('frequency'),
                 keywords: formData.get('keywords'),
                 setupComplete: true,
-                timestamp: new Date().toISOString()
+                timestamp: new Date().toISOString(),
+                source: 'onboarding'
             };
             
             console.log('Preferences saved:', preferences);
             
-            // Save to localStorage (for demo - real app would send to backend)
+            // Save to localStorage (for demo)
             localStorage.setItem('TendAlert_preferences', JSON.stringify(preferences));
+            
+            // Submit to Google Sheet (when configured)
+            if (GOOGLE_APPS_SCRIPT_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL') {
+                await submitToGoogleSheet(preferences);
+            }
             
             // Update progress bar
             document.getElementById('progress-fill').style.width = '100%';
