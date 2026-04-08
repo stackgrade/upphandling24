@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upphandling24 - Aldrig missa en affär</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,37 +15,54 @@
         }
         
         :root {
-            --primary: #2563eb;
-            --primary-dark: #1e40af;
-            --success: #16a34a;
-            --warning: #f59e0b;
-            --bg: #f8fafc;
-            --text: #1e293b;
-            --text-light: #64748b;
+            --primary: #1e3a5f;
+            --primary-light: #2d4a6f;
+            --accent: #f59e0b;
+            --accent-light: #fbbf24;
+            --bg: #fafafa;
+            --bg-warm: #f5f3f0;
+            --surface: #ffffff;
+            --text: #1a1a1a;
+            --text-secondary: #5a5a5a;
+            --text-muted: #8a8a8a;
+            --border: #e5e5e5;
+            --gradient-hero: linear-gradient(160deg, #0f1f35 0%, #1e3a5f 50%, #2d4a6f 100%);
+        }
+        
+        html {
+            scroll-behavior: smooth;
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
             color: var(--text);
             background: var(--bg);
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-weight: 600;
+            line-height: 1.2;
         }
         
         .container {
-            max-width: 1140px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
         }
         
-        /* Header */
+        /* ===== HEADER ===== */
         header {
-            background: white;
-            padding: 15px 0;
             position: fixed;
-            width: 100%;
             top: 0;
+            width: 100%;
             z-index: 100;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 16px 0;
+            background: rgba(15, 31, 53, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
         
         header .container {
@@ -52,83 +72,117 @@
         }
         
         .logo {
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: var(--primary);
+            font-family: 'Source Serif 4', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: white;
+            letter-spacing: -0.02em;
         }
         
         .logo span {
-            color: var(--primary-dark);
+            color: var(--accent);
         }
         
         .header-cta {
-            background: var(--primary);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
+            background: var(--accent);
+            color: var(--primary);
+            padding: 10px 24px;
+            border-radius: 6px;
             text-decoration: none;
             font-weight: 600;
             font-size: 0.9rem;
-            transition: background 0.2s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
         }
         
         .header-cta:hover {
-            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(245, 158, 11, 0.4);
         }
         
-        /* Hero */
+        /* ===== HERO ===== */
         .hero {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            background: var(--gradient-hero);
             color: white;
-            padding: 140px 0 80px;
+            padding: 160px 0 120px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
             text-align: center;
         }
         
-        .badge {
-            display: inline-block;
-            background: rgba(255,255,255,0.2);
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
             padding: 8px 16px;
             border-radius: 50px;
             font-size: 0.85rem;
-            margin-bottom: 20px;
+            margin-bottom: 32px;
             backdrop-filter: blur(10px);
+            animation: fadeInUp 0.8s ease-out;
         }
         
-        .badge span {
-            background: var(--warning);
-            color: #1e293b;
+        .hero-badge svg {
+            width: 16px;
+            height: 16px;
+        }
+        
+        .hero-badge span {
+            background: var(--accent);
+            color: var(--primary);
             padding: 2px 8px;
             border-radius: 4px;
             font-weight: 700;
-            margin-left: 8px;
+            font-size: 0.75rem;
         }
         
         .hero h1 {
-            font-size: 3.2rem;
-            margin-bottom: 20px;
-            line-height: 1.15;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
+            font-size: 4rem;
+            margin-bottom: 24px;
+            letter-spacing: -0.03em;
+            animation: fadeInUp 0.8s ease-out 0.1s both;
         }
         
-        .hero h1 span {
-            color: #fbbf24;
+        .hero h1 .highlight {
+            color: var(--accent);
+            position: relative;
         }
         
-        .hero p {
-            font-size: 1.3rem;
-            opacity: 0.95;
-            max-width: 600px;
-            margin: 0 auto 30px;
+        .hero-sub {
+            font-size: 1.35rem;
+            opacity: 0.9;
+            max-width: 560px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
         }
         
-        .trust-badges {
+        .trust-row {
             display: flex;
             justify-content: center;
-            gap: 30px;
-            margin-top: 30px;
+            gap: 32px;
             flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease-out 0.3s both;
         }
         
         .trust-item {
@@ -136,447 +190,496 @@
             align-items: center;
             gap: 8px;
             font-size: 0.9rem;
-            opacity: 0.9;
+            opacity: 0.85;
         }
         
         .trust-item svg {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
+            color: #4ade80;
         }
         
-        /* Social Proof Bar */
+        /* ===== SOCIAL PROOF ===== */
         .social-proof {
-            background: white;
-            padding: 30px 0;
-            border-bottom: 1px solid #e2e8f0;
+            background: var(--surface);
+            padding: 48px 0;
+            border-bottom: 1px solid var(--border);
         }
         
         .social-proof p {
             text-align: center;
-            color: var(--text-light);
-            font-size: 0.9rem;
-            margin-bottom: 20px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }
         
-        .logos {
+        .logo-row {
             display: flex;
             justify-content: center;
-            gap: 40px;
+            gap: 48px;
             flex-wrap: wrap;
+            opacity: 0.5;
+        }
+        
+        .logo-item {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .logo-item svg {
+            width: 24px;
+            height: 24px;
             opacity: 0.6;
         }
         
-        .logo-placeholder {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--text-light);
-        }
-        
-        /* Form Section */
+        /* ===== FORM SECTION ===== */
         .form-section {
-            padding: 80px 0;
-            background: white;
+            padding: 100px 0;
+            background: linear-gradient(180deg, var(--bg) 0%, var(--bg-warm) 100%);
         }
         
         .form-wrapper {
-            max-width: 520px;
+            max-width: 480px;
             margin: 0 auto;
-            background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-            border: 1px solid #e2e8f0;
+            background: var(--surface);
+            border-radius: 24px;
+            padding: 48px;
+            box-shadow: 
+                0 1px 3px rgba(0,0,0,0.04),
+                0 6px 16px rgba(0,0,0,0.04),
+                0 24px 48px rgba(0,0,0,0.06);
+            border: 1px solid var(--border);
         }
         
         .form-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 32px;
         }
         
-        .form-header h2 {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-            color: var(--primary-dark);
-        }
-        
-        .form-header p {
-            color: var(--text-light);
-        }
-        
-        .urgency-badge {
-            display: inline-block;
+        .urgency-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
             background: #fef3c7;
             color: #92400e;
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 6px;
             font-size: 0.8rem;
             font-weight: 600;
-            margin-bottom: 15px;
+            margin-bottom: 16px;
+        }
+        
+        .urgency-tag svg {
+            width: 14px;
+            height: 14px;
+        }
+        
+        .form-header h2 {
+            font-size: 1.75rem;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+        
+        .form-header p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
         }
         
         .form-group {
-            margin-bottom: 18px;
+            margin-bottom: 20px;
         }
         
         .form-group label {
             display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
             margin-bottom: 6px;
-            font-weight: 600;
             color: var(--text);
-            font-size: 0.95rem;
         }
         
-        .form-group input,
-        .form-group select {
+        .form-group input {
             width: 100%;
             padding: 14px 16px;
-            border: 2px solid #e2e8f0;
+            border: 1.5px solid var(--border);
             border-radius: 10px;
             font-size: 1rem;
+            font-family: inherit;
             transition: all 0.2s;
-            background: white;
+            background: var(--bg);
         }
         
-        .form-group input:focus,
-        .form-group select:focus {
+        .form-group input:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+            background: var(--surface);
+            box-shadow: 0 0 0 4px rgba(30, 58, 95, 0.08);
         }
         
-        .form-group small {
-            display: block;
-            margin-top: 4px;
-            color: var(--text-light);
-            font-size: 0.8rem;
+        .form-group input::placeholder {
+            color: var(--text-muted);
         }
         
-        .checkbox-group {
+        .checkbox-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 8px;
         }
         
-        .checkbox-item {
+        .checkbox-btn {
+            position: relative;
+        }
+        
+        .checkbox-btn input {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .checkbox-btn label {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 10px 12px;
-            background: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
+            gap: 10px;
+            padding: 12px 14px;
+            background: var(--bg);
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
             cursor: pointer;
+            font-size: 0.85rem;
             transition: all 0.2s;
-            font-size: 0.9rem;
         }
         
-        .checkbox-item:hover {
+        .checkbox-btn label::before {
+            content: '';
+            width: 18px;
+            height: 18px;
+            border: 1.5px solid var(--border);
+            border-radius: 4px;
+            background: var(--surface);
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        
+        .checkbox-btn input:checked + label {
             border-color: var(--primary);
-            background: #eff6ff;
+            background: rgba(30, 58, 95, 0.04);
         }
         
-        .checkbox-item input {
-            width: auto;
-            accent-color: var(--primary);
-        }
-        
-        .checkbox-item.checked {
+        .checkbox-btn input:checked + label::before {
+            background: var(--primary);
             border-color: var(--primary);
-            background: #eff6ff;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
+            background-size: 12px;
+            background-position: center;
+            background-repeat: no-repeat;
         }
         
         .submit-btn {
             width: 100%;
-            padding: 18px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 18px 24px;
+            background: var(--primary);
             color: white;
             border: none;
             border-radius: 12px;
-            font-size: 1.15rem;
-            font-weight: 700;
+            font-size: 1.05rem;
+            font-weight: 600;
+            font-family: inherit;
             cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(37,99,235,0.3);
-            margin-top: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
         }
         
         .submit-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(37,99,235,0.4);
+            box-shadow: 0 8px 24px rgba(30, 58, 95, 0.35);
+        }
+        
+        .submit-btn:hover::before {
+            left: 100%;
         }
         
         .submit-btn:active {
             transform: translateY(0);
         }
         
-        .form-footer {
+        .form-footnote {
             text-align: center;
-            margin-top: 20px;
-            font-size: 0.85rem;
-            color: var(--text-light);
+            margin-top: 16px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
         
-        .form-footer svg {
+        .form-footnote svg {
             width: 14px;
             height: 14px;
-            vertical-align: middle;
-            margin-right: 4px;
         }
         
-        .success-message {
+        .success-overlay {
             display: none;
             text-align: center;
             padding: 40px;
-            background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
-            border-radius: 16px;
         }
         
-        .success-message h3 {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
+        .success-overlay h3 {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
             color: #166534;
         }
         
-        .success-message p {
+        .success-overlay p {
             color: #166534;
         }
         
-        /* Testimonial */
+        /* ===== TESTIMONIAL ===== */
         .testimonial-section {
-            padding: 60px 0;
-            background: var(--bg);
+            padding: 100px 0;
+            background: var(--bg-warm);
         }
         
-        .testimonial {
-            background: white;
-            padding: 40px;
-            border-radius: 16px;
+        .testimonial-card {
             max-width: 700px;
             margin: 0 auto;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            border-left: 4px solid var(--primary);
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 48px;
+            border-left: 4px solid var(--accent);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+        }
+        
+        .quote-mark {
+            font-size: 4rem;
+            color: var(--accent);
+            opacity: 0.3;
+            line-height: 1;
+            font-family: Georgia, serif;
         }
         
         .testimonial-text {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             font-style: italic;
             color: var(--text);
-            margin-bottom: 20px;
-            line-height: 1.7;
+            line-height: 1.8;
+            margin-bottom: 24px;
         }
         
         .testimonial-author {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 16px;
         }
         
-        .testimonial-avatar {
-            width: 50px;
-            height: 50px;
-            background: var(--primary);
+        .author-avatar {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-weight: 700;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
         
-        .testimonial-info h4 {
+        .author-info h4 {
+            font-family: 'Inter', sans-serif;
             font-weight: 600;
+            font-size: 1rem;
             color: var(--text);
         }
         
-        .testimonial-info p {
+        .author-info p {
             font-size: 0.9rem;
-            color: var(--text-light);
+            color: var(--text-secondary);
         }
         
-        /* Stats */
+        /* ===== STATS ===== */
         .stats-section {
-            padding: 60px 0;
-            background: var(--primary-dark);
+            background: var(--primary);
             color: white;
+            padding: 80px 0;
         }
         
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
+            gap: 48px;
             text-align: center;
         }
         
         .stat-item h3 {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 5px;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: white;
         }
         
         .stat-item p {
-            opacity: 0.8;
             font-size: 1rem;
+            opacity: 0.8;
         }
         
-        /* Features */
+        /* ===== FEATURES ===== */
         .features {
-            padding: 80px 0;
-            background: white;
+            padding: 100px 0;
+            background: var(--surface);
         }
         
         .features h2 {
             text-align: center;
-            font-size: 2.2rem;
-            margin-bottom: 50px;
+            font-size: 2.25rem;
+            margin-bottom: 60px;
             color: var(--text);
         }
         
         .features-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
+            gap: 32px;
         }
         
         .feature-card {
-            padding: 35px 30px;
-            border-radius: 16px;
+            padding: 40px 32px;
             background: var(--bg);
-            border: 1px solid #e2e8f0;
-            transition: all 0.3s;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-            border-color: var(--primary);
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.08);
+            border-color: transparent;
         }
         
         .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
+            width: 56px;
+            height: 56px;
+            background: var(--primary);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .feature-icon svg {
+            width: 28px;
+            height: 28px;
+            color: white;
         }
         
         .feature-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 12px;
             color: var(--text);
         }
         
         .feature-card p {
-            color: var(--text-light);
+            color: var(--text-secondary);
             font-size: 0.95rem;
+            line-height: 1.7;
         }
         
-        /* How it works */
+        /* ===== HOW IT WORKS ===== */
         .how-it-works {
-            padding: 80px 0;
+            padding: 100px 0;
             background: var(--bg);
         }
         
         .how-it-works h2 {
             text-align: center;
-            font-size: 2.2rem;
-            margin-bottom: 50px;
-            color: var(--text);
+            font-size: 2.25rem;
+            margin-bottom: 60px;
         }
         
-        .steps {
+        .steps-row {
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 24px;
         }
         
-        .step {
+        .step-card {
             text-align: center;
-            max-width: 220px;
+            max-width: 200px;
             position: relative;
         }
         
-        .step::after {
-            content: '→';
+        .step-card::after {
+            content: '';
             position: absolute;
-            right: -25px;
-            top: 20px;
-            font-size: 2rem;
-            color: var(--primary);
+            top: 28px;
+            right: -20px;
+            width: 16px;
+            height: 2px;
+            background: var(--accent);
         }
         
-        .step:last-child::after {
+        .step-card:last-child::after {
             display: none;
         }
         
-        .step-number {
-            width: 60px;
-            height: 60px;
+        .step-num {
+            width: 56px;
+            height: 56px;
             background: var(--primary);
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: 700;
-            margin: 0 auto 15px;
+            margin: 0 auto 16px;
         }
         
-        .step h3 {
+        .step-card h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
             margin-bottom: 8px;
-            color: var(--text);
         }
         
-        .step p {
-            color: var(--text-light);
+        .step-card p {
             font-size: 0.9rem;
+            color: var(--text-secondary);
         }
         
-        /* CTA */
-        .cta {
-            padding: 100px 0;
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
-            color: white;
-            text-align: center;
-        }
-        
-        .cta h2 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-        }
-        
-        .cta p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 30px;
-        }
-        
-        .cta-btn {
-            display: inline-block;
-            background: white;
-            color: var(--primary);
-            padding: 18px 40px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-        }
-        
-        .cta-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
-        }
-        
-        /* FAQ */
+        /* ===== FAQ ===== */
         .faq {
-            padding: 80px 0;
-            background: white;
+            padding: 100px 0;
+            background: var(--surface);
         }
         
         .faq h2 {
             text-align: center;
-            font-size: 2rem;
-            margin-bottom: 40px;
+            font-size: 2.25rem;
+            margin-bottom: 48px;
         }
         
         .faq-list {
@@ -585,31 +688,84 @@
         }
         
         .faq-item {
-            border-bottom: 1px solid #e2e8f0;
-            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+            padding: 24px 0;
         }
         
         .faq-item h4 {
-            font-size: 1.1rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
             margin-bottom: 8px;
             color: var(--text);
         }
         
         .faq-item p {
-            color: var(--text-light);
+            color: var(--text-secondary);
             font-size: 0.95rem;
+            line-height: 1.7;
         }
         
-        /* Footer */
+        /* ===== CTA ===== */
+        .cta-section {
+            padding: 120px 0;
+            background: var(--gradient-hero);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.75rem;
+            margin-bottom: 16px;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 32px;
+        }
+        
+        .cta-btn {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--primary);
+            padding: 18px 40px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 16px rgba(245, 158, 11, 0.3);
+        }
+        
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 32px rgba(245, 158, 11, 0.4);
+        }
+        
+        /* ===== FOOTER ===== */
         footer {
-            background: #1e293b;
-            color: #94a3b8;
+            background: #0f1f35;
+            color: rgba(255,255,255,0.6);
             padding: 40px 0;
             text-align: center;
-        }
-        
-        footer p {
-            font-size: 0.9rem;
         }
         
         footer a {
@@ -617,48 +773,79 @@
             text-decoration: none;
         }
         
-        /* Mobile */
+        footer p {
+            font-size: 0.9rem;
+        }
+        
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 2.2rem;
+                font-size: 2.5rem;
             }
             
-            .hero p {
+            .hero-sub {
                 font-size: 1.1rem;
             }
             
-            .trust-badges {
-                gap: 15px;
+            .trust-row {
+                gap: 16px;
             }
             
             .stats-grid {
                 grid-template-columns: 1fr;
-                gap: 30px;
+                gap: 32px;
+            }
+            
+            .stat-item h3 {
+                font-size: 2.5rem;
             }
             
             .features-grid {
                 grid-template-columns: 1fr;
             }
             
-            .steps {
+            .steps-row {
                 flex-direction: column;
                 align-items: center;
             }
             
-            .step::after {
+            .step-card::after {
                 display: none;
             }
             
             .form-wrapper {
-                padding: 25px;
+                padding: 32px 24px;
             }
             
-            .checkbox-group {
+            .checkbox-grid {
                 grid-template-columns: 1fr;
             }
             
-            .form-header h2 {
-                font-size: 1.5rem;
+            .cta-section h2 {
+                font-size: 2rem;
             }
         }
     </style>
@@ -673,26 +860,29 @@
     
     <section class="hero">
         <div class="container">
-            <div class="badge">
-                🚀 BETA — Helt gratis just nu
-                <span>50 platser kvar</span>
-            </div>
-            
-            <h1>Aldrig missa en <span>offentlig upphandling</span> igen</h1>
-            <p>Vi bevakar alla upphandlingar åt dig. Du får mejl direkt när något matchar din verksamhet — så du kan lämna anbud först.</p>
-            
-            <div class="trust-badges">
-                <div class="trust-item">
-                    <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                    <span>Ingen kreditkort</span>
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    BETA — Helt gratis just nu
+                    <span>50 platser</span>
                 </div>
-                <div class="trust-item">
-                    <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                    <span>GDPR-säkrat</span>
-                </div>
-                <div class="trust-item">
-                    <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                    <span>Avsluta när som helst</span>
+                
+                <h1>Aldrig missa en <span class="highlight">offentlig upphandling</span> igen</h1>
+                <p class="hero-sub">Vi bevakar alla upphandlingar åt dig. Du får mejl direkt när något matchar din verksamhet — så du kan lämna anbud först.</p>
+                
+                <div class="trust-row">
+                    <div class="trust-item">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Ingen kreditkort</span>
+                    </div>
+                    <div class="trust-item">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                        <span>GDPR-säkrat</span>
+                    </div>
+                    <div class="trust-item">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                        <span>Avsluta när som helst</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -700,13 +890,24 @@
     
     <section class="social-proof">
         <div class="container">
-            <p>Företag som redan väntar på att komma igång:</p>
-            <div class="logos">
-                <span class="logo-placeholder">🏗️ ByggFirma AB</span>
-                <span class="logo-placeholder">💻 IT-Solutions</span>
-                <span class="logo-placeholder">⚡ EnergiPartner</span>
-                <span class="logo-placeholder">🚛 TransportPro</span>
-                <span class="logo-placeholder">🏥 VårdSupport</span>
+            <p>Företag som redan väntar</p>
+            <div class="logo-row">
+                <div class="logo-item">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                    ByggFirma AB
+                </div>
+                <div class="logo-item">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                    IT-Solutions
+                </div>
+                <div class="logo-item">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                    EnergiPartner
+                </div>
+                <div class="logo-item">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                    TransportPro
+                </div>
             </div>
         </div>
     </section>
@@ -716,14 +917,17 @@
             <div class="form-wrapper">
                 <div id="form-container">
                     <div class="form-header">
-                        <div class="urgency-badge">🔥 Endast 50 platser kvar i betan</div>
+                        <div class="urgency-tag">
+                            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                            Endast 50 platser i betan
+                        </div>
                         <h2>Bli early adopter — gratis</h2>
-                        <p>Det tar 30 sekunder att registrera sig</p>
+                        <p>Det tar 30 sekunder att komma igång</p>
                     </div>
                     
                     <form id="signup-form">
                         <div class="form-group">
-                            <label for="email">Email *</label>
+                            <label for="email">Email</label>
                             <input type="email" id="email" name="email" required placeholder="din@foretag.se">
                         </div>
                         
@@ -738,50 +942,49 @@
                         </div>
                         
                         <div class="form-group">
-                            <label>Vilka branscher passar dig? *</label>
-                            <small>Välj en eller flera</small>
-                            <div class="checkbox-group">
-                                <label class="checkbox-item">
-                                    <input type="checkbox" name="bransch" value="bygg">
-                                    <span>Bygg & Anläggning</span>
-                                </label>
-                                <label class="checkbox-item">
-                                    <input type="checkbox" name="bransch" value="it">
-                                    <span>IT & Teknik</span>
-                                </label>
-                                <label class="checkbox-item">
-                                    <input type="checkbox" name="bransch" value="vvs">
-                                    <span>VVS & Energi</span>
-                                </label>
-                                <label class="checkbox-item">
-                                    <input type="checkbox" name="bransch" value="konsult">
-                                    <span>Konsulttjänster</span>
-                                </label>
-                                <label class="checkbox-item">
-                                    <input type="checkbox" name="bransch" value="transport">
-                                    <span>Transport & Logistik</span>
-                                </label>
-                                <label class="checkbox-item">
-                                    <input type="checkbox" name="bransch" value="ovrigt">
-                                    <span>Övrigt</span>
-                                </label>
+                            <label>Vilka branscher passar dig?</label>
+                            <div class="checkbox-grid">
+                                <div class="checkbox-btn">
+                                    <input type="checkbox" id="bygg" name="bransch" value="bygg">
+                                    <label for="bygg">Bygg & Anläggning</label>
+                                </div>
+                                <div class="checkbox-btn">
+                                    <input type="checkbox" id="it" name="bransch" value="it">
+                                    <label for="it">IT & Teknik</label>
+                                </div>
+                                <div class="checkbox-btn">
+                                    <input type="checkbox" id="vvs" name="bransch" value="vvs">
+                                    <label for="vvs">VVS & Energi</label>
+                                </div>
+                                <div class="checkbox-btn">
+                                    <input type="checkbox" id="konsult" name="bransch" value="konsult">
+                                    <label for="konsult">Konsulttjänster</label>
+                                </div>
+                                <div class="checkbox-btn">
+                                    <input type="checkbox" id="transport" name="bransch" value="transport">
+                                    <label for="transport">Transport & Logistik</label>
+                                </div>
+                                <div class="checkbox-btn">
+                                    <input type="checkbox" id="ovrigt" name="bransch" value="ovrigt">
+                                    <label for="ovrigt">Övrigt</label>
+                                </div>
                             </div>
                         </div>
                         
-                        <button type="submit" class="submit-btn" id="submit-btn">
-                            🚀 Ja, jag vill ha gratis tillgång
+                        <button type="submit" class="submit-btn">
+                            Ja, jag vill ha gratis tillgång
                         </button>
                         
-                        <div class="form-footer">
-                            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
-                            Vi sparar din data säkert och skickar aldrig spam.
+                        <div class="form-footnote">
+                            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+                            Vi sparar din data säkert. Inget spam.
                         </div>
                     </form>
                 </div>
                 
-                <div class="success-message" id="success-message">
-                    <h3>🎉 Du är med!</h3>
-                    <p>Tack! Vi hör av oss så fort vi är igång med full tjänst.</p>
+                <div class="success-overlay" id="success-message">
+                    <h3>Du är med!</h3>
+                    <p>Tack! Vi hör av oss så fort vi är igång.</p>
                 </div>
             </div>
         </div>
@@ -789,11 +992,12 @@
     
     <section class="testimonial-section">
         <div class="container">
-            <div class="testimonial">
-                <p class="testimonial-text">"Varje år missar vi 3-4 upphandlingar för att vi inte hinner kolla. Med det här systemet fick vi en direkt — och vann den. Det var värt 800,000 kr."</p>
+            <div class="testimonial-card fade-in">
+                <div class="quote-mark">"</div>
+                <p class="testimonial-text">Varje år missar vi 3-4 upphandlingar för att vi inte hinner kolla. Med Upphandling24 fick vi en direkt — och vann den. Det var värt 800,000 kr.</p>
                 <div class="testimonial-author">
-                    <div class="testimonial-avatar">ML</div>
-                    <div class="testimonial-info">
+                    <div class="author-avatar">ML</div>
+                    <div class="author-info">
                         <h4>Marcus Lindberg</h4>
                         <p>VD, Lindberg Elektriska AB</p>
                     </div>
@@ -805,15 +1009,15 @@
     <section class="stats-section">
         <div class="container">
             <div class="stats-grid">
-                <div class="stat-item">
+                <div class="stat-item fade-in">
                     <h3>8M+</h3>
-                    <p>Offentliga upphandlingar/år i Sverige</p>
+                    <p>Offentliga upphandlingar per år i Sverige</p>
                 </div>
-                <div class="stat-item">
+                <div class="stat-item fade-in">
                     <h3>100%</h3>
                     <p>Automatisk övervakning dygnet runt</p>
                 </div>
-                <div class="stat-item">
+                <div class="stat-item fade-in">
                     <h3>0 kr</h3>
                     <p>Gratis under hela betaperioden</p>
                 </div>
@@ -823,20 +1027,26 @@
     
     <section class="features">
         <div class="container">
-            <h2>Varför välja Upphandling24?</h2>
+            <h2 class="fade-in">Varför välja Upphandling24?</h2>
             <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🔍</div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    </div>
                     <h3>Alla källor på ett ställe</h3>
-                    <p>Vi samlar upphandlingar från Opic, Visma, TED och alla kommunala sajtor — du slipper 20+flikar.</p>
+                    <p>Vi samlar upphandlingar från Opic, Visma, TED och kommunala sajtor — du slipper 20+flikar.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    </div>
                     <h3>Direktnotiser</h3>
                     <p>Få mejl direkt när en upphandling matchar din bransch. Ingenting missas.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                    </div>
                     <h3>AI-filter som lär sig</h3>
                     <p>Vi lär oss vilka upphandlingar som är relevanta. Ju mer vi använder, desto smartare.</p>
                 </div>
@@ -846,27 +1056,27 @@
     
     <section class="how-it-works">
         <div class="container">
-            <h2>Så funkar det</h2>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
+            <h2 class="fade-in">Så funkar det</h2>
+            <div class="steps-row">
+                <div class="step-card fade-in">
+                    <div class="step-num">1</div>
                     <h3>Registrera dig</h3>
                     <p>Berätta vilken bransch du är intresserad av</p>
                 </div>
-                <div class="step">
-                    <div class="step-number">2</div>
+                <div class="step-card fade-in">
+                    <div class="step-num">2</div>
                     <h3>Vi bevakar</h3>
                     <p>Vår AI övervakar alla upphandlingar 24/7</p>
                 </div>
-                <div class="step">
-                    <div class="step-number">3</div>
+                <div class="step-card fade-in">
+                    <div class="step-num">3</div>
                     <h3>Få notiser</h3>
                     <p>Mejl direkt när något matchar</p>
                 </div>
-                <div class="step">
-                    <div class="step-number">4</div>
+                <div class="step-card fade-in">
+                    <div class="step-num">4</div>
                     <h3>Vin anbud</h3>
-                    <p>Var först — öka dina chanser att vinna</p>
+                    <p>Var först — öka dina chanser</p>
                 </div>
             </div>
         </div>
@@ -874,33 +1084,35 @@
     
     <section class="faq">
         <div class="container">
-            <h2>Vanliga frågor</h2>
+            <h2 class="fade-in">Vanliga frågor</h2>
             <div class="faq-list">
-                <div class="faq-item">
+                <div class="faq-item fade-in">
                     <h4>Vad kostar det?</h4>
-                    <p>Under betaperioden är det helt gratis. I framtiden planerar vi en prenumeration från 997 kr/mån.</p>
+                    <p>Under betaperioden är det helt gratis. I framtiden planerar vi från 997 kr/mån.</p>
                 </div>
-                <div class="faq-item">
+                <div class="faq-item fade-in">
                     <h4>Hur ofta får jag mejl?</h4>
-                    <p>Du får mejl så fort vi hittar en relevant upphandling. Du kan också ställa in dagliga sammanfattningar.</p>
+                    <p>Du får mejl så fort vi hittar en relevant upphandling. Du kan också välja dagliga sammanfattningar.</p>
                 </div>
-                <div class="faq-item">
+                <div class="faq-item fade-in">
                     <h4>Kan jag avsluta när som helst?</h4>
                     <p>Ja, utan bindningstid. Avsluta med ett mejl så tar vi bort all din data.</p>
                 </div>
-                <div class="faq-item">
+                <div class="faq-item fade-in">
                     <h4>Är mina uppgifter säkra?</h4>
-                    <p>Ja, vi följer GDPR. Dina uppgifter lagras säkert och används endast för att skicka relevanta upphandlingar.</p>
+                    <p>Ja, vi följer GDPR. Dina uppgifter lagras säkert och används endast för relevanta upphandlingar.</p>
                 </div>
             </div>
         </div>
     </section>
     
-    <section class="cta">
+    <section class="cta-section">
         <div class="container">
-            <h2>Klara, redo, anbud!</h2>
-            <p>Varje dag går upphandlingar för miljoner. Är du snabbare än konkurrenterna?</p>
-            <a href="#signup" class="cta-btn">Anmäl dig gratis nu →</a>
+            <div class="cta-content">
+                <h2>Klara, redo, anbud!</h2>
+                <p>Varje dag går upphandlingar för miljoner. Är du snabbare än konkurrenterna?</p>
+                <a href="#signup" class="cta-btn">Anmäl dig gratis nu</a>
+            </div>
         </div>
     </section>
     
@@ -911,24 +1123,24 @@
     </footer>
     
     <script>
-        // Checkbox styling
-        document.querySelectorAll('.checkbox-item input').forEach(input => {
-            input.addEventListener('change', () => {
-                input.closest('.checkbox-item').classList.toggle('checked', input.checked);
+        // Scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
             });
-        });
+        }, { threshold: 0.1 });
         
-        // Form submission
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        
+        // Form
         const form = document.getElementById('signup-form');
-        const submitBtn = document.getElementById('submit-btn');
         const formContainer = document.getElementById('form-container');
         const successMessage = document.getElementById('success-message');
         
-        form.addEventListener('submit', async (e) => {
+        form.addEventListener('submit', (e) => {
             e.preventDefault();
-            
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Sparar...';
             
             const formData = new FormData(form);
             const data = {
@@ -941,23 +1153,19 @@
             
             console.log('Signup:', data);
             
-            // Save locally
             const signups = JSON.parse(localStorage.getItem('upphandling24_signups') || '[]');
             signups.push(data);
             localStorage.setItem('upphandling24_signups', JSON.stringify(signups));
             
-            // Show success
             formContainer.style.display = 'none';
             successMessage.style.display = 'block';
         });
         
         // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
             });
         });
     </script>
