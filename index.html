@@ -741,6 +741,218 @@
             opacity: 0.9;
             margin-bottom: 32px;
         }
+
+        /* ===== TEST SYSTEM MODAL ===== */
+        .test-section {
+            background: linear-gradient(135deg, #1a73e8, #0d47a1);
+            padding: 60px 0;
+        }
+
+        .test-section .container {
+            text-align: center;
+        }
+
+        .test-section h2 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .test-section p {
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 24px;
+        }
+
+        .test-btn {
+            background: #4ade80;
+            color: #065f46;
+            border: none;
+            padding: 16px 32px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(74,222,128,0.3);
+        }
+
+        .test-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 30px rgba(74,222,128,0.4);
+        }
+
+        .test-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 40px 20px;
+        }
+
+        .test-modal.active {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .test-modal-content {
+            background: white;
+            border-radius: 16px;
+            max-width: 700px;
+            width: 100%;
+            margin: 20px auto;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .test-modal-header {
+            background: linear-gradient(135deg, #1a73e8, #0d47a1);
+            color: white;
+            padding: 24px 30px;
+            border-radius: 16px 16px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .test-modal-header h3 {
+            margin: 0;
+            font-size: 1.3rem;
+        }
+
+        .test-modal-close {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background 0.2s;
+        }
+
+        .test-modal-close:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .test-modal-body {
+            padding: 30px;
+        }
+
+        .test-stat {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .test-stat-card {
+            flex: 1;
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .test-stat-card .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1a73e8;
+        }
+
+        .test-stat-card .label {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .test-tender-list {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+        }
+
+        .test-tender-item {
+            padding: 14px 16px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .test-tender-item:last-child {
+            border-bottom: none;
+        }
+
+        .test-tender-item .title {
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .test-tender-item .meta {
+            font-size: 0.75rem;
+            color: #888;
+        }
+
+        .test-badge {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .test-badge.medium {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .test-email-preview {
+            margin-top: 24px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border: 1px solid #e5e5e5;
+        }
+
+        .test-email-preview h4 {
+            margin: 0 0 12px;
+            font-size: 1rem;
+        }
+
+        .test-email-preview a {
+            display: inline-block;
+            background: #1a73e8;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+
+        .test-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: #e8f5e9;
+            color: #2e7d32;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .test-status svg {
+            width: 20px;
+            height: 20px;
+        }
         
         .cta-btn {
             display: inline-block;
@@ -911,7 +1123,58 @@
             </div>
         </div>
     </section>
-    
+
+    <!-- ===== TEST SYSTEM SECTION ===== -->
+    <section class="test-section" id="test-system">
+        <div class="container">
+            <h2>🧪 Testa systemet</h2>
+            <p>Se hur TendAlert fungerar med riktig data innan du anmäler dig</p>
+            <button class="test-btn" onclick="openTestModal()">Visa hur det funkar</button>
+        </div>
+    </section>
+
+    <!-- TEST MODAL -->
+    <div class="test-modal" id="test-modal">
+        <div class="test-modal-content">
+            <div class="test-modal-header">
+                <h3>🧪 TendAlert Demo</h3>
+                <button class="test-modal-close" onclick="closeTestModal()">×</button>
+            </div>
+            <div class="test-modal-body">
+                <div class="test-status" id="test-status">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    <span>Systemet är redo!</span>
+                </div>
+
+                <div class="test-stat">
+                    <div class="test-stat-card">
+                        <div class="number" id="stat-tenders">41</div>
+                        <div class="label">Upphandlingar</div>
+                    </div>
+                    <div class="test-stat-card">
+                        <div class="number" id="stat-matched">7</div>
+                        <div class="label">Matchade för bygg</div>
+                    </div>
+                    <div class="test-stat-card">
+                        <div class="number" id="stat-sources">1</div>
+                        <div class="label">Källor</div>
+                    </div>
+                </div>
+
+                <h4 style="margin: 0 0 12px;">📋 Exempel: Byggföretag fick de här tendrarna:</h4>
+                <div class="test-tender-list" id="test-tender-list">
+                    <!-- Filled by JS -->
+                </div>
+
+                <div class="test-email-preview">
+                    <h4>📧 Så här ser notifieringsmejlet ut:</h4>
+                    <p style="margin: 0 0 12px; color: #666; font-size: 0.9rem;">Erik Lindström (byggfirma) fick 7 matchande tendrar. Klicka för att se email-exempel.</p>
+                    <a href="data/demo_emails/alert_20260409_032638_Alex.html" target="_blank">Visa email-exempel →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <section class="form-section" id="signup">
         <div class="container">
             <div class="form-wrapper">
@@ -1188,6 +1451,62 @@
                 e.preventDefault();
                 document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
             });
+        });
+
+        // ===== TEST SYSTEM MODAL =====
+        function openTestModal() {
+            document.getElementById('test-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            loadTestData();
+        }
+
+        function closeTestModal() {
+            document.getElementById('test-modal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function loadTestData() {
+            // Load demo matched tenders data
+            const demoData = [
+                { title: "Construction work for buildings relating to education", country: "EU", score: 100, buyer: "МЕДИЦИНСКИ УНИВЕРСИТЕТ - ПЛОВДИВ", deadline: "N/A" },
+                { title: "Construction work", country: "EU", score: 100, buyer: "Svealift AB", deadline: "N/A" },
+                { title: "Architectural, construction, engineering services", country: "DE", score: 70, buyer: "Bundesanstalt für Straßenwesen", deadline: "N/A" },
+                { title: "Construction, foundation and surface works", country: "ES", score: 70, buyer: "Ayuntamiento de Madrid", deadline: "N/A" },
+                { title: "Landscaping work", country: "DE", score: 55, buyer: "Gemeinde Ulzburg", deadline: "11/05/2026" },
+                { title: "Repair and maintenance services of electrical", country: "PL", score: 45, buyer: "Polska Agencja", deadline: "N/A" },
+                { title: "Installation of windows", country: "DE", score: 50, buyer: "Gemeinde Henstedt-Ulzburg", deadline: "11/05/2026" }
+            ];
+
+            const listEl = document.getElementById('test-tender-list');
+            listEl.innerHTML = '';
+
+            demoData.forEach(t => {
+                const scoreClass = t.score >= 70 ? '' : 'medium';
+                const item = document.createElement('div');
+                item.className = 'test-tender-item';
+                item.innerHTML = `
+                    <div>
+                        <div class="title">[${t.country}] ${t.title}</div>
+                        <div class="meta">🏢 ${t.buyer} | 📅 ${t.deadline}</div>
+                    </div>
+                    <span class="test-badge ${scoreClass}">${t.score}%</span>
+                `;
+                listEl.appendChild(item);
+            });
+
+            // Update stats
+            document.getElementById('stat-tenders').textContent = '41';
+            document.getElementById('stat-matched').textContent = demoData.filter(t => t.score >= 50).length;
+        }
+
+        // Close modal on outside click
+        document.getElementById('test-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeTestModal();
+        });
+
+        // ESC to close
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeTestModal();
         });
     </script>
 </body>
