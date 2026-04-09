@@ -742,43 +742,136 @@
             margin-bottom: 32px;
         }
 
-        /* ===== TEST SYSTEM MODAL ===== */
+        /* ===== STICKY TEST BUTTON ===== */
+        .sticky-test-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #4ade80, #22c55e);
+            color: #065f46;
+            padding: 14px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 4px 20px rgba(74,222,128,0.4);
+            display: none;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .sticky-test-btn.visible {
+            display: flex;
+        }
+
+        .sticky-test-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(74,222,128,0.5);
+        }
+
+        .sticky-test-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* ===== TEST SYSTEM SECTION ===== */
         .test-section {
             background: linear-gradient(135deg, #1a73e8, #0d47a1);
-            padding: 60px 0;
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .test-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(74,222,128,0.15) 0%, transparent 70%);
+            pointer-events: none;
         }
 
         .test-section .container {
             text-align: center;
+            position: relative;
+            z-index: 1;
         }
 
         .test-section h2 {
             color: white;
-            font-size: 2rem;
-            margin-bottom: 8px;
+            font-size: 2.5rem;
+            margin-bottom: 12px;
         }
 
         .test-section p {
             color: rgba(255,255,255,0.85);
             margin-bottom: 24px;
+            font-size: 1.1rem;
+        }
+
+        .test-live-counter {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.15);
+            padding: 10px 20px;
+            border-radius: 50px;
+            margin-bottom: 24px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .test-live-counter .dot {
+            width: 10px;
+            height: 10px;
+            background: #4ade80;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .test-live-counter span {
+            color: white;
+            font-weight: 600;
+            font-size: 0.95rem;
         }
 
         .test-btn {
-            background: #4ade80;
+            background: linear-gradient(135deg, #4ade80, #22c55e);
             color: #065f46;
             border: none;
-            padding: 16px 32px;
-            font-size: 1.1rem;
+            padding: 18px 40px;
+            font-size: 1.2rem;
             font-weight: 700;
-            border-radius: 12px;
+            border-radius: 14px;
             cursor: pointer;
             transition: all 0.3s;
-            box-shadow: 0 4px 20px rgba(74,222,128,0.3);
+            box-shadow: 0 4px 25px rgba(74,222,128,0.4);
         }
 
         .test-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 30px rgba(74,222,128,0.4);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 8px 35px rgba(74,222,128,0.5);
+        }
+
+        .test-beta-tag {
+            display: inline-block;
+            background: rgba(245,158,11,0.9);
+            color: #7c2d12;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-top: 16px;
         }
 
         .test-modal {
@@ -1127,11 +1220,26 @@
     <!-- ===== TEST SYSTEM SECTION ===== -->
     <section class="test-section" id="test-system">
         <div class="container">
-            <h2>🧪 Testa systemet</h2>
-            <p>Se hur TendAlert fungerar med riktig data innan du anmäler dig</p>
-            <button class="test-btn" onclick="openTestModal()">Visa hur det funkar</button>
+            <h2>🧪 Testa systemet gratis</h2>
+            <p>Se exakt hur du får relevanta upphandlingar direkt i din mejl</p>
+
+            <div class="test-live-counter">
+                <div class="dot"></div>
+                <span>Live: <strong>41</strong> upphandlingar i databasen</span>
+            </div>
+
+            <br><br>
+            <button class="test-btn" onclick="openTestModal()">🚀 Visa hur det funkar</button>
+
+            <div class="test-beta-tag">🎁 Beta: Gratis nu - 997 kr/mån senare</div>
         </div>
     </section>
+
+    <!-- STICKY TEST BUTTON -->
+    <button class="sticky-test-btn" id="sticky-test-btn" onclick="openTestModal()">
+        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        Testa gratis
+    </button>
 
     <!-- TEST MODAL -->
     <div class="test-modal" id="test-modal">
@@ -1166,10 +1274,31 @@
                     <!-- Filled by JS -->
                 </div>
 
-                <div class="test-email-preview">
-                    <h4>📧 Så här ser notifieringsmejlet ut:</h4>
-                    <p style="margin: 0 0 12px; color: #666; font-size: 0.9rem;">Erik Lindström (byggfirma) fick 7 matchande tendrar. Klicka för att se email-exempel.</p>
-                    <a href="data/demo_emails/alert_20260409_032638_Alex.html" target="_blank">Visa email-exempel →</a>
+                <h4 style="margin: 0 0 12px;">📋 Så här såg Erik Lindströms (byggfirma) mejl ut:</h4>
+                <div class="test-email-preview" style="background: white; border: 2px solid #e5e5e5;">
+                    <div style="background: linear-gradient(135deg, #1a73e8, #0d47a1); color: white; padding: 20px; border-radius: 12px 12px 0 0; text-align: center;">
+                        <div style="font-size: 12px; text-transform: uppercase; opacity: 0.9;">TendAlert</div>
+                        <h3 style="margin: 8px 0 0; font-size: 1.2rem;">Nya upphandlingar</h3>
+                        <p style="margin: 8px 0 0; opacity: 0.9; font-size: 0.9rem;">7 matchande upphandlingar för Lindström Bygg AB</p>
+                    </div>
+                    <div style="padding: 16px;">
+                        <div style="padding: 10px; background: #f5f5f5; border-radius: 8px; margin-bottom: 10px;">
+                            <strong style="color: #1a73e8;">Construction work</strong> - EU
+                            <span style="background: #e8f5e9; color: #2e7d32; padding: 2px 8px; border-radius: 10px; font-size: 11px; float: right;">100%</span>
+                        </div>
+                        <div style="padding: 10px; background: #f5f5f5; border-radius: 8px; margin-bottom: 10px;">
+                            <strong style="color: #1a73e8;">Installation of windows</strong> - DE
+                            <span style="background: #fff3e0; color: #e65100; padding: 2px 8px; border-radius: 10px; font-size: 11px; float: right;">50%</span>
+                        </div>
+                        <a href="data/demo_emails/alert_20260409_032638_Alex.html" target="_blank" style="display: block; text-align: center; background: #1a73e8; color: white; padding: 12px; border-radius: 8px; text-decoration: none; font-weight: 600; margin-top: 16px;">Visa fullständigt mejl →</a>
+                    </div>
+                </div>
+
+                <div style="margin-top: 24px; padding: 20px; background: linear-gradient(135deg, #fef3c7, #fde68a); border-radius: 12px; text-align: center;">
+                    <p style="margin: 0 0 12px; font-size: 1.1rem; font-weight: 600; color: #92400e;">
+                        💬 Vill du också få notiser när relevanta upphandlingar dyker upp?
+                    </p>
+                    <a href="#signup" onclick="closeTestModal()" style="display: inline-block; background: #1a73e8; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 700;">Ja, jag vill! →</a>
                 </div>
             </div>
         </div>
@@ -1454,6 +1583,19 @@
         });
 
         // ===== TEST SYSTEM MODAL =====
+        const stickyBtn = document.getElementById('sticky-test-btn');
+        const testSection = document.getElementById('test-system');
+
+        // Show/hide sticky button on scroll
+        window.addEventListener('scroll', function() {
+            const sectionBottom = testSection ? testSection.offsetTop + testSection.offsetHeight : 0;
+            if (window.scrollY > sectionBottom) {
+                stickyBtn.classList.add('visible');
+            } else {
+                stickyBtn.classList.remove('visible');
+            }
+        });
+
         function openTestModal() {
             document.getElementById('test-modal').classList.add('active');
             document.body.style.overflow = 'hidden';
