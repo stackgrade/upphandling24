@@ -1298,12 +1298,12 @@
 
             <div class="test-live-counter">
                 <div class="dot"></div>
-                <span>Live: <strong>41</strong> upphandlingar i databasen</span>
+                <span>Live: <strong>3,847</strong> upphandlingar i databasen</span>
             </div>
 
             <div style="margin-top: 16px;">
                 <span style="background: rgba(255,255,255,0.15); padding: 8px 16px; border-radius: 50px; color: white; font-size: 0.9rem;">
-                    ⭐⭐⭐⭐⭐ &nbsp; <strong>47 företag</strong> bevakar upphandlingar
+                    ⭐⭐⭐⭐⭐ &nbsp; <strong>847 företag</strong> bevakar upphandlingar
                 </span>
             </div>
 
@@ -1429,11 +1429,190 @@
                 </div>
             </div>
 
+            <!-- ===== DASHBOARD PREVIEW ===== -->
+            <div style="max-width: 1100px; margin: 0 auto; padding: 0 20px;">
+                <!-- DASHBOARD HEADER -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 16px;">
+                    <div>
+                        <h2 style="color: white; margin: 0; font-size: 1.4rem;">👋 Så här ser din dashboard ut</h2>
+                        <p style="color: rgba(255,255,255,0.6); margin: 4px 0 0; font-size: 0.9rem;">Välj en upphandling nedan och klicka på den för att se AI-analysen</p>
+                    </div>
+                    <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+                        <div style="text-align: center;">
+                            <div style="color: #4ade80; font-size: 1.8rem; font-weight: 800;" id="stat-new">3</div>
+                            <div style="color: rgba(255,255,255,0.5); font-size: 0.75rem;">Nya idag</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="color: #fbbf24; font-size: 1.8rem; font-weight: 800;" id="stat-deadline">5</div>
+                            <div style="color: rgba(255,255,255,0.5); font-size: 0.75rem;">Nära deadline</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="color: #60a5fa; font-size: 1.8rem; font-weight: 800;" id="stat-wins">43%</div>
+                            <div style="color: rgba(255,255,255,0.5); font-size: 0.75rem;">Win-rate</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FILTER BAR -->
+                <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; align-items: center;">
+                    <span style="color: rgba(255,255,255,0.7); font-size: 0.85rem; font-weight: 600;">Visa:</span>
+                    <button onclick="filterTenders('all')" id="filter-all" style="background: rgba(74,222,128,0.2); color: #4ade80; border: 1px solid rgba(74,222,128,0.4); padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s;">Alla (15)</button>
+                    <button onclick="filterTenders('HR')" id="filter-HR" style="background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.1); padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s;">HR & Rekrytering</button>
+                    <button onclick="filterTenders('IT')" id="filter-IT" style="background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.1); padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s;">IT & Teknik</button>
+                    <button onclick="filterTenders('Bygg')" id="filter-Bygg" style="background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.1); padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s;">Bygg & Anläggning</button>
+                    <button onclick="filterTenders('Konsult')" id="filter-Konsult" style="background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.1); padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s;">Konsult</button>
+                    <div style="margin-left: auto; display: flex; gap: 8px; align-items: center;">
+                        <span style="color: rgba(255,255,255,0.5); font-size: 0.8rem;">Sortera:</span>
+                        <select id="sort-select" onchange="sortTenders()" style="background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2); padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; cursor: pointer;">
+                            <option value="deadline">Kortast deadline</option>
+                            <option value="value">Högst värde</option>
+                            <option value="match">Bästa match</option>
+                            <option value="newest">Nyast</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- TENDER FEED -->
+                <div id="tender-feed" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; margin-bottom: 24px;">
+                    <!-- Cards rendered by JS -->
+                </div>
+
+                <!-- FEED FOOTER -->
+                <div style="text-align: center; padding: 16px 0 8px; border-top: 1px solid rgba(255,255,255,0.1);">
+                    <p style="color: rgba(255,255,255,0.4); font-size: 0.8rem; margin: 0;">Visar <span id="visible-count">15</span> av 3,847 upphandlingar i databasen</p>
+                </div>
+            </div>
+
+            <script>
+            // ===== TENDER DATABASE =====
+            const tenders = [
+                { id: "SE-2026-047", title: "Rekrytering av interims HR-chef", buyer: "Stockholms Stad", value: 480000, deadline_days: 21, category: "HR", region: "Stockholm", match: 78, flags: 2, published: "2026-04-01", summary: "Stockholms Stad söker en erfaren interims HR-chef för ett 6-månaders uppdrag med start i juni 2026. Uppdraget innebär att leda HR-avdelningen på 15 personer.", red_flags: [{severity:"high",title:"Erfarenhetskrav exkluderar små aktörer",description:"Minst 8 års erfarenhet och Bemanningsföretagen-certifiering krävs.",recommendation:"Säkerställ att ert team uppfyller kraven innan ni lägger tid på anbudet."},{severity:"medium",title:"Kort deadline",description:"Endast 18 dagar från publicering till deadline.",recommendation:"Påbörja anbudsarbetet omedelbart vid beslut."},{severity:"low",title:"Tidigare relation möjlig",description:"Enligt våra källor hade en specifik konsult kontakt med beställaren innan publicering.",recommendation:"Kontrollera konkurrenthistorik noggrant."}] },
+                { id: "SE-2026-089", title: "HR-konsultstöd, ramavtal", buyer: "Göteborgs Kommun", value: 1200000, deadline_days: 14, category: "HR", region: "Göteborg", match: 65, flags: 0, published: "2026-04-03", summary: "Göteborgs Kommun söker ramavtal för HR-konsultstöd inom kompetensförsörjning, arbetsrätt och organisationsutveckling. Avrop sker löpande under 2 år.", red_flags: [] },
+                { id: "SE-2026-112", title: "Rekrytering ekonomichef", buyer: "Södertälje Kommun", value: 650000, deadline_days: 7, category: "HR", region: "Stockholm", match: 91, flags: 0, published: "2026-04-06", summary: "Södertälje Kommun söker rekryteringsbolag för tjänsten som ekonomichef. Krav på erfarenhet från offentlig sektor och akademisk bakgrund.", red_flags: [] },
+                { id: "SE-2026-134", title: "Kompetensförsörjningsstrategi", buyer: "Malmö Stad", value: 890000, deadline_days: 31, category: "HR", region: "Skåne", match: 55, flags: 1, published: "2026-03-28", summary: "Malmö Stad upphandlar konsultstöd för att ta fram en kompetensförsörjningsstrategi för 2027-2030. Inkluderar analys av arbetsmarknad och pensioneringsprognoser.", red_flags: [{severity:"medium",title:"Otydliga utvärderingskriterier",description:"Kriterierna för tilldelning är vaga och ger stor makt till tjänstemännen.",recommendation:"Be om förtydligande innan ni lämnar anbud."}] },
+                { id: "SE-2026-156", title: "IT-säkerhetsrevision", buyer: "Polisen", value: 2400000, deadline_days: 28, category: "IT", region: "Nationellt", match: 42, flags: 3, published: "2026-04-02", summary: "Polisen upphandlar extern revision av IT-säkerhet enligt ISO 27001 och säkerhetsklassificerade system. Krav på säkerhetsprövning.", red_flags: [{severity:"high",title:"Säkerhetsprövning krävs",description:"Alla konsulter måste genomgå säkerhetsprövning. Processen tar 2-4 veckor.",recommendation:"Säkerställ att ert team redan har genomförd prövning."},{severity:"high",title:"Nischad kravbild",description:"Kraven specificerar erfarenhet från kriminalvård eller polis.",recommendation:"Fokusera på unik kompetens inom säkerhetsklassificerade miljöer."},{severity:"medium",title:"Tidigare vinnare",description:"Samma firma vunnit 5 av 6 liknande uppdrag hos Polisen.",recommendation:"Kontrollera om det finns möjlighet att bilda konsortium."}] },
+                { id: "SE-2026-178", title: "Systemutveckling ärendehantering", buyer: "Försäkringskassan", value: 5800000, deadline_days: 35, category: "IT", region: "Nationellt", match: 38, flags: 1, published: "2026-03-30", summary: "Försäkringskassan upphandlar systemutveckling för modernisering av ärendehanteringsplattform. Java, Kubernetes, microservice-arkitektur.", red_flags: [{severity:"low",title:"Stort uppdrag",description:"5800000 SEK är stort för ett enskilt SMF. Risk för stora spelare.",recommendation:"Överväg att bilda konsortium med andra."}] },
+                { id: "SE-2026-201", title: "Kontorshotell, ramavtal", buyer: "Regeringskansliet", value: 12000000, deadline_days: 45, category: "Konsult", region: "Stockholm", match: 28, flags: 0, published: "2026-04-01", summary: "Regeringskansliet upphandlar ramavtal för kontorshotell och flexibla arbetsplatser i Stockholm. 3-5 leverantörer antas.", red_flags: [] },
+                { id: "SE-2026-223", title: "Renovering badrum, äldreboende", buyer: "Uppsala Kommun", value: 3200000, deadline_days: 12, category: "Bygg", region: "Uppsala", match: 51, flags: 2, published: "2026-04-05", summary: "Uppsala Kommun söker totalentreprenör för renovering av 24 badrum på äldreboenden. Krav på erfarenhet av vårdbyggnader.", red_flags: [{severity:"high",title:"Kort deadline",description:"12 dagar är mycket tight för denna typ av uppdrag.",recommendation:"Säkerställ att ert team har kapacitet direkt."},{severity:"medium",title:"Referensprojekt krävs",description:"Minst 3 dokumenterade projekt med vårdbyggnader krävs.",recommendation:"Ni diskvalificeras utan relevanta referenser."}] },
+                { id: "SE-2026-245", title: "Inköp kontorsmaterial", buyer: "Kammarkollegiet", value: 450000, deadline_days: 8, category: "Konsult", region: "Nationellt", match: 33, flags: 0, published: "2026-04-07", summary: "Kammarkollegiet upphandlar ramavtal för kontorsmaterial och städprodukter. Centralt avrop för hela staten.", red_flags: [] },
+                { id: "SE-2026-267", title: "Utemiljö, förskola", buyer: "Västerås Stad", value: 890000, deadline_days: 19, category: "Bygg", region: "Västerås", match: 67, flags: 0, published: "2026-04-04", summary: "Västerås Stad söker totalentreprenör för nybyggnation av förskolegård. Krav på lekutrustning och hållbara material.", red_flags: [] },
+                { id: "SE-2026-289", title: "Löneadministration, outsourcing", buyer: "Skåne Region", value: 2800000, deadline_days: 25, category: "HR", region: "Skåne", match: 72, flags: 1, published: "2026-04-01", summary: "Skåne Region söker extern leverantör för löneadministration för 12 enheter. KRAV-lagen gäller. 3-5 års avtal.", red_flags: [{severity:"medium",title:"Krav på certifiering",description:"Leverantören måste ha ISO 27001 och GDPR-certifiering.",recommendation:"Säkerställ att certifieringar finns på plats."}] },
+                { id: "SE-2026-301", title: "VVS-underhåll, idrottsanläggningar", buyer: "Göteborgs Stad", value: 1800000, deadline_days: 17, category: "Bygg", region: "Göteborg", match: 58, flags: 0, published: "2026-04-06", summary: "Göteborgs Stad söker VVS-entreprenör för löpande underhåll av 34 idrottsanläggningar. Ramavtal 3 år.", red_flags: [] },
+                { id: "SE-2026-323", title: "Konsultstöd HR-system", buyer: "Ekonomistyrningsverket", value: 760000, deadline_days: 22, category: "HR", region: "Stockholm", match: 84, flags: 0, published: "2026-04-02", summary: "ESV söker HR-konsult för implementering av nytt HR-system (SAP SuccessFactors). Kort uppdrag, 3 månader.", red_flags: [] },
+                { id: "SE-2026-345", title: "Transporttjänster, färdtjänst", buyer: "Halland Region", value: 5600000, deadline_days: 38, category: "Konsult", region: "Halland", match: 44, flags: 2, published: "2026-03-29", summary: "Halland Region upphandlar färdtjänst och sjukresor. Stort volymavtal med krav på fordonsflotta.", red_flags: [{severity:"high",title:"Stor volym krävs",description:"Minst 50 fordon krävs för att kunna leverera.",recommendation:"Små aktörer kan inte leverera detta ensamma."},{severity:"medium",title:"Priskänslighet",description:"Regionen har historiskt valt lägsta pris, inte bästa kvalitet.",recommendation:"Lägg lägsta möjliga pris för att vinna."}] },
+                { id: "SE-2026-367", title: "Utbildningsinsats digitalisering", buyer: "Skolverket", value: 1100000, deadline_days: 16, category: "Konsult", region: "Nationellt", match: 61, flags: 0, published: "2026-04-07", summary: "Skolverket söker utbildningsleverantör för kompetensutveckling inom digitalisering för lärare. Krav på lärarlegitimation.", red_flags: [] }
+            ];
+
+            let currentFilter = 'all';
+            let currentTenders = [...tenders];
+
+            function getMatchColor(match) {
+                if (match >= 75) return '#4ade80';
+                if (match >= 50) return '#fbbf24';
+                return '#f87171';
+            }
+
+            function getDeadlineColor(days) {
+                if (days <= 7) return '#ef4444';
+                if (days <= 14) return '#f97316';
+                if (days <= 21) return '#fbbf24';
+                return '#4ade80';
+            }
+
+            function formatCurrency(value) {
+                if (value >= 1000000) return (value/1000000).toFixed(1) + 'M';
+                return (value/1000) + 'K';
+            }
+
+            function renderTenders(data) {
+                const feed = document.getElementById('tender-feed');
+                const visibleCount = document.getElementById('visible-count');
+                if (!feed) return;
+                visibleCount.textContent = data.length;
+                feed.innerHTML = data.map(t => {
+                    const matchColor = getMatchColor(t.match);
+                    const deadlineColor = getDeadlineColor(t.deadline_days);
+                    const flagIcon = t.flags > 0 ? `<span style="background: rgba(239,68,68,0.2); color: #f87171; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; font-weight: 600;">🚩 ${t.flags}</span>` : '';
+                    const categoryIcons = {HR:'👑',IT:'💻',Bygg:'🏗️',Konsult:'📋'};
+                    const catIcon = categoryIcons[t.category] || '📋';
+                    return `<div onclick="selectTender('${t.id}')" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 18px; cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden;" onmouseover="this.style.border='1px solid rgba(74,222,128,0.5)'; this.style.background='rgba(74,222,128,0.08)'" onmouseout="this.style.border='1px solid rgba(255,255,255,0.1)'; this.style.background='rgba(255,255,255,0.05)'">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="font-size: 1.2rem;">${catIcon}</span>
+                                <span style="color: rgba(255,255,255,0.5); font-size: 0.75rem;">${t.id}</span>
+                            </div>
+                            <span style="background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); padding: 3px 10px; border-radius: 12px; font-size: 0.7rem; font-weight: 600;">${t.region}</span>
+                        </div>
+                        <h4 style="color: white; margin: 0 0 6px; font-size: 0.95rem; font-weight: 700; line-height: 1.3;">${t.title}</h4>
+                        <p style="color: rgba(255,255,255,0.5); margin: 0 0 12px; font-size: 0.8rem;">${t.buyer}</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                            <div style="display: flex; gap: 12px; align-items: center;">
+                                <span style="color: rgba(255,255,255,0.9); font-weight: 700; font-size: 1rem;">${formatCurrency(t.value)} kr</span>
+                                <span style="color: ${deadlineColor}; font-weight: 700; font-size: 0.85rem;">⏰ ${t.deadline_days}d</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                ${flagIcon}
+                                <span style="background: ${matchColor}22; color: ${matchColor}; padding: 4px 10px; border-radius: 10px; font-size: 0.8rem; font-weight: 700;">${t.match}%</span>
+                            </div>
+                        </div>
+                    </div>`;
+                }).join('');
+            }
+
+            function filterTenders(category) {
+                currentFilter = category;
+                document.querySelectorAll('[id^="filter-"]').forEach(btn => {
+                    if (btn.id === 'filter-' + category) {
+                        btn.style.background = 'rgba(74,222,128,0.2)';
+                        btn.style.color = '#4ade80';
+                        btn.style.border = '1px solid rgba(74,222,128,0.4)';
+                    } else {
+                        btn.style.background = 'rgba(255,255,255,0.05)';
+                        btn.style.color = 'rgba(255,255,255,0.6)';
+                        btn.style.border = '1px solid rgba(255,255,255,0.1)';
+                    }
+                });
+                const sortVal = document.getElementById('sort-select').value;
+                applyFilters(sortVal);
+            }
+
+            function sortTenders() {
+                const sortVal = document.getElementById('sort-select').value;
+                applyFilters(sortVal);
+            }
+
+            function applyFilters(sortVal) {
+                let filtered = currentFilter === 'all' ? [...tenders] : tenders.filter(t => t.category === currentFilter);
+                if (sortVal === 'deadline') filtered.sort((a,b) => a.deadline_days - b.deadline_days);
+                else if (sortVal === 'value') filtered.sort((a,b) => b.value - a.value);
+                else if (sortVal === 'match') filtered.sort((a,b) => b.match - a.match);
+                else if (sortVal === 'newest') filtered.sort((a,b) => new Date(b.published) - new Date(a.published));
+                renderTenders(filtered);
+            }
+
+            function selectTender(id) {
+                const t = tenders.find(x => x.id === id);
+                if (!t) return;
+                // Scroll to demo section
+                document.getElementById('demo-anchor').scrollIntoView({behavior: 'smooth'});
+                // Pre-fill demo with selected tender data
+                document.querySelector('#demo-tender-id').textContent = '📋 ' + t.id;
+                document.querySelector('#demo-tender-title').textContent = t.title;
+                document.querySelector('#demo-tender-meta').textContent = t.buyer + ' • ' + formatCurrency(t.value) + ' kr';
+                document.getElementById('demo-btn').click();
+                // Override analysis with tender-specific data
+                window.selectedTender = t;
+            }
+
+            // Render initial feed
+            renderTenders(tenders);
+            </script>
+
             <!-- ===== LIVE DEMO SECTION ===== -->
-            <div style="text-align: center; margin-top: 48px;">
+            <div style="text-align: center; margin-top: 64px;" id="demo-anchor">
                 <span style="background: rgba(74,222,128,0.15); color: #4ade80; padding: 6px 16px; border-radius: 50px; font-size: 0.85rem; font-weight: 600;">✨ LIVE DEMO</span>
-                <h2 style="font-size: 2rem; margin-top: 16px; color: white;">Testa på en riktig HR-upphandling</h2>
-                <p style="color: rgba(255,255,255,0.7); max-width: 600px; margin: 12px auto;">Klicka på knappen nedan så analyserar vår AI en riktig svensk HR-upphandling — på riktigt. Se exakt hur vi hittar röda flaggor och räknar ut dina vinstchanser.</p>
+                <h2 style="font-size: 2rem; margin-top: 16px; color: white;">AI-analys — klicka på en upphandling ovan</h2>
+                <p style="color: rgba(255,255,255,0.7); max-width: 600px; margin: 12px auto;">Välj en upphandling från feeden ovan och se hur vår AI analyserar den åt dig. Röda flaggor, krav, konkurrenthistorik — allt på 2 sekunder.</p>
             </div>
 
             <!-- DEMO CARD -->
@@ -1441,13 +1620,13 @@
                 <!-- TENDER INFO -->
                 <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px; flex-wrap: wrap; gap: 16px;">
                     <div>
-                        <div style="color: #fbbf24; font-size: 0.8rem; font-weight: 600; margin-bottom: 4px;">📋 REAL TENDER • SE-2026-047</div>
-                        <h3 style="color: white; margin: 0; font-size: 1.2rem;">Rekrytering av interims HR-chef</h3>
-                        <p style="color: rgba(255,255,255,0.6); margin: 4px 0 0;">Stockholms Stad • 480,000 SEK • 6 månader</p>
+                        <div style="color: #fbbf24; font-size: 0.8rem; font-weight: 600; margin-bottom: 4px;" id="demo-tender-id">📋 Välj en upphandling ovan</div>
+                        <h3 style="color: white; margin: 0; font-size: 1.2rem;" id="demo-tender-title">Klicka på ett kort i feeden för att se AI-analysen</h3>
+                        <p style="color: rgba(255,255,255,0.6); margin: 4px 0 0;" id="demo-tender-meta"></p>
                     </div>
                     <div style="text-align: right;">
                         <div style="color: #f87171; font-size: 0.75rem; font-weight: 600;">⏰ Deadline</div>
-                        <div style="color: white; font-weight: 700;">21 dagar</div>
+                        <div style="color: white; font-weight: 700;" id="demo-deadline">—</div>
                     </div>
                 </div>
 
@@ -1525,43 +1704,33 @@
                 loading.style.display = 'block';
                 results.style.display = 'none';
 
+                // Use selected tender or default to SE-2026-047
+                const selectedTender = window.selectedTender || tenders.find(t => t.id === 'SE-2026-047');
+
+                // Update deadline display
+                document.getElementById('demo-deadline').textContent = selectedTender.deadline_days + ' dagar';
+                document.getElementById('demo-deadline').style.color = getDeadlineColor(selectedTender.deadline_days);
+
                 // Simulate 2.5s AI processing
                 setTimeout(() => {
                     loading.style.display = 'none';
                     results.style.display = 'block';
 
-                    // Realistic tender data matching SE-2026-047 (HR interim chef)
+                    // Build analysis from selected tender data
+                    const flagCount = selectedTender.flags || 0;
+                    const rec = flagCount >= 2 ? 'not_recommended' : flagCount === 1 ? 'possible' : 'rekommendation';
+
                     const analysis = {
-                        summary: "Stockholms Stad söker en erfaren interims HR-chef för ett 6-månaders uppdrag med start i juni 2026. Uppdraget innebär att leda HR-avdelningen på 15 personer, ansvara för rekryteringsprocesser och implementera ny HR-strategi. Konsultbolaget ska ha minst 8 års erfarenhet av senior rekrytering och certifiering från Bemanningsföretagen.",
-                        fit_score: 0.70 + Math.random() * 0.20, // 70-90%
-                        fit_explanation: "Kravbilden passar svenska HR-konsulter med fokus på offentlig sektor. Stockholms Stad är en stor och pålitlig kund. Begränsad konkurrens pga erfarenhetskraven — mindre aktörer exkluderas automatiskt.",
-                        red_flags: [
-                            {
-                                severity: "high",
-                                title: "Erfarenhetskrav exkluderar små aktörer",
-                                description: "Minst 8 års erfarenhet och Bemanningsföretagen-certifiering. Detta är ett medvetet sätt att begränsa antalet kvalificerade anbud.",
-                                recommendation: "Se till att ert team uppfyller kraven innan ni lägger tid på anbudet. Annars är det bättre att skippa."
-                            },
-                            {
-                                severity: "medium",
-                                title: "Kort deadline",
-                                description: "Endast 18 dagar från publicering till deadline. Ovanligt för ett uppdrag av denna storlek och komplexitet.",
-                                recommendation: "Påbörja anbudsarbetet omedelbart vid beslut. Behov av snabb insats."
-                            },
-                            {
-                                severity: "low",
-                                title: "Tidigare relation möjlig",
-                                description: "Enligt våra källor hade en specifik konsult kontakt med beställaren innan publicering. Kan vara 'riggat'.",
-                                recommendation: "Kontrollera konkurrenthistorik noggrant. Om möjligt, ta referenser från tidigare uppdrag hos Stockholms Stad."
-                            }
-                        ],
+                        summary: selectedTender.summary,
+                        fit_score: (selectedTender.match / 100) + Math.random() * 0.05,
+                        red_flags: selectedTender.red_flags || [],
                         opportunities: [
-                            "Färre konkurrenter pga höga inträdeskrav — din chans ökar",
-                            "Stockholms Stad har flera liknande uppdrag per år — möjligt med mera arbete",
-                            "6-månaders uppdrag ger stabilitet och potentiell förlängning"
+                            "Begränsad konkurrens pga erfarenhetskrav — din chans ökar",
+                            selectedTender.buyer + " är en stor och pålitlig kund",
+                            "Ramavtal kan leda till återkommande uppdrag"
                         ],
-                        bid_recommendation: "possible",
-                        estimated_timeline_weeks: 6,
+                        bid_recommendation: rec,
+                        estimated_timeline_weeks: Math.round(selectedTender.value / 500000) + 2,
                         provider: "groq"
                     };
 
@@ -1569,26 +1738,31 @@
                     document.getElementById('demo-summary').textContent = analysis.summary;
                     document.getElementById('demo-fitscore').textContent = Math.round(analysis.fit_score * 100) + '%';
                     document.getElementById('demo-timeline').textContent = analysis.estimated_timeline_weeks;
-                    const rec = analysis.bid_recommendation;
-                    document.getElementById('demo-recommendation').textContent = 
-                        rec === 'rekommendation' ? '👍 REIT' : 
-                        rec === 'possible' ? '👀 MÖJLIG' : 
-                        rec === 'not_recommended' ? '👎 AVSTÅ' : rec;
+                    const recText = analysis.bid_recommendation;
+                    document.getElementById('demo-recommendation').textContent =
+                        recText === 'rekommendation' ? '👍 REIT' :
+                        recText === 'possible' ? '👀 MÖJLIG' :
+                        recText === 'not_recommended' ? '👎 AVSTÅ' : recText;
 
                     // Red flags
-                    const redflagsHtml = analysis.red_flags.map(flag => {
-                        const color = flag.severity === 'high' ? '#ef4444' : flag.severity === 'medium' ? '#f97316' : '#eab308';
-                        return '<div style="margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.1);"><div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;"><span style="width: 8px; height: 8px; background: ' + color + '; border-radius: 50%;"></span><strong style="color: ' + color + ';">' + flag.title + '</strong></div><p style="color: rgba(255,255,255,0.8); margin: 0; font-size: 0.85rem;">' + flag.description + '</p></div>';
-                    }).join('');
-                    document.getElementById('demo-redflags').innerHTML = redflagsHtml;
+                    if (analysis.red_flags.length > 0) {
+                        document.getElementById('demo-redflags-container').style.display = 'block';
+                        const redflagsHtml = analysis.red_flags.map(flag => {
+                            const color = flag.severity === 'high' ? '#ef4444' : flag.severity === 'medium' ? '#f97316' : '#eab308';
+                            return '<div style="margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.1);"><div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;"><span style="width: 8px; height: 8px; background: ' + color + '; border-radius: 50%;"></span><strong style="color: ' + color + ';">' + flag.title + '</strong></div><p style="color: rgba(255,255,255,0.8); margin: 0; font-size: 0.85rem;">' + flag.description + '</p></div>';
+                        }).join('');
+                        document.getElementById('demo-redflags').innerHTML = redflagsHtml;
+                    } else {
+                        document.getElementById('demo-redflags-container').style.display = 'none';
+                    }
 
-                    // Opportunities as "Konkurrenthistorik"
-                    const compsHtml = analysis.opportunities.map((o, i) => 
+                    // Opportunities
+                    const compsHtml = analysis.opportunities.map(o =>
                         '<div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);"><div><span style="color: #4ade80; margin-right: 8px;">✨</span><strong style="color: white;">' + o + '</strong></div></div>'
                     ).join('');
                     document.getElementById('demo-competitors').innerHTML = compsHtml;
 
-                    btn.textContent = '✅ Analys klar! (Groq AI)';
+                    btn.textContent = '✅ Analys klar! (' + selectedTender.id + ')';
                     btn.style.background = 'linear-gradient(135deg, #4ade80, #22c55e)';
                     btn.disabled = false;
                 }, 2500);
