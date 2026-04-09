@@ -1,0 +1,50 @@
+=== Thu Apr  9 02:39:39 CEST 2026 - Starting TendAlert scrape ===
+🔍 Starting tender scrape...
+    Found 100 notices
+    Fetching details for 10 notices...
+    ✓ Installation of windows...
+    ✓ Hospital and related services...
+    ✓ Research and development services and related consultancy se...
+    ✓ Construction work for buildings relating to education and re...
+    ✓ This site uses cookies. Visit our cookies policy page or cli...
+    ✓ Air-traffic control systems...
+    ✓ Sports facilities operation services...
+    ✓ This site uses cookies. Visit our cookies policy page or cli...
+    ✓ This site uses cookies. Visit our cookies policy page or cli...
+    ✓ This site uses cookies. Visit our cookies policy page or cli...
+  TED: 10 tenders with details
+  💾 Cached 10 tenders
+✅ Total: 10 tenders scraped
+
+📊 Scraped 10 tenders
+
+📋 Sample tenders:
+   [DE] Installation of windows
+   Deadline: 11/05/2026 - 09:55:00 (UTC+02:00) Eastern European Time, Central European Summer Time
+   Buyer: Gemeinde Henstedt-Ulzburg - Die Bürgermeisterin
+
+   [PL] Hospital and related services
+   Deadline: N/A
+   Buyer: Szpital Wielospecjalistyczny im. dr. L. Błażka w Inowrocławiu
+
+   [DE] Research and development services and related consultancy services
+   Deadline: N/A
+   Buyer: Bundesanstalt für Straßen- und Verkehrswesen
+
+⚠️ Gemini not configured - using simple keyword matching
+🔍 Filtering 10 tenders for customer...
+  ✓ Installation of windows... score=0.50
+  ✓ Hospital and related services... score=0.60
+  ✓ Research and development services and related cons... score=0.60
+  ✓ Construction work for buildings relating to educat... score=0.60
+  ✓ This site uses cookies. Visit our cookies policy p... score=0.60
+  ✓ Air-traffic control systems... score=0.60
+  ✓ Sports facilities operation services... score=0.60
+  ✓ This site uses cookies. Visit our cookies policy p... score=0.60
+  ✓ This site uses cookies. Visit our cookies policy p... score=0.60
+  ✓ This site uses cookies. Visit our cookies policy p... score=0.60
+✅ Matched: 10, Filtered: 0
+
+📊 Results: 10 matched tenders
+💾 Saved to data/matched_tenders.json
+=== Thu Apr  9 02:40:37 CEST 2026 - Done ===

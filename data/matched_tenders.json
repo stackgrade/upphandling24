@@ -35,7 +35,7 @@
   },
   {
     "tender_url": "https://ted.europa.eu/en/notice/-/detail/243839-2026",
-    "tender_title": "This site uses cookies. Visit our cookies policy page or click the link in any footer for more infor",
+    "tender_title": "An official website of the European Union",
     "relevance_score": 0.6,
     "match_reasons": [
       "Industry match: IT"
@@ -62,7 +62,7 @@
   },
   {
     "tender_url": "https://ted.europa.eu/en/notice/-/detail/243836-2026",
-    "tender_title": "This site uses cookies. Visit our cookies policy page or click the link in any footer for more infor",
+    "tender_title": "Landscaping work",
     "relevance_score": 0.6,
     "match_reasons": [
       "Industry match: IT"
@@ -71,7 +71,17 @@
   },
   {
     "tender_url": "https://ted.europa.eu/en/notice/-/detail/243835-2026",
-    "tender_title": "This site uses cookies. Visit our cookies policy page or click the link in any footer for more infor",
+    "tender_title": "Construction work",
+    "relevance_score": 0.7,
+    "match_reasons": [
+      "Industry match: IT",
+      "Industry match: Construction"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243834-2026",
+    "tender_title": "An official website of the European Union",
     "relevance_score": 0.6,
     "match_reasons": [
       "Industry match: IT"
@@ -79,8 +89,327 @@
     "filter_reason": null
   },
   {
-    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243834-2026",
-    "tender_title": "This site uses cookies. Visit our cookies policy page or click the link in any footer for more infor",
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243833-2026",
+    "tender_title": "Digital senders",
+    "relevance_score": 0.6,
+    "match_reasons": [
+      "Industry match: IT"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243832-2026",
+    "tender_title": "An official website of the European Union",
+    "relevance_score": 0.6,
+    "match_reasons": [
+      "Industry match: IT"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243831-2026",
+    "tender_title": "Architectural, construction, engineering and inspection services",
+    "relevance_score": 0.7,
+    "match_reasons": [
+      "Industry match: IT",
+      "Industry match: Construction"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243830-2026",
+    "tender_title": "Construction, foundation and surface works for highways, roads",
+    "relevance_score": 0.7,
+    "match_reasons": [
+      "Industry match: IT",
+      "Industry match: Construction"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243828-2026",
+    "tender_title": "An official website of the European Union",
+    "relevance_score": 0.6,
+    "match_reasons": [
+      "Industry match: IT"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243827-2026",
+    "tender_title": "Repair and maintenance services of electrical machinery, apparatus and associated equipment",
+    "relevance_score": 0.6,
+    "match_reasons": [
+      "Industry match: IT"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243826-2026",
+    "tender_title": "Telecommunications services",
+    "relevance_score": 0.6,
+    "match_reasons": [
+      "Industry match: IT"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243825-2026",
+    "tender_title": "Repair and maintenance services of valves",
+    "relevance_score": 0.5,
+    "match_reasons": [],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243824-2026",
+    "tender_title": "Advertising and marketing services",
+    "relevance_score": 0.5,
+    "match_reasons": [],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243823-2026",
+    "tender_title": "Telecommunications system",
+    "relevance_score": 0.5,
+    "match_reasons": [],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243822-2026",
+    "tender_title": "Animal products, meat and meat products",
+    "relevance_score": 0.6,
+    "match_reasons": [
+      "Industry match: IT"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243821-2026",
+    "tender_title": "Printing and delivery services",
+    "relevance_score": 0.6,
+    "match_reasons": [
+      "Industry match: IT"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243820-2026",
+    "tender_title": "Public road transport services",
+    "relevance_score": 0.5,
+    "match_reasons": [],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243819-2026",
+    "tender_title": "Communication and multimedia software package",
+    "relevance_score": 0.7,
+    "match_reasons": [
+      "Industry match: IT",
+      "Industry match: Software"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243818-2026",
+    "tender_title": "Architectural, construction, engineering and inspection services",
+    "relevance_score": 0.7,
+    "match_reasons": [
+      "Industry match: IT",
+      "Industry match: Construction"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243817-2026",
+    "tender_title": "An official website of the European Union",
+    "relevance_score": 0.6,
+    "match_reasons": [
+      "Industry match: IT"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243816-2026",
+    "tender_title": "Special-purpose road passenger-transport services",
+    "relevance_score": 0.5,
+    "match_reasons": [],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243815-2026",
+    "tender_title": "Medical consumables",
+    "relevance_score": 0.5,
+    "match_reasons": [],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243814-2026",
+    "tender_title": "Education and training services",
+    "relevance_score": 0.6,
+    "match_reasons": [
+      "Industry match: IT"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243812-2026",
+    "tender_title": "Transport services (excl. Waste transport)",
+    "relevance_score": 0.5,
+    "match_reasons": [],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243811-2026",
+    "tender_title": "Demolition, site preparation and clearance work",
+    "relevance_score": 0.6,
+    "match_reasons": [
+      "Industry match: IT"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243810-2026",
+    "tender_title": "Refuse-compaction vehicles",
+    "relevance_score": 0.6,
+    "match_reasons": [
+      "Industry match: IT"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243809-2026",
+    "tender_title": "General management consultancy services",
+    "relevance_score": 0.6,
+    "match_reasons": [
+      "Industry match: IT"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243808-2026",
+    "tender_title": "Special-purpose road passenger-transport services",
+    "relevance_score": 0.6,
+    "match_reasons": [
+      "Industry match: IT"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243807-2026",
+    "tender_title": "Laboratory reagents",
+    "relevance_score": 0.5,
+    "match_reasons": [],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243806-2026",
+    "tender_title": "Telecommunications services",
+    "relevance_score": 0.5,
+    "match_reasons": [],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243805-2026",
+    "tender_title": "Diagnostic systems",
+    "relevance_score": 0.6,
+    "match_reasons": [
+      "Industry match: IT"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243804-2026",
+    "tender_title": "Supply services of personnel including temporary staff",
+    "relevance_score": 0.6,
+    "match_reasons": [
+      "Industry match: IT"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243803-2026",
+    "tender_title": "Medical equipments",
+    "relevance_score": 0.6,
+    "match_reasons": [
+      "Industry match: IT"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243802-2026",
+    "tender_title": "Orthopaedic prostheses",
+    "relevance_score": 0.6,
+    "match_reasons": [
+      "Industry match: IT"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243801-2026",
+    "tender_title": "Cleaning services",
+    "relevance_score": 0.6,
+    "match_reasons": [
+      "Industry match: IT"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243800-2026",
+    "tender_title": "An official website of the European Union",
+    "relevance_score": 0.6,
+    "match_reasons": [
+      "Industry match: IT"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243799-2026",
+    "tender_title": "An official website of the European Union",
+    "relevance_score": 0.6,
+    "match_reasons": [
+      "Industry match: IT"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243798-2026",
+    "tender_title": "An official website of the European Union",
+    "relevance_score": 0.6,
+    "match_reasons": [
+      "Industry match: IT"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243797-2026",
+    "tender_title": "An official website of the European Union",
+    "relevance_score": 0.6,
+    "match_reasons": [
+      "Industry match: IT"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243796-2026",
+    "tender_title": "Insurance services",
+    "relevance_score": 0.6,
+    "match_reasons": [
+      "Industry match: Construction"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243795-2026",
+    "tender_title": "Accounting, auditing and fiscal services",
+    "relevance_score": 0.6,
+    "match_reasons": [
+      "Industry match: IT"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243794-2026",
+    "tender_title": "Fleet management, repair and maintenance services",
     "relevance_score": 0.6,
     "match_reasons": [
       "Industry match: IT"

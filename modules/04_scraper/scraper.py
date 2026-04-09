@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Module 04: Tender Scraper - Production Version
-Scrapes public procurement notices from TED (EU) with full details.
+Module 04: Tender Scraper - MAXED v3 (CLEAN)
+Only returns tenders with REAL titles, no garbage.
 """
 
 import json
@@ -30,11 +30,10 @@ class Tender:
     estimated_value: Optional[str]
     country: str
     buyer: Optional[str] = None
-    cpv_codes: Optional[str] = None
-    raw_data: Optional[dict] = None
+    document_type: Optional[str] = None
 
 class TenderScraper:
-    """Scrapes tenders from TED (EU public procurement)."""
+    """MAXED scraper - only real tenders, no garbage."""
     
     def __init__(self):
         self.tenders = []
@@ -43,178 +42,189 @@ class TenderScraper:
         os.makedirs(self.cache_dir, exist_ok=True)
         
     def scrape_all(self) -> List[dict]:
-        """Run all scrapers and return combined results."""
-        print("🔍 Starting tender scrape...")
+        """Run scraper and return clean results."""
+        print("🚀 MAXED SCRAPE v3 - Clean data only...")
         
-        # TED EU Tenders with full details
-        ted_tenders = self.scrape_ted_detailed(max_notices=10)
-        print(f"  TED: {len(ted_tenders)} tenders with details")
-        self.tenders.extend(ted_tenders)
+        tenders = self.scrape_ted_max(50)
+        self.tenders = tenders
         
-        # Save to cache
         self._save_cache()
         
-        print(f"✅ Total: {len(self.tenders)} tenders scraped")
+        print(f"✅ TOTAL: {len(self.tenders)} clean tenders")
         return [asdict(t) for t in self.tenders]
     
-    def scrape_ted_detailed(self, max_notices: int = 10) -> List[Tender]:
-        """Scrape TED with full notice details."""
+    def scrape_ted_max(self, max_notices: int = 50) -> List[Tender]:
+        """Scrape notices, only return clean ones."""
         tenders = []
         
         if not PLAYWRIGHT_AVAILABLE:
             print("  ⚠️ Playwright not available")
             return tenders
         
-        try:
-            # First get the search results
-            with sync_playwright() as p:
-                browser = p.chromium.launch(headless=True)
-                page = browser.new_page()
-                
-                page.goto(
-                    "https://ted.europa.eu/en/search/result?query=&search-scope=ALL",
-                    timeout=30000
-                )
-                page.wait_for_load_state('networkidle', timeout=20000)
-                time.sleep(2)
-                
-                # Get notice URLs
-                notice_links = page.locator('a[href*="/en/notice/-/detail/"]')
-                count = notice_links.count()
-                print(f"    Found {count} notices")
-                
-                notice_urls = []
-                for i in range(min(count, max_notices)):
-                    try:
-                        href = notice_links.nth(i).get_attribute('href')
-                        if href:
-                            full_url = f"https://ted.europa.eu{href}" if href.startswith('/') else href
-                            notice_urls.append(full_url)
-                    except:
-                        continue
-                
-                browser.close()
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
             
-            print(f"    Fetching details for {len(notice_urls)} notices...")
+            # Get search results
+            page = browser.new_page()
+            page.goto(
+                "https://ted.europa.eu/en/search/result?query=&search-scope=ALL",
+                timeout=30000
+            )
+            page.wait_for_load_state('networkidle', timeout=20000)
+            time.sleep(2)
             
-            # Now scrape each notice in detail
-            for url in notice_urls:
+            # Accept cookies
+            try:
+                page.locator('text=Accept all cookies').first.click(timeout=3000)
+                time.sleep(1)
+            except:
+                pass
+            
+            # Get notice URLs
+            notice_links = page.locator('a[href*="/en/notice/-/detail/"]')
+            count = notice_links.count()
+            
+            urls = []
+            for i in range(min(count, max_notices)):
                 try:
-                    tender = self._scrape_ted_notice_full(url)
-                    if tender:
-                        tenders.append(tender)
-                        print(f"    ✓ {tender.title[:60]}...")
-                except Exception as e:
-                    print(f"    ✗ Error: {e}")
+                    href = notice_links.nth(i).get_attribute('href')
+                    if href and '/en/notice/-/detail/' in href:
+                        full_url = f"https://ted.europa.eu{href}" if href.startswith('/') else href
+                        if full_url not in urls:
+                            urls.append(full_url)
+                except:
                     continue
-                    
-        except Exception as e:
-            print(f"    ❌ TED error: {e}")
-            self.errors.append({"source": "ted", "error": str(e)})
+            
+            print(f"    Processing {len(urls)} notices...")
+            page.close()
+            
+            # Fetch each notice
+            for idx, url in enumerate(urls):
+                try:
+                    tender = self._fetch_notice(browser, url)
+                    if tender and self._is_valid_tender(tender):
+                        tenders.append(tender)
+                        if (idx + 1) % 10 == 0:
+                            print(f"    📥 {idx + 1}/{len(urls)} done ({len(tenders)} valid)...")
+                except:
+                    continue
+            
+            browser.close()
         
         return tenders
     
-    def _scrape_ted_notice_full(self, url: str) -> Optional[Tender]:
-        """Scrape a single TED notice with full details."""
-        try:
-            with sync_playwright() as p:
-                browser = p.chromium.launch(headless=True)
-                page = browser.new_page()
-                
-                page.goto(url, timeout=20000)
-                page.wait_for_load_state('networkidle', timeout=15000)
-                time.sleep(2)
-                
-                body = page.inner_text('body')
-                lines = body.split('\n')
-                
-                # Extract title - it's the first long line after "Competition"
-                # Structure is: notice number, then "Competition", then "Country: title", then actual title
-                title = ""
-                deadline = None
-                buyer = None
-                country_code = "EU"
-                
-                # Find title: look for line starting with country name and a longer description
-                for i, line in enumerate(lines):
-                    line = line.strip()
-                    # Line format: "Germany: Installation of windows" or "Sweden: Service contract"
-                    match = re.match(r'^(Germany|Sweden|Finland|Denmark|Norway|Austria|Belgium|Netherlands|France|Spain|Italy|Portugal|Poland|Czech|Hungary|Romania|Bulgaria|Croatia|Slovakia|Slovenia|Estonia|Latvia|Lithuania):\s*(.+)', line)
-                    if match:
-                        country_full = match.group(1)
-                        title = match.group(2).strip()
-                        # Map country to code
-                        country_codes = {
-                            "Germany": "DE", "Sweden": "SE", "Finland": "FI", 
-                            "Denmark": "DK", "Norway": "NO", "Austria": "AT",
-                            "Belgium": "BE", "Netherlands": "NL", "France": "FR",
-                            "Spain": "ES", "Italy": "IT", "Portugal": "PT",
-                            "Poland": "PL", "Czech": "CZ", "Hungary": "HU"
-                        }
-                        country_code = country_codes.get(country_full, country_full[:2].upper())
+    def _is_valid_tender(self, tender: Tender) -> bool:
+        """Check if tender has real content (not garbage)."""
+        if not tender.title:
+            return False
+        if len(tender.title) < 15:
+            return False
+        if tender.title.startswith('An official website'):
+            return False
+        if 'This site uses cookies' in tender.title:
+            return False
+        if tender.country not in ['SE', 'DE', 'DK', 'FI', 'NO', 'PL', 'FR', 'ES', 'IT', 'NL', 'BE', 'AT', 'PT', 'CZ', 'HU', 'RO', 'BG', 'HR', 'SK', 'SI', 'EE', 'LV', 'LT', 'IE', 'MT', 'CY', 'LU', 'EU']:
+            return False
+        return True
+    
+    def _fetch_notice(self, browser, url: str) -> Optional[Tender]:
+        """Fetch single notice with full details."""
+        page = browser.new_page()
+        page.goto(url, timeout=25000)
+        page.wait_for_load_state('networkidle', timeout=15000)
+        time.sleep(1.5)
+        
+        body = page.inner_text('body')
+        page.close()
+        
+        if body.count('\n') < 50:
+            return None
+        
+        # Extract title - look for first meaningful line
+        title = ""
+        country_code = "EU"
+        
+        # Try country:title pattern
+        country_match = re.search(
+            r'^(Germany|Sweden|Finland|Denmark|Norway|Austria|Belgium|Netherlands|France|Spain|Italy|Portugal|Poland|Czech|Hungary|Romania|Bulgaria|Croatia|Slovakia|Slovenia|Estonia|Latvia|Lithuania|Ireland|Malta|Cyprus|Luxembourg):\s*(.+)',
+            body, re.MULTILINE
+        )
+        if country_match:
+            country_full = country_match.group(1)
+            title = country_match.group(2).strip()
+            country_map = {
+                "Germany": "DE", "Sweden": "SE", "Finland": "FI",
+                "Denmark": "DK", "Norway": "NO", "Austria": "AT",
+                "Belgium": "BE", "Netherlands": "NL", "France": "FR",
+                "Spain": "ES", "Italy": "IT", "Portugal": "PT",
+                "Poland": "PL", "Czech": "CZ", "Hungary": "HU",
+            }
+            country_code = country_map.get(country_full, "EU")
+        
+        # Fallback: first long line
+        if not title or len(title) < 15:
+            for line in body.split('\n'):
+                line = line.strip()
+                if 40 < len(line) < 200:
+                    if not any(x in line for x in ['Notice', 'Buyer', 'Procedure', 'Deadline', 'Language', 'PDF', 'Email', 'help_outline']):
+                        title = line
                         break
-                
-                # If no country:title pattern, find the longest non-empty line in title area
-                if not title:
-                    for i, line in enumerate(lines):
-                        if len(line) > 50 and not line.startswith(' ') and 'Notice' not in line:
-                            title = line.strip()
-                            break
-                
-                # Get title from next line if still not found
-                if not title or len(title) < 20:
-                    for i, line in enumerate(lines):
-                        if len(line) > 60:
-                            title = line.strip()
-                            break
-                
-                # Extract deadline
-                deadline_match = re.search(r'Deadline for receipt of tenders:\s*([^\n]+)', body)
-                if deadline_match:
-                    deadline = deadline_match.group(1).strip()
-                
-                # Extract buyer
-                buyer_match = re.search(r'Buyer:\s*([^\n]+)', body)
-                if buyer_match:
-                    buyer = buyer_match.group(1).strip()
-                
-                # Extract description - paragraphs after title
-                description_parts = []
-                found_title_area = False
-                for line in lines:
-                    line = line.strip()
-                    if title and title in line:
-                        found_title_area = True
-                        continue
-                    if found_title_area and len(line) > 50:
-                        description_parts.append(line)
-                        if len(description_parts) >= 2:
-                            break
-                
-                description = ' '.join(description_parts)[:500] if description_parts else title
-                
-                browser.close()
-                
-                if title:
-                    return Tender(
-                        source="ted_europa",
-                        title=title[:200],
-                        url=url,
-                        publication_date=datetime.now().strftime("%Y-%m-%d"),
-                        deadline=deadline,
-                        description=description[:500],
-                        estimated_value=None,
-                        country=country_code,
-                        buyer=buyer
-                    )
-                
-        except Exception as e:
-            pass
+        
+        # Deadline
+        deadline = None
+        dm = re.search(r'Deadline for receipt of tenders:\s*([^\n]+)', body)
+        if dm:
+            deadline = re.sub(r'\s*\(UTC[^)]*\)', '', dm.group(1)).strip()
+        
+        # Buyer
+        buyer = None
+        bm = re.search(r'Buyer:\s*([^\n]+)', body)
+        if bm:
+            buyer = bm.group(1).strip()
+        
+        # Description
+        desc_lines = []
+        after_title = False
+        for line in body.split('\n'):
+            if title[:20] in line:
+                after_title = True
+                continue
+            if after_title and len(line.strip()) > 60:
+                desc_lines.append(line.strip())
+                if len(desc_lines) >= 3:
+                    break
+        description = ' '.join(desc_lines[:3])[:800] if desc_lines else title
+        
+        # Estimated value
+        estimated_value = None
+        vm = re.search(r'Estimated value:\s*([^\n]+)', body)
+        if vm:
+            estimated_value = vm.group(1).strip()
+        
+        # Document type
+        doc_type = None
+        dtm = re.search(r'^(Contract notice|Competition|result|Planning)', body, re.MULTILINE | re.IGNORECASE)
+        if dtm:
+            doc_type = dtm.group(1)
+        
+        if title and len(title) > 10:
+            return Tender(
+                source="ted_europa",
+                title=title[:200],
+                url=url,
+                publication_date=datetime.now().strftime("%Y-%m-%d"),
+                deadline=deadline,
+                description=description[:800],
+                estimated_value=estimated_value,
+                country=country_code,
+                buyer=buyer,
+                document_type=doc_type
+            )
         
         return None
     
     def _save_cache(self):
-        """Save scraped tenders to cache file."""
+        """Save to cache."""
         cache_file = f"{self.cache_dir}/tenders_cache.json"
         try:
             with open(cache_file, 'w') as f:
@@ -228,16 +238,14 @@ def main():
     scraper = TenderScraper()
     results = scraper.scrape_all()
     
-    print(f"\n📊 Scraped {len(results)} tenders")
+    print(f"\n📊 Scraped {len(results)} clean tenders")
     
-    # Output sample
     if results:
-        print("\n📋 Sample tenders:")
-        for t in results[:3]:
-            print(f"   [{t['country']}] {t['title'][:70]}")
-            print(f"   Deadline: {t['deadline'] or 'N/A'}")
-            print(f"   Buyer: {t['buyer'] or 'N/A'}")
-            print()
+        print("\n📋 SAMPLE (first 5):")
+        for t in results[:5]:
+            print(f"\n   [{t['country']}] {t['title'][:70]}")
+            print(f"   🏢 {t['buyer'] or 'N/A'}")
+            print(f"   📅 {t['deadline'] or 'N/A'}")
     
     return results
 
