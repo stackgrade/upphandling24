@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skapa konto — TendAlert</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg: #0a0e1a;
+            --surface: rgba(255,255,255,0.05);
+            --border: rgba(255,255,255,0.1);
+            --green: #4ade80;
+            --green-dim: rgba(74,222,128,0.15);
+            --yellow: #fbbf24;
+            --text: #ffffff;
+            --text-muted: rgba(255,255,255,0.6);
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* NAV */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+        nav .logo {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--green);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+        nav .logo span { color: white; }
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        nav a:hover { color: var(--text); }
+        
+        /* MAIN */
+        .main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+        
+        .card {
+            width: 100%;
+            max-width: 420px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px;
+        }
+        
+        .card h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+        .card .subtitle {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+        
+        .input-group {
+            margin-bottom: 16px;
+        }
+        .input-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .input-group input {
+            width: 100%;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 10px;
+            padding: 12px 16px;
+            color: white;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.2s;
+            outline: none;
+        }
+        .input-group input:focus {
+            border-color: var(--green);
+        }
+        .input-group input::placeholder {
+            color: rgba(255,255,255,0.3);
+        }
+        
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        
+        .error-msg {
+            background: rgba(239,68,68,0.15);
+            border: 1px solid rgba(239,68,68,0.3);
+            border-radius: 8px;
+            padding: 10px 14px;
+            color: #f87171;
+            font-size: 0.85rem;
+            margin-bottom: 16px;
+            display: none;
+        }
+        .error-msg.show { display: block; }
+        
+        .success-msg {
+            background: rgba(74,222,128,0.15);
+            border: 1px solid rgba(74,222,128,0.3);
+            border-radius: 8px;
+            padding: 10px 14px;
+            color: var(--green);
+            font-size: 0.85rem;
+            margin-bottom: 16px;
+            display: none;
+        }
+        .success-msg.show { display: block; }
+        
+        .btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--green), #22c55e);
+            color: #0a1a0f;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            margin-top: 8px;
+            transition: opacity 0.2s;
+        }
+        .btn:hover { opacity: 0.9; }
+        .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        .divider {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin: 20px 0;
+            position: relative;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 35%;
+            height: 1px;
+            background: var(--border);
+        }
+        .divider::before { left: 0; }
+        .divider::after { right: 0; }
+        
+        .login-link {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 20px;
+        }
+        .login-link a {
+            color: var(--green);
+            font-weight: 600;
+        }
+        
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 28px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+        .trust-badges span {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .trust-badges span::before {
+            content: '✓';
+            color: var(--green);
+            font-weight: 700;
+        }
+        
+        /* Loading spinner */
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(10,26,15,0.3);
+            border-top-color: #0a1a0f;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            margin: 0 auto;
+        }
+        .btn.loading .spinner { display: block; }
+        .btn.loading .btn-text { display: none; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        /* Terms */
+        .terms {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            text-align: center;
+            margin-top: 16px;
+            line-height: 1.5;
+        }
+        .terms a { color: var(--green); }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">Tend<span>Alert</span></a>
+        <a href="login.html">Logga in</a>
+    </nav>
+    
+    <main class="main">
+        <div class="card">
+            <h1>Skapa konto</h1>
+            <p class="subtitle">Gratis tillgång — utan kreditkort. Kom igång på 30 sekunder.</p>
+            
+            <div id="error-msg" class="error-msg"></div>
+            <div id="success-msg" class="success-msg"></div>
+            
+            <form id="signup-form" onsubmit="handleSignup(event)">
+                <div class="input-row">
+                    <div class="input-group">
+                        <label>Företag</label>
+                        <input type="text" id="company" placeholder="Acme AB" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Namn</label>
+                        <input type="text" id="name" placeholder="Alex Smith" required>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label>E-post</label>
+                    <input type="email" id="email" placeholder="alex@acme.se" required>
+                </div>
+                
+                <div class="input-group">
+                    <label>Lösenord</label>
+                    <input type="password" id="password" placeholder="Minst 8 tecken" minlength="8" required>
+                </div>
+                
+                <div class="input-group">
+                    <label>Bransch</label>
+                    <select id="industry" style="
+                        width: 100%;
+                        background: rgba(255,255,255,0.07);
+                        border: 1px solid rgba(255,255,255,0.12);
+                        border-radius: 10px;
+                        padding: 12px 16px;
+                        color: white;
+                        font-size: 1rem;
+                        font-family: inherit;
+                        outline: none;
+                    ">
+                        <option value="">Välj bransch...</option>
+                        <option value="HR">HR & Rekrytering</option>
+                        <option value="IT">IT & Teknik</option>
+                        <option value="Bygg">Bygg & Anläggning</option>
+                        <option value="Konsult">Konsulttjänster</option>
+                        <option value="Transport">Transport & Logistik</option>
+                        <option value="Stad">Städning & Facility</option>
+                        <option value="Utbildning">Utbildning</option>
+                        <option value="Vård">Vård & Omsorg</option>
+                        <option value="Övrigt">Övrigt</option>
+                    </select>
+                </div>
+                
+                <button type="submit" id="submit-btn" class="btn">
+                    <span class="btn-text">Skapa konto — Gratis</span>
+                    <div class="spinner"></div>
+                </button>
+            </form>
+            
+            <div class="divider">eller</div>
+            
+            <a href="login.html">
+                <button class="btn" style="background: rgba(255,255,255,0.08); color: white; font-weight: 600;">
+                    Logga in om du har konto
+                </button>
+            </a>
+            
+            <p class="login-link">
+                Redan medlem? <a href="login.html">Logga in här</a>
+            </p>
+            
+            <div class="trust-badges">
+                <span>Ingen kreditkort</span>
+                <span>GDPR-säkrat</span>
+                <span>Avsluta när som helst</span>
+            </div>
+            
+            <p class="terms">
+                Genom att skapa konto godkänner du våra 
+                <a href="#">Användarvillkor</a> och <a href="#">Integritetspolicy</a>.
+                Beta är gratis — 997 kr/mån från 1 juni 2026.
+            </p>
+        </div>
+    </main>
+    
+    <script>
+    const API_BASE = location.hostname === 'localhost' || location.hostname === '127.0.0.1'
+        ? 'http://localhost:3000'
+        : 'https://api.tendalert.se';
+    
+    function showError(msg) {
+        const el = document.getElementById('error-msg');
+        el.textContent = msg;
+        el.classList.add('show');
+    }
+    
+    function showSuccess(msg) {
+        const el = document.getElementById('success-msg');
+        el.textContent = msg;
+        el.classList.add('show');
+    }
+    
+    function handleSignup(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim().toLowerCase();
+        const password = document.getElementById('password').value;
+        const company = document.getElementById('company').value.trim();
+        const industry = document.getElementById('industry').value;
+        
+        // Validation
+        if (password.length < 8) {
+            showError('Lösenordet måste vara minst 8 tecken');
+            return;
+        }
+        
+        if (!email.includes('@')) {
+            showError('Ange en giltig e-postadress');
+            return;
+        }
+        
+        const btn = document.getElementById('submit-btn');
+        btn.classList.add('loading');
+        btn.disabled = true;
+        document.getElementById('error-msg').classList.remove('show');
+        document.getElementById('success-msg').classList.remove('show');
+        
+        // Store user (localStorage for MVP)
+        // In production this hits a real backend
+        setTimeout(() => {
+            const user = {
+                id: 'user_' + Date.now(),
+                name,
+                email,
+                company,
+                industry,
+                plan: 'free',
+                created_at: new Date().toISOString(),
+                watchlist: [],
+                ai_analyses: 0
+            };
+            
+            localStorage.setItem('tendalert_user', JSON.stringify(user));
+            localStorage.setItem('tendalert_token', 'token_' + Date.now());
+            
+            showSuccess('Konto skapat! Omdirigerar...');
+            
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 800);
+        }, 1000);
+    }
+    
+    // Redirect if already logged in
+    if (localStorage.getItem('tendalert_user')) {
+        window.location.href = 'dashboard.html';
+    }
+    </script>
+</body>
+</html>

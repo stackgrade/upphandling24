@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — TendAlert</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #0a0e1a; --surface: rgba(255,255,255,0.04); --surface2: rgba(255,255,255,0.07);
+            --border: rgba(255,255,255,0.08); --green: #4ade80; --green-dim: rgba(74,222,128,0.12);
+            --yellow: #fbbf24; --orange: #f97316; --red: #ef4444; --text: #fff; --text-muted: rgba(255,255,255,0.55);
+        }
+        body { font-family: Inter, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+        /* TOPBAR */
+        .topbar { display: flex; justify-content: space-between; align-items: center; padding: 14px 24px; border-bottom: 1px solid var(--border); background: rgba(10,14,26,0.95); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+        .topbar .logo { font-size: 1.1rem; font-weight: 800; color: var(--green); text-decoration: none; }
+        .topbar .logo span { color: white; }
+        .topbar-center { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--text-muted); }
+        .topbar-center .badge { background: var(--green-dim); color: var(--green); padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; }
+        .topbar-right { display: flex; align-items: center; gap: 12px; }
+        .user-info { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-muted); }
+        .user-info .avatar { width: 32px; height: 32px; background: linear-gradient(135deg, var(--green), #22c55e); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.8rem; color: #0a1a0f; }
+        .logout-btn { background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: var(--text-muted); padding: 6px 14px; border-radius: 8px; font-size: 0.8rem; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+        .logout-btn:hover { background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.3); color: #f87171; }
+
+        /* STATS BAR */
+        .stats-bar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 16px 24px; border-bottom: 1px solid var(--border); }
+        .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; text-align: center; }
+        .stat-card .num { font-size: 1.6rem; font-weight: 800; line-height: 1; margin-bottom: 4px; }
+        .stat-card .num.green { color: var(--green); }
+        .stat-card .num.yellow { color: var(--yellow); }
+        .stat-card .num.red { color: var(--red); }
+        .stat-card .label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+        .stat-card.alert { background: rgba(239,68,68,0.08); border-color: rgba(239,68,68,0.2); }
+        .stat-card.alert .num { color: var(--red); }
+
+        /* FILTER BAR */
+        .filter-bar { display: flex; align-items: center; gap: 10px; padding: 14px 24px; border-bottom: 1px solid var(--border); overflow-x: auto; flex-wrap: nowrap; }
+        .filter-btn { background: var(--surface); border: 1px solid var(--border); color: var(--text-muted); padding: 7px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 600; cursor: pointer; font-family: inherit; white-space: nowrap; transition: all 0.15s; }
+        .filter-btn:hover { border-color: rgba(255,255,255,0.2); color: var(--text); }
+        .filter-btn.active { background: var(--green-dim); border-color: rgba(74,222,128,0.3); color: var(--green); }
+        .sort-select { margin-left: auto; background: var(--surface); border: 1px solid var(--border); color: var(--text-muted); padding: 7px 12px; border-radius: 8px; font-size: 0.82rem; font-family: inherit; cursor: pointer; outline: none; }
+
+        /* MAIN LAYOUT */
+        .main-layout { display: grid; grid-template-columns: 1fr 380px; min-height: calc(100vh - 120px); }
+
+        /* FEED */
+        .feed { padding: 20px 24px; overflow-y: auto; }
+        .feed-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .feed-header h2 { font-size: 1rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+        .feed-header .count { font-size: 0.82rem; color: var(--text-muted); }
+
+        /* TENDER CARD */
+        .tender-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; margin-bottom: 10px; cursor: pointer; transition: all 0.15s; position: relative; overflow: hidden; }
+        .tender-card:hover { border-color: rgba(255,255,255,0.15); background: var(--surface2); transform: translateY(-1px); }
+        .tender-card.selected { border-color: rgba(74,222,128,0.4); background: rgba(74,222,128,0.06); }
+        .tender-card .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+        .tender-card .card-left { display: flex; align-items: center; gap: 8px; }
+        .tender-card .cat-icon { font-size: 1.1rem; }
+        .tender-card .title { font-size: 0.95rem; font-weight: 700; line-height: 1.3; flex: 1; }
+        .tender-card .match-badge { background: rgba(74,222,128,0.15); color: var(--green); font-size: 0.78rem; font-weight: 800; padding: 3px 8px; border-radius: 6px; white-space: nowrap; }
+        .tender-card .match-badge.medium { background: rgba(251,191,36,0.15); color: var(--yellow); }
+        .tender-card .match-badge.low { background: rgba(239,68,68,0.15); color: var(--red); }
+        .tender-card .card-meta { display: flex; align-items: center; gap: 12px; font-size: 0.8rem; color: var(--text-muted); flex-wrap: wrap; }
+        .tender-card .card-meta .buyer { font-weight: 600; color: var(--text); }
+        .tender-card .card-meta span { display: flex; align-items: center; gap: 3px; }
+        .tender-card .card-meta .deadline { font-weight: 600; }
+        .tender-card .card-meta .deadline.urgent { color: var(--red); }
+        .tender-card .card-meta .deadline.soon { color: var(--orange); }
+        .tender-card .flag-badge { background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.25); color: #f87171; font-size: 0.72rem; font-weight: 700; padding: 2px 7px; border-radius: 5px; margin-left: auto; }
+
+        /* VALUE BADGE */
+        .value-badge { font-size: 0.8rem; font-weight: 700; color: var(--text-muted); white-space: nowrap; }
+
+        /* SIDEBAR */
+        .sidebar { border-left: 1px solid var(--border); padding: 20px; overflow-y: auto; background: rgba(0,0,0,0.2); }
+        .sidebar-section { margin-bottom: 28px; }
+        .sidebar-section h3 { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; }
+        .sidebar-section h3 .new-btn { background: var(--green-dim); color: var(--green); border: none; padding: 3px 10px; border-radius: 6px; font-size: 0.72rem; font-weight: 700; cursor: pointer; font-family: inherit; }
+
+        /* BEVAKNINGAR */
+        .watchlist-item { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+        .watchlist-item .w-title { font-size: 0.85rem; font-weight: 600; }
+        .watchlist-item .w-meta { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+        .watchlist-item .w-count { background: rgba(74,222,128,0.15); color: var(--green); font-size: 0.72rem; font-weight: 800; padding: 2px 8px; border-radius: 6px; }
+        .empty-state { text-align: center; padding: 24px; color: var(--text-muted); font-size: 0.85rem; }
+        .empty-state .icon { font-size: 2rem; margin-bottom: 8px; opacity: 0.4; }
+
+        /* AI PANEL (in sidebar) */
+        .ai-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+        .ai-panel-header { padding: 14px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+        .ai-panel-header .ai-icon { font-size: 1.1rem; }
+        .ai-panel-header h4 { font-size: 0.88rem; font-weight: 700; flex: 1; }
+        .ai-panel-header .provider { font-size: 0.72rem; color: var(--text-muted); background: var(--surface2); padding: 2px 8px; border-radius: 5px; }
+        .ai-panel-body { padding: 16px; }
+        .ai-summary { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 14px; }
+        .ai-score-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+        .ai-score { font-size: 1.4rem; font-weight: 800; }
+        .ai-score.good { color: var(--green); }
+        .ai-score.ok { color: var(--yellow); }
+        .ai-score.bad { color: var(--red); }
+        .ai-recommendation { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 8px; font-size: 0.82rem; font-weight: 700; margin-bottom: 14px; }
+        .ai-recommendation.good { background: rgba(74,222,128,0.15); color: var(--green); }
+        .ai-recommendation.ok { background: rgba(251,191,36,0.15); color: var(--yellow); }
+        .ai-recommendation.bad { background: rgba(239,68,68,0.15); color: var(--red); }
+        .ai-section-title { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; margin-top: 14px; }
+        .red-flag-item { background: rgba(239,68,68,0.07); border: 1px solid rgba(239,68,68,0.15); border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; }
+        .red-flag-item .rf-title { font-size: 0.82rem; font-weight: 700; margin-bottom: 3px; display: flex; align-items: center; gap: 6px; }
+        .red-flag-item .rf-title .dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+        .red-flag-item .rf-title .dot.high { background: var(--red); }
+        .red-flag-item .rf-title .dot.med { background: var(--orange); }
+        .red-flag-item .rf-title .dot.low { background: var(--yellow); }
+        .red-flag-item .rf-title .high { color: var(--red); }
+        .red-flag-item .rf-title .med { color: var(--orange); }
+        .red-flag-item .rf-title .low { color: var(--yellow); }
+        .red-flag-item .rf-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; }
+        .opp-item { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; font-size: 0.82rem; color: rgba(255,255,255,0.75); border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .opp-item:last-child { border-bottom: none; }
+        .opp-item .opp-icon { color: var(--green); flex-shrink: 0; margin-top: 1px; }
+        .ai-timeline { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-muted); margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+        .ai-timeline .icon { font-size: 1rem; }
+
+        /* WATCH BUTTON */
+        .watch-btn { width: 100%; background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 10px; border-radius: 10px; font-size: 0.85rem; font-weight: 600; cursor: pointer; font-family: inherit; margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 6px; transition: all 0.15s; }
+        .watch-btn:hover { border-color: var(--green); color: var(--green); }
+        .watch-btn.watching { background: var(--green-dim); border-color: rgba(74,222,128,0.3); color: var(--green); }
+
+        /* AI RUNNING STATE */
+        .ai-loading { text-align: center; padding: 30px 20px; }
+        .ai-loading .spinner { width: 36px; height: 36px; border: 3px solid rgba(74,222,128,0.15); border-top-color: var(--green); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 12px; }
+        .ai-loading p { font-size: 0.85rem; color: var(--text-muted); }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* SELECT TENDER STATE */
+        .select-tender-state { text-align: center; padding: 40px 20px; color: var(--text-muted); }
+        .select-tender-state .icon { font-size: 2.5rem; margin-bottom: 12px; opacity: 0.3; }
+        .select-tender-state p { font-size: 0.88rem; line-height: 1.5; }
+
+        /* NO RESULT */
+        .no-results { text-align: center; padding: 60px 20px; color: var(--text-muted); }
+        .no-results .icon { font-size: 2.5rem; margin-bottom: 12px; opacity: 0.3; }
+
+        /* MODAL */
+        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 200; align-items: center; justify-content: center; padding: 20px; }
+        .modal-overlay.show { display: flex; }
+        .modal { background: #111827; border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; width: 100%; max-width: 560px; max-height: 85vh; overflow-y: auto; }
+        .modal-header { padding: 20px 24px; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: flex-start; gap: 12px; }
+        .modal-header .modal-cat { font-size: 1.5rem; }
+        .modal-header .modal-title-block { flex: 1; }
+        .modal-header .modal-title { font-size: 1.05rem; font-weight: 800; line-height: 1.3; margin-bottom: 4px; }
+        .modal-header .modal-meta { font-size: 0.8rem; color: var(--text-muted); display: flex; gap: 12px; flex-wrap: wrap; }
+        .modal-close { background: rgba(255,255,255,0.06); border: none; color: var(--text-muted); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+        .modal-close:hover { background: rgba(255,255,255,0.12); color: white; }
+        .modal-body { padding: 20px 24px; }
+        .modal-body .section-title { font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; margin-top: 18px; }
+        .modal-body .section-title:first-child { margin-top: 0; }
+        .modal-desc { font-size: 0.88rem; color: rgba(255,255,255,0.8); line-height: 1.65; }
+        .modal-flags { display: flex; flex-direction: column; gap: 8px; }
+        .modal-flag { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); border-radius: 10px; padding: 12px 14px; }
+        .modal-flag .mf-title { font-size: 0.85rem; font-weight: 700; margin-bottom: 3px; display: flex; align-items: center; gap: 6px; }
+        .modal-flag .mf-title .dot { width: 8px; height: 8px; border-radius: 50%; }
+        .modal-flag .mf-title .dot.high { background: var(--red); }
+        .modal-flag .mf-title .dot.med { background: var(--orange); }
+        .modal-flag .mf-title .high { color: var(--red); }
+        .modal-flag .mf-title .med { color: var(--orange); }
+        .modal-flag .mf-title .low { color: var(--yellow); }
+        .modal-flag .mf-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+        .modal-actions { padding: 16px 24px; border-top: 1px solid rgba(255,255,255,0.08); display: flex; gap: 10px; }
+        .modal-actions .btn-primary { flex: 1; background: linear-gradient(135deg, var(--green), #22c55e); color: #0a1a0f; border: none; padding: 12px; border-radius: 10px; font-size: 0.9rem; font-weight: 700; cursor: pointer; font-family: inherit; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .modal-actions .btn-secondary { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); color: var(--text); padding: 12px 16px; border-radius: 10px; font-size: 0.88rem; font-weight: 600; cursor: pointer; font-family: inherit; display: flex; align-items: center; justify-content: center; gap: 6px; transition: all 0.15s; }
+        .modal-actions .btn-secondary:hover { background: rgba(255,255,255,0.1); }
+        .modal-actions .btn-secondary.watching { background: var(--green-dim); border-color: rgba(74,222,128,0.3); color: var(--green); }
+        .ai-run-spinner { display: none; width: 16px; height: 16px; border: 2px solid rgba(10,26,15,0.3); border-top-color: #0a1a0f; border-radius: 50%; animation: spin 0.7s linear infinite; }
+        .modal-actions .btn-primary.loading .ai-run-spinner { display: block; }
+        .modal-actions .btn-primary.loading .run-text { display: none; }
+
+        /* Free plan limit banner */
+        .limit-banner { background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.25); border-radius: 10px; padding: 10px 14px; font-size: 0.8rem; color: var(--yellow); margin-bottom: 14px; display: none; }
+        .limit-banner.show { display: block; }
+        .limit-banner a { color: var(--yellow); font-weight: 700; }
+
+        /* Toast */
+        .toast { position: fixed; bottom: 24px; right: 24px; background: #1f2937; border: 1px solid rgba(255,255,255,0.1); color: white; padding: 12px 18px; border-radius: 12px; font-size: 0.85rem; font-weight: 600; z-index: 300; opacity: 0; transform: translateY(20px); transition: all 0.3s; pointer-events: none; }
+        .toast.show { opacity: 1; transform: translateY(0); }
+        .toast.green { border-color: rgba(74,222,128,0.3); background: rgba(74,222,128,0.1); color: var(--green); }
+    </style>
+</head>
+<body>
+    <!-- TOPBAR -->
+    <div class="topbar">
+        <a href="index.html" class="logo">Tend<span>Alert</span></a>
+        <div class="topbar-center">
+            <span class="badge">BETA</span>
+            <span id="user-email-display">laddar...</span>
+            <span>·</span>
+            <span id="plan-display" style="font-size:0.78rem;color:var(--text-muted)">Gratis plan</span>
+        </div>
+        <div class="topbar-right">
+            <div class="user-info">
+                <div class="avatar" id="user-avatar">?</div>
+                <span id="user-name-display">Användare</span>
+            </div>
+            <button class="logout-btn" onclick="logout()">Logga ut</button>
+        </div>
+    </div>
+
+    <!-- STATS BAR -->
+    <div class="stats-bar">
+        <div class="stat-card">
+            <div class="num green" id="stat-new">0</div>
+            <div class="label">Nya idag</div>
+        </div>
+        <div class="stat-card alert">
+            <div class="num red" id="stat-deadline">0</div>
+            <div class="label">Nära deadline</div>
+        </div>
+        <div class="stat-card">
+            <div class="num yellow" id="stat-watchlist">0</div>
+            <div class="label">I bevakning</div>
+        </div>
+    </div>
+
+    <!-- FILTER BAR -->
+    <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all" onclick="setFilter('all')">Alla</button>
+        <button class="filter-btn" data-filter="HR" onclick="setFilter('HR')">HR & Rekrytering</button>
+        <button class="filter-btn" data-filter="IT" onclick="setFilter('IT')">IT & Teknik</button>
+        <button class="filter-btn" data-filter="Bygg" onclick="setFilter('Bygg')">Bygg</button>
+        <button class="filter-btn" data-filter="Konsult" onclick="setFilter('Konsult')">Konsult</button>
+        <button class="filter-btn" data-filter="Övrigt" onclick="setFilter('Övrigt')">Övrigt</button>
+        <select class="sort-select" id="sort-select" onchange="setSort(this.value)">
+            <option value="deadline">Kortast deadline</option>
+            <option value="value">Högst värde</option>
+            <option value="match">Bästa match</option>
+            <option value="newest">Nyast</option>
+        </select>
+    </div>
+
+    <!-- MAIN LAYOUT -->
+    <div class="main-layout">
+        <!-- FEED -->
+        <div class="feed">
+            <div class="feed-header">
+                <h2>Upphandlingar</h2>
+                <span class="count" id="feed-count">Laddar...</span>
+            </div>
+            <div id="tender-feed"></div>
+        </div>
+
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <!-- BEVAKNINGAR -->
+            <div class="sidebar-section">
+                <h3>
+                    Mina bevakningar
+                    <button class="new-btn" onclick="alert('Funkar inom kort! Filtrera och spara i nästa steg.')">+ Ny</button>
+                </h3>
+                <div id="watchlist-container">
+                    <div class="empty-state">
+                        <div class="icon">🔔</div>
+                        <p>Inga bevakningar ännu.<br>Klicka på en upphandling för att spara.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI PANEL -->
+            <div class="sidebar-section">
+                <h3>AI-analys</h3>
+                <div class="ai-panel" id="ai-panel">
+                    <div class="select-tender-state" id="select-tender-state">
+                        <div class="icon">🤖</div>
+                        <p>Välj en upphandling till vänster för att se AI-analys</p>
+                    </div>
+                    <div class="ai-loading" id="ai-loading" style="display:none;">
+                        <div class="spinner"></div>
+                        <p>Analyserar med Groq AI...</p>
+                    </div>
+                    <div id="ai-results" style="display:none;"></div>
+                </div>
+                <div class="limit-banner" id="limit-banner">
+                    ⚠️ <strong>Gratis plan:</strong> 5 AI-analyser/månad. <a href="#" onclick="alert('Maila oss: hej@tendalert.se')">Uppgradera till Pro</a> för obegränsat.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TENDER DETAIL MODAL -->
+    <div class="modal-overlay" id="tender-modal" onclick="if(event.target===this)closeModal()">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-cat" id="modal-cat">👑</div>
+                <div class="modal-title-block">
+                    <div class="modal-title" id="modal-title">-</div>
+                    <div class="modal-meta" id="modal-meta">-</div>
+                </div>
+                <button class="modal-close" onclick="closeModal()">✕</button>
+            </div>
+            <div class="modal-body" id="modal-body"></div>
+            <div class="modal-actions">
+                <button class="btn-secondary" id="modal-watch-btn" onclick="toggleWatchFromModal()">
+                    <span>🔔</span> <span class="watch-btn-text">Bevaka</span>
+                </button>
+                <button class="btn-primary" id="modal-ai-btn" onclick="runAIFromModal()">
+                    <div class="ai-run-spinner"></div>
+                    <span class="run-text">🤖 Kör AI-analys</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+    // ============ DATA ============
+    const CATEGORIES = {
+        'HR & Rekrytering': { icon: '👑', filter: 'HR', color: '#a78bfa' },
+        'IT & Teknik': { icon: '💻', filter: 'IT', color: '#60a5fa' },
+        'Bygg & Anläggning': { icon: '🏗️', filter: 'Bygg', color: '#fb923c' },
+        'Konsulttjänster': { icon: '📋', filter: 'Konsult', color: '#f472b6' },
+        'Övrigt': { icon: '📦', filter: 'Övrigt', color: '#a3a3a3' }
+    };
+
+    const TENDERS = [
+        { id:'SE-2026-047', title:'Rekrytering av interims HR-chef', buyer:'Stockholms Stad', location:'Stockholm', value:480000, category:'HR & Rekrytering', deadline_days:21, match:78, flags:[{severity:'high',title:'Erfarenhetskrav exkluderar små',description:'Minst 8 års erfarenhet + Bemanningsföretagen-certifiering. Få leverantörer kvalificerar sig.'},{severity:'medium',title:'Kort deadline',description:'18 dagar från publicering. Ovanligt tight för senior roll.'}], summary:'Stockholms Stad söker interims HR-chef för 6 månader. 15 personer rapporterar direkt. Kandidater måste ha erfarenhet från stat/kommun.', deadline:'2026-04-30', published:'2026-04-09' },
+        { id:'SE-2026-089', title:'HR-konsultstöd, ramavtal', buyer:'Göteborgs Kommun', location:'Göteborg', value:1200000, category:'HR & Rekrytering', deadline_days:14, match:65, flags:[], summary:'Ramavtal för HR-konsultstöd inom rekrytering, arbetsrätt och organisationsutveckling. Avropa vid behov under 2 år.', deadline:'2026-04-23', published:'2026-04-09' },
+        { id:'SE-2026-112', title:'Rekrytering ekonomichef', buyer:'Södertälje Kommun', location:'Södertälje', value:650000, category:'HR & Rekrytering', deadline_days:7, match:91, flags:[{severity:'medium',title:'Endast 7 dagar kvar',description:'Mycket tight deadline för ett senior uppdrag. Tyder på hastverk eller incheckning.'}], summary:'Södertälje söker ekonomichef för 12-månaders vikariat. Kraven är standard för rollen. Utmärkt matchning för erfarna kandidater.', deadline:'2026-04-16', published:'2026-04-09' },
+        { id:'SE-2026-134', title:'Kompetensförsörjningsstrategi', buyer:'Malmö Stad', location:'Malmö', value:890000, category:'HR & Rekrytering', deadline_days:31, match:55, flags:[{severity:'low',title:'Otydliga krav',description:'Kravbilden är vague. Svårt att bedöma om ni kvalificerar er.'}], summary:'Malmö Stad behöver stöd i att ta fram en kompetensförsörjningsstrategi för 2026-2030. Konsultbolaget ska ha erfarenhet från offentlig sektor.', deadline:'2026-05-10', published:'2026-04-08' },
+        { id:'SE-2026-156', title:'IT-säkerhetsrevision', buyer:'Polisen', location:'Nationellt', value:2400000, category:'IT & Teknik', deadline_days:28, match:42, flags:[{severity:'high',title:'Polisen har interna leverantörer',description:'Polisens IT säkras ofta av Saab eller Ericsson. Extern upphandling = låg vinstchans.'},{severity:'medium',title:'Sekretessbelagda krav',description:'Vissa krav kan inte offentliggöras. Omöjligt att svara rätt på osynliga krav.'},{severity:'low',title:'Tight tidplan',description:'12 veckor från avtal till leverans. Mycket aggressivt.'}], summary:'Polisen upphandlar extern revision av IT-säkerhet enligt ISO 27001. Konsultbolaget måste ha FOU-tillstånd och säkerhetsklassning.', deadline:'2026-05-07', published:'2026-04-09' },
+        { id:'SE-2026-178', title:'Systemutveckling ärendehantering', buyer:'Försäkringskassan', location:'Nationellt', value:5800000, category:'IT & Teknik', deadline_days:35, match:38, flags:[{severity:'high',title:'Jättestort ärende — stor risk',description:'5.8M kr. Enterprise-nivå. Kräver team på 5+ och liknande referensprojekt.'}], summary:'Försäkringskassan moderniserar sitt ärendehanteringssystem. Modernisering av legacy-system. Java/Azure-kompetens krävs.', deadline:'2026-05-14', published:'2026-04-07' },
+        { id:'SE-2026-201', title:'Kontorshotell, ramavtal', buyer:'Regeringskansliet', location:'Stockholm', value:12000000, category:'Övrigt', deadline_days:45, match:28, flags:[], summary:'Regeringskansliet upphandlar ramavtal för kontorshotell i Stockholm. Minst 500 kontorsplatser krävs inom tullarna.', deadline:'2026-05-24', published:'2026-04-05' },
+        { id:'SE-2026-223', title:'Renovering badrum, äldreboende', buyer:'Uppsala Kommun', location:'Uppsala', value:3200000, category:'Bygg & Anläggning', deadline_days:12, match:51, flags:[{severity:'high',title:'Byggbranschen har kapacitetsproblem',description:'2026: alla byggbolag är fullbokade. Låg marginal, hög risk att inte hinna.'},{severity:'medium',title:'Reglerat arbete',description:'Äldreboende kräver extra brand- och hygienregler. Fler än vanligt UF-krav.'}], summary:'Uppsala kommun renoverar 24 badrum på äldreboenden. Byte av VVS, ytskikt och tillgänglighetsanpassning. AAB掺杂.', deadline:'2026-04-21', published:'2026-04-09' },
+        { id:'SE-2026-245', title:'Inköp kontorsmaterial', buyer:'Kammarkollegiet', location:'Nationellt', value:450000, category:'Övrigt', deadline_days:8, match:33, flags:[], summary:'Ramavtal för kontorsmaterial — pennor, papper, mappar. Volymen är låg. Priskonkurrens hård.', deadline:'2026-04-17', published:'2026-04-09' },
+        { id:'SE-2026-267', title:'Utemiljö, förskola', buyer:'Västerås Stad', location:'Västerås', value:890000, category:'Bygg & Anläggning', deadline_days:19, match:67, flags:[], summary:'Anläggning av utemiljö kring ny förskola i Västerås. Markarbeten, lekutrustning, plantering. Total garantitid 5 år.', deadline:'2026-04-28', published:'2026-04-09' },
+        { id:'SE-2026-289', title:'Löneadministration, outsourcing', buyer:'Skåne Region', location:'Skåne', value:2800000, category:'Konsulttjänster', deadline_days:25, match:72, flags:[{severity:'low',title:'Löneoutsourcing har fåaktig trend',description:'Allt fler tar tillbaka löneadministration in-house. Marknaden krymper.'}], summary:'Skåne Region letar leverantör för outsourcing av löneadministration (1000+ anställda). KMD och SAP erfarenhet krävs.', deadline:'2026-05-04', published:'2026-04-08' },
+        { id:'SE-2026-301', title:'VVS-underhåll, idrottsanläggningar', buyer:'Göteborgs Stad', location:'Göteborg', value:1800000, category:'Bygg & Anläggning', deadline_days:17, match:58, flags:[], summary:'Göteborgs Stad tecknar ramavtal för VVS-underhåll på 12 idrottsanläggningar. Dygnet-runt beredskap krävs.', deadline:'2026-04-26', published:'2026-04-09' },
+        { id:'SE-2026-323', title:'Konsultstöd HR-system', buyer:'Ekonomistyrningsverket', location:'Stockholm', value:760000, category:'HR & Rekrytering', deadline_days:22, match:84, flags:[], summary:'Ekonomistyrningsverket behöver konsultstöd för implementation av nytt HR-system (SAP SuccessFactors). 6-månaders uppdrag.', deadline:'2026-05-01', published:'2026-04-09' },
+        { id:'SE-2026-345', title:'Transporttjänster, färdtjänst', buyer:'Halland Region', location:'Halland', value:5600000, category:'Övrigt', deadline_days:38, match:44, flags:[{severity:'high',title:'Transit-operatörer dominerar',description:'Färdtjänst körs nästan uteslutande av Taxi Stockholm-typ. Små aktörer exkluderas.'},{severity:'medium',title:'Hårda kvalitetskrav',description:'Krav på FOR-dokument, försäkringar och trafiktillstånd. Hög administrativ börda.'}], summary:'Halland Region upphandlar färdtjänsttrafik inom länet. Fordon ≥ 2022 modell. Miljökrav: Euro 6 eller el.', deadline:'2026-05-17', published:'2026-04-06' },
+        { id:'SE-2026-367', title:'Utbildningsinsats digitalisering', buyer:'Skolverket', location:'Nationellt', value:1100000, category:'Konsulttjänster', deadline_days:16, match:61, flags:[], summary:'Skolverket behöver utbildningsinsats för lärare i Alsalibaba-distrikten. Digitala verktyg och pedagogik. Resor ingå.', deadline:'2026-04-25', published:'2026-04-09' }
+    ];
+
+    // ============ STATE ============
+    let currentFilter = 'all';
+    let currentSort = 'deadline';
+    let selectedTender = null;
+    let watchlist = [];
+    let user = null;
+    let aiAnalysesCount = 0;
+
+    // ============ INIT ============
+    function init() {
+        const stored = localStorage.getItem('tendalert_user');
+        if (!stored) { window.location.href = 'login.html'; return; }
+        user = JSON.parse(stored);
+        watchlist = user.watchlist || [];
+        aiAnalysesCount = user.ai_analyses || 0;
+
+        document.getElementById('user-name-display').textContent = user.name || user.email.split('@')[0];
+        document.getElementById('user-email-display').textContent = user.email;
+        document.getElementById('user-avatar').textContent = (user.name || user.email)[0].toUpperCase();
+        document.getElementById('plan-display').textContent = (user.plan === 'pro') ? 'Pro ⚡' : 'Gratis';
+        document.getElementById('limit-banner').classList.toggle('show', user.plan !== 'pro');
+
+        updateStats();
+        renderFeed();
+        renderWatchlist();
+    }
+
+    function updateStats() {
+        const today = new Date();
+        const newToday = TENDERS.filter(t => t.published === today.toISOString().split('T')[0]).length || Math.floor(Math.random() * 4) + 1;
+        const nearDeadline = TENDERS.filter(t => t.deadline_days <= 7).length;
+        document.getElementById('stat-new').textContent = newToday;
+        document.getElementById('stat-deadline').textContent = nearDeadline;
+        document.getElementById('stat-watchlist').textContent = watchlist.length;
+    }
+
+    function logout() {
+        localStorage.removeItem('tendalert_user');
+        localStorage.removeItem('tendalert_token');
+        window.location.href = 'index.html';
+    }
+
+    // ============ FEED ============
+    function getFilteredSorted() {
+        let list = [...TENDERS];
+        if (currentFilter !== 'all') {
+            const catData = Object.values(CATEGORIES).find(c => c.filter === currentFilter);
+            if (catData) list = list.filter(t => t.category === CATEGORIES[t.category]?.filter);
+            // Direct match
+            if (currentFilter === 'HR') list = list.filter(t => t.category === 'HR & Rekrytering');
+            if (currentFilter === 'IT') list = list.filter(t => t.category === 'IT & Teknik');
+            if (currentFilter === 'Bygg') list = list.filter(t => t.category === 'Bygg & Anläggning');
+            if (currentFilter === 'Konsult') list = list.filter(t => t.category === 'Konsulttjänster');
+            if (currentFilter === 'Övrigt') list = list.filter(t => t.category === 'Övrigt');
+        }
+        if (currentSort === 'deadline') list.sort((a,b) => a.deadline_days - b.deadline_days);
+        else if (currentSort === 'value') list.sort((a,b) => b.value - a.value);
+        else if (currentSort === 'match') list.sort((a,b) => b.match - a.match);
+        else if (currentSort === 'newest') list.sort((a,b) => b.published.localeCompare(a.published));
+        return list;
+    }
+
+    function setFilter(f) {
+        currentFilter = f;
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === f));
+        renderFeed();
+    }
+
+    function setSort(s) {
+        currentSort = s;
+        renderFeed();
+    }
+
+    function formatValue(v) {
+        if (v >= 1000000) return (v/1000000).toFixed(1).replace('.0','') + 'M';
+        if (v >= 1000) return Math.round(v/1000) + 'K';
+        return v;
+    }
+
+    function getDeadlineClass(days) {
+        if (days <= 7) return 'urgent';
+        if (days <= 14) return 'soon';
+        return '';
+    }
+
+    function getMatchClass(m) {
+        if (m >= 75) return '';
+        if (m >= 50) return 'medium';
+        return 'low';
+    }
+
+    function renderFeed() {
+        const list = getFilteredSorted();
+        document.getElementById('feed-count').textContent = `${list.length} upphandlingar`;
+        const container = document.getElementById('tender-feed');
+
+        if (list.length === 0) {
+            container.innerHTML = '<div class="no-results"><div class="icon">🔍</div><p>Inga upphandlingar hittades för detta filter.</p></div>';
+            return;
+        }
+
+        container.innerHTML = list.map(t => {
+            const cat = CATEGORIES[t.category] || CATEGORIES['Övrigt'];
+            const flagCount = t.flags?.length || 0;
+            const isWatched = watchlist.includes(t.id);
+            const isSelected = selectedTender?.id === t.id;
+            return `
+            <div class="tender-card ${isSelected ? 'selected' : ''}" onclick="selectTender('${t.id}')">
+                <div class="card-top">
+                    <div class="card-left">
+                        <span class="cat-icon">${cat.icon}</span>
+                        <span class="title">${t.title}</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                        ${flagCount > 0 ? `<span class="flag-badge">🚩 ${flagCount}</span>` : ''}
+                        <span class="match-badge ${getMatchClass(t.match)}">${t.match}%</span>
+                    </div>
+                </div>
+                <div class="card-meta">
+                    <span class="buyer">${t.buyer}</span>
+                    <span>📍 ${t.location}</span>
+                    <span>💰 ${formatValue(t.value)} kr</span>
+                    <span class="deadline ${getDeadlineClass(t.deadline_days)}">⏰ ${t.deadline_days}d</span>
+                    ${isWatched ? '<span style="color:var(--green);margin-left:auto;font-size:0.75rem;font-weight:700;">🔔 Bevakad</span>' : ''}
+                </div>
+            </div>`;
+        }).join('');
+    }
+
+    // ============ TENDER SELECTION ============
+    function selectTender(id) {
+        const t = TENDERS.find(x => x.id === id);
+        if (!t) return;
+        selectedTender = t;
+
+        // Update card selection
+        document.querySelectorAll('.tender-card').forEach(c => c.classList.remove('selected'));
+        event.currentTarget.classList.add('selected');
+
+        // Show AI panel with tender selected
+        showAIIdle(t);
+
+        // Open modal too
+        openModal(t);
+    }
+
+    function showAIIdle(t) {
+        document.getElementById('select-tender-state').style.display = 'none';
+        document.getElementById('ai-loading').style.display = 'none';
+        document.getElementById('ai-results').style.display = 'none';
+        document.getElementById('select-tender-state').style.display = 'block';
+        document.getElementById('select-tender-state').innerHTML = `
+            <div class="icon">📋</div>
+            <p><strong>${t.id}</strong> — ${t.deadline_days} dagar kvar</p>
+            <p style="margin-top:6px;font-size:0.8rem;">Klicka på "Kör AI-analys" för att börja</p>`;
+    }
+
+    // ============ AI ANALYSIS ============
+    async function runAI(tender) {
+        // Free plan limit
+        if (user.plan !== 'pro') {
+            if (aiAnalysesCount >= 5) {
+                showToast('Gratis plan: max 5 analyser/månad. Uppgradera till Pro!', '');
+                return;
+            }
+        }
+
+        document.getElementById('select-tender-state').style.display = 'none';
+        document.getElementById('ai-results').style.display = 'none';
+        document.getElementById('ai-loading').style.display = 'block';
+
+        await new Promise(r => setTimeout(r, 2000)); // Simulate AI processing
+
+        // Build analysis from tender data
+        const flagCount = tender.flags?.length || 0;
+        const rec = flagCount === 0 ? 'good' : flagCount === 1 ? 'ok' : 'bad';
+        const recText = rec === 'good' ? '👍 REIT' : rec === 'ok' ? '👀 MÖJLIG' : '👎 AVSTÅ';
+
+        const scoreClass = tender.match >= 75 ? 'good' : tender.match >= 50 ? 'ok' : 'bad';
+
+        const flagsHtml = (tender.flags || []).map(f => `
+            <div class="red-flag-item">
+                <div class="rf-title">
+                    <span class="dot ${f.severity}"></span>
+                    <span class="${f.severity}">${f.title}</span>
+                </div>
+                <div class="rf-desc">${f.description}</div>
+            </div>`).join('');
+
+        const opps = [
+            'Begränsad konkurrens pga erfarenhetskrav — din chans ökar',
+            tender.buyer + ' är en stor och pålitlig kund',
+            'Ramavtal kan leda till återkommande uppdrag'
+        ];
+        const oppsHtml = opps.map(o => `<div class="opp-item"><span class="opp-icon">✨</span><span>${o}</span></div>`).join('');
+
+        const timeline = Math.round(tender.value / 500000) + 2;
+
+        document.getElementById('ai-loading').style.display = 'none';
+        const results = document.getElementById('ai-results');
+        results.style.display = 'block';
+        results.innerHTML = `
+            <div class="ai-summary">${tender.summary}</div>
+            <div class="ai-score-row">
+                <div>
+                    <div class="ai-score ${scoreClass}">${tender.match}%</div>
+                    <div style="font-size:0.75rem;color:var(--text-muted);">Matchning</div>
+                </div>
+                <div class="ai-recommendation ${rec}">${recText}</div>
+            </div>
+            ${flagCount > 0 ? `<div class="ai-section-title">Röda flaggor (${flagCount})</div>${flagsHtml}` : '<div style="font-size:0.85rem;color:var(--green);margin-bottom:12px;">✅ Inga röda flaggor upptäckta</div>'}
+            <div class="ai-section-title">Möjligheter</div>
+            ${oppsHtml}
+            <div class="ai-timeline">
+                <span class="icon">📅</span>
+                <span><strong>${timeline} veckor</strong> geschätzte Projektdauer</span>
+            </div>`;
+
+        // Save analysis
+        aiAnalysesCount++;
+        user.ai_analyses = aiAnalysesCount;
+        localStorage.setItem('tendalert_user', JSON.stringify(user));
+
+        showToast('✅ AI-analys klar!', 'green');
+    }
+
+    // ============ WATCHLIST ============
+    function toggleWatch(id) {
+        if (watchlist.includes(id)) {
+            watchlist = watchlist.filter(x => x !== id);
+            showToast('Bevakning borttagen', '');
+        } else {
+            if (watchlist.length >= 5 && user.plan !== 'pro') {
+                showToast('Gratis plan: max 5 bevakningar. Uppgradera!', '');
+                return;
+            }
+            watchlist.push(id);
+            showToast('🔔 Bevakar denna!', 'green');
+        }
+        user.watchlist = watchlist;
+        localStorage.setItem('tendalert_user', JSON.stringify(user));
+        updateStats();
+        renderFeed();
+        renderWatchlist();
+    }
+
+    function isWatched(id) { return watchlist.includes(id); }
+
+    function renderWatchlist() {
+        const container = document.getElementById('watchlist-container');
+        if (watchlist.length === 0) {
+            container.innerHTML = `<div class="empty-state"><div class="icon">🔔</div><p>Inga bevakningar ännu.<br>Klicka på en upphandling för att spara.</p></div>`;
+            return;
+        }
+        container.innerHTML = watchlist.map(id => {
+            const t = TENDERS.find(x => x.id === id);
+            if (!t) return '';
+            const cat = CATEGORIES[t.category] || CATEGORIES['Övrigt'];
+            return `<div class="watchlist-item">
+                <div>
+                    <div class="w-title">${cat.icon} ${t.title.substring(0,25)}${t.title.length > 25 ? '...' : ''}</div>
+                    <div class="w-meta">${t.buyer} · ${t.deadline_days}d kvar</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <span class="w-count">${t.match}%</span>
+                    <button onclick="toggleWatch('${t.id}')" style="background:none;border:none;color:#f87171;cursor:pointer;font-size:0.9rem;" title="Ta bort">✕</button>
+                </div>
+            </div>`;
+        }).join('');
+    }
+
+    function toggleWatchFromModal() {
+        if (!selectedTender) return;
+        toggleWatch(selectedTender.id);
+        const btn = document.getElementById('modal-watch-btn');
+        btn.classList.toggle('watching', isWatched(selectedTender.id));
+        btn.querySelector('.watch-btn-text').textContent = isWatched(selectedTender.id) ? 'Bevakad ✓' : 'Bevaka';
+    }
+
+    // ============ MODAL ============
+    function openModal(t) {
+        selectedTender = t;
+        const cat = CATEGORIES[t.category] || CATEGORIES['Övrigt'];
+        document.getElementById('modal-cat').textContent = cat.icon;
+        document.getElementById('modal-title').textContent = t.title;
+        document.getElementById('modal-meta').innerHTML = `<span>📍 ${t.location}</span><span>💰 ${formatValue(t.value)} kr</span><span>⏰ ${t.deadline_days} dagar</span><span>🏢 ${t.buyer}</span>`;
+
+        const watched = isWatched(t.id);
+        const watchBtn = document.getElementById('modal-watch-btn');
+        watchBtn.classList.toggle('watching', watched);
+        watchBtn.querySelector('.watch-btn-text').textContent = watched ? 'Bevakad ✓' : 'Bevaka';
+
+        // Modal body: description + flags
+        let body = `<div class="section-title">Sammanfattning</div><p class="modal-desc">${t.summary}</p>`;
+
+        if (t.flags && t.flags.length > 0) {
+            body += `<div class="section-title">Röda flaggor (${t.flags.length})</div><div class="modal-flags">`;
+            body += t.flags.map(f => `
+                <div class="modal-flag">
+                    <div class="mf-title"><span class="dot ${f.severity}"></span><span class="${f.severity}">${f.title}</span></div>
+                    <div class="mf-desc">${f.description}</div>
+                </div>`).join('');
+            body += '</div>';
+        }
+
+        document.getElementById('modal-body').innerHTML = body;
+        document.getElementById('tender-modal').classList.add('show');
+        document.getElementById('modal-ai-btn').classList.remove('loading');
+    }
+
+    function closeModal() {
+        document.getElementById('tender-modal').classList.remove('show');
+    }
+
+    async function runAIFromModal() {
+        if (!selectedTender) return;
+        const btn = document.getElementById('modal-ai-btn');
+        btn.classList.add('loading');
+        btn.disabled = true;
+        await runAI(selectedTender);
+        btn.classList.remove('loading');
+        btn.disabled = false;
+        // Also update sidebar
+        if (selectedTender) {
+            const sidebarResults = document.getElementById('ai-results');
+            const selectState = document.getElementById('select-tender-state');
+            if (sidebarResults.style.display !== 'none') {
+                // Sidebar already has results - do nothing
+            }
+        }
+    }
+
+    // ============ TOAST ============
+    function showToast(msg, type='') {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.className = 'toast show' + (type ? ' ' + type : '');
+        setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    // Init
+    init();
+    </script>
+</body>
+</html>
