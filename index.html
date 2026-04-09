@@ -780,7 +780,7 @@
         /* ===== TEST SYSTEM SECTION ===== */
         .test-section {
             background: linear-gradient(135deg, #1a73e8, #0d47a1);
-            padding: 80px 0;
+            padding: 50px 0;
             position: relative;
             overflow: hidden;
         }
@@ -800,18 +800,19 @@
             text-align: center;
             position: relative;
             z-index: 1;
+            padding: 0 16px;
         }
 
         .test-section h2 {
             color: white;
-            font-size: 2.5rem;
-            margin-bottom: 12px;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
         }
 
         .test-section p {
             color: rgba(255,255,255,0.85);
-            margin-bottom: 24px;
-            font-size: 1.1rem;
+            margin-bottom: 20px;
+            font-size: 1rem;
         }
 
         .test-live-counter {
@@ -839,39 +840,69 @@
             50% { opacity: 0.5; }
         }
 
+        @keyframes urgentPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.02); }
+        }
+
         .test-live-counter span {
             color: white;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
         }
 
         .test-btn {
             background: linear-gradient(135deg, #4ade80, #22c55e);
             color: #065f46;
             border: none;
-            padding: 18px 40px;
-            font-size: 1.2rem;
+            padding: 14px 28px;
+            font-size: 1rem;
             font-weight: 700;
-            border-radius: 14px;
+            border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s;
             box-shadow: 0 4px 25px rgba(74,222,128,0.4);
+            width: 100%;
+            max-width: 300px;
         }
 
         .test-btn:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 8px 35px rgba(74,222,128,0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(74,222,128,0.5);
         }
 
         .test-beta-tag {
             display: inline-block;
             background: rgba(245,158,11,0.9);
             color: #7c2d12;
-            padding: 6px 14px;
+            padding: 5px 12px;
             border-radius: 6px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 700;
-            margin-top: 16px;
+            margin-top: 14px;
+        }
+
+        @media (min-width: 768px) {
+            .test-section {
+                padding: 80px 0;
+            }
+            .test-section h2 {
+                font-size: 2.5rem;
+                margin-bottom: 12px;
+            }
+            .test-section p {
+                font-size: 1.1rem;
+                margin-bottom: 24px;
+            }
+            .test-btn {
+                padding: 18px 40px;
+                font-size: 1.2rem;
+                width: auto;
+            }
+            .test-beta-tag {
+                font-size: 0.8rem;
+                margin-top: 16px;
+            }
         }
 
         .test-modal {
@@ -891,6 +922,7 @@
             display: flex;
             align-items: flex-start;
             justify-content: center;
+            padding: 0;
         }
 
         .test-modal-content {
@@ -898,24 +930,28 @@
             border-radius: 16px;
             max-width: 700px;
             width: 100%;
-            margin: 20px auto;
+            margin: 0;
             box-shadow: 0 25px 50px rgba(0,0,0,0.3);
             position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         .test-modal-header {
             background: linear-gradient(135deg, #1a73e8, #0d47a1);
             color: white;
-            padding: 24px 30px;
+            padding: 16px 20px;
             border-radius: 16px 16px 0 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-shrink: 0;
         }
 
         .test-modal-header h3 {
             margin: 0;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
         }
 
         .test-modal-close {
@@ -935,32 +971,69 @@
         }
 
         .test-modal-body {
-            padding: 30px;
+            padding: 20px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        @media (min-width: 768px) {
+            .test-modal.active {
+                padding: 40px 20px;
+            }
+            .test-modal-content {
+                margin: 20px auto;
+                min-height: auto;
+                border-radius: 16px;
+            }
+            .test-modal-header {
+                padding: 24px 30px;
+            }
+            .test-modal-header h3 {
+                font-size: 1.3rem;
+            }
+            .test-modal-body {
+                padding: 30px;
+            }
         }
 
         .test-stat {
             display: flex;
-            gap: 20px;
+            gap: 12px;
             margin-bottom: 24px;
         }
 
         .test-stat-card {
             flex: 1;
             background: #f5f5f5;
-            padding: 20px;
+            padding: 14px 8px;
             border-radius: 12px;
             text-align: center;
         }
 
         .test-stat-card .number {
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
             color: #1a73e8;
         }
 
         .test-stat-card .label {
-            font-size: 0.85rem;
+            font-size: 0.7rem;
             color: #666;
+        }
+
+        @media (min-width: 480px) {
+            .test-stat {
+                gap: 20px;
+            }
+            .test-stat-card {
+                padding: 20px;
+            }
+            .test-stat-card .number {
+                font-size: 2.5rem;
+            }
+            .test-stat-card .label {
+                font-size: 0.85rem;
+            }
         }
 
         .test-tender-list {
@@ -1279,92 +1352,94 @@
                     🏆 Erik Lindström (byggfirma) fick de här chanserna:
                 </h4>
 
-                <!-- TENDER CARD 1 - TOP MATCH -->
-                <div style="background: linear-gradient(135deg, #fef3c7, #fde68a); border-radius: 16px; padding: 20px; margin-bottom: 16px; border: 2px solid #f59e0b;">
-                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px;">
+                <!-- TENDER CARD 1 - TOP MATCH with URGENCY -->
+                <div style="background: linear-gradient(135deg, #fef3c7, #fde68a); border-radius: 16px; padding: 16px; margin-bottom: 14px; border: 2px solid #f59e0b; position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: 0; right: 0; background: #dc2626; color: white; padding: 4px 10px; font-size: 0.65rem; font-weight: 700; border-radius: 0 14px 0 12px; animation: urgentPulse 2s infinite;">⏰ 12 DAGAR KVAR</div>
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px; padding-right: 60px;">
                         <div>
-                            <span style="background: #dc2626; color: white; padding: 4px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase;">🔥 HOT</span>
-                            <span style="background: #1a73e8; color: white; padding: 4px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; margin-left: 6px;">🇪🇺 EU</span>
+                            <span style="background: #dc2626; color: white; padding: 3px 8px; border-radius: 5px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; animation: urgentPulse 2s infinite;">🔥 HOT</span>
+                            <span style="background: #1a73e8; color: white; padding: 3px 8px; border-radius: 5px; font-size: 0.65rem; font-weight: 700; margin-left: 5px;">🇪🇺 EU</span>
                         </div>
                         <div style="text-align: right;">
-                            <div style="font-size: 1.5rem; font-weight: 800; color: #dc2626;">100%</div>
-                            <div style="font-size: 0.7rem; color: #666;">match</div>
+                            <div style="font-size: 1.4rem; font-weight: 800; color: #dc2626;">100%</div>
+                            <div style="font-size: 0.65rem; color: #666;">match</div>
                         </div>
                     </div>
-                    <h3 style="margin: 0 0 12px; font-size: 1.1rem; color: #1a1a1a; line-height: 1.4;">
+                    <h3 style="margin: 0 0 10px; font-size: 1rem; color: #1a1a1a; line-height: 1.4;">
                         Construction work for buildings relating to education and research
                     </h3>
-                    <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
-                        <span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem;">✓ Bransch: Construction</span>
-                        <span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem;">✓ Keyword: building</span>
-                        <span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem;">✓ Keyword: construction</span>
+                    <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px;">
+                        <span style="background: #dcfce7; color: #166534; padding: 3px 8px; border-radius: 20px; font-size: 0.7rem;">✓ Construction</span>
+                        <span style="background: #dcfce7; color: #166534; padding: 3px 8px; border-radius: 20px; font-size: 0.7rem;">✓ Building</span>
                     </div>
-                    <div style="background: white; border-radius: 10px; padding: 12px;">
-                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-                            <span style="font-size: 1.2rem;">🏢</span>
-                            <span style="font-weight: 600; color: #374151;">МЕДИЦИНСКИ УНИВЕРСИТЕТ - ПЛОВДИВ</span>
+                    <div style="background: white; border-radius: 8px; padding: 10px;">
+                        <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
+                            <span style="font-size: 1rem;">🏢</span>
+                            <span style="font-weight: 600; color: #374151; font-size: 0.85rem;">МЕДИЦИНСКИ УНИВЕРСИТЕТ - ПЛОВДИВ</span>
                         </div>
-                        <div style="font-size: 0.85rem; color: #6b7280;">
+                        <div style="font-size: 0.8rem; color: #6b7280;">
                             Bygger utbildningslokaler i Bulgarien. Perfekt för dig med erfarenhet av offentliga byggprojekt!
                         </div>
                     </div>
                 </div>
 
-                <!-- TENDER CARD 2 -->
-                <div style="background: white; border-radius: 16px; padding: 20px; margin-bottom: 16px; border: 2px solid #e5e5e5;">
-                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px;">
+                <!-- TENDER CARD 2 with deadline -->
+                <div style="background: white; border-radius: 16px; padding: 16px; margin-bottom: 14px; border: 2px solid #e5e5e5;">
+                    <div style="position: absolute; top: 0; right: 0; background: #92400e; color: white; padding: 4px 10px; font-size: 0.65rem; font-weight: 700; border-radius: 0 14px 0 12px;">📅 28 maj 2026</div>
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px; padding-right: 70px;">
                         <div>
-                            <span style="background: #22c55e; color: white; padding: 4px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase;">BRA</span>
-                            <span style="background: #1a73e8; color: white; padding: 4px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; margin-left: 6px;">🇩🇪 DE</span>
+                            <span style="background: #22c55e; color: white; padding: 3px 8px; border-radius: 5px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">BRA</span>
+                            <span style="background: #1a73e8; color: white; padding: 3px 8px; border-radius: 5px; font-size: 0.65rem; font-weight: 700; margin-left: 5px;">🇩🇪 DE</span>
                         </div>
                         <div style="text-align: right;">
-                            <div style="font-size: 1.5rem; font-weight: 800; color: #22c55e;">70%</div>
-                            <div style="font-size: 0.7rem; color: #666;">match</div>
+                            <div style="font-size: 1.4rem; font-weight: 800; color: #22c55e;">70%</div>
+                            <div style="font-size: 0.65rem; color: #666;">match</div>
                         </div>
                     </div>
-                    <h3 style="margin: 0 0 12px; font-size: 1.1rem; color: #1a1a1a; line-height: 1.4;">
+                    <h3 style="margin: 0 0 10px; font-size: 1rem; color: #1a1a1a; line-height: 1.4;">
                         Architectural, construction, engineering and inspection services
                     </h3>
-                    <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
-                        <span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem;">✓ Bransch: Construction</span>
-                        <span style="background: #dbeafe; color: #1e40af; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem;">📍 Tyskland</span>
+                    <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px;">
+                        <span style="background: #dcfce7; color: #166534; padding: 3px 8px; border-radius: 20px; font-size: 0.7rem;">✓ Construction</span>
+                        <span style="background: #dbeafe; color: #1e40af; padding: 3px 8px; border-radius: 20px; font-size: 0.7rem;">📍 Tyskland</span>
                     </div>
-                    <div style="background: #f9fafb; border-radius: 10px; padding: 12px;">
-                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-                            <span style="font-size: 1.2rem;">🏛️</span>
-                            <span style="font-weight: 600; color: #374151;">Bundesanstalt für Straßenwesen</span>
+                    <div style="background: #f9fafb; border-radius: 8px; padding: 10px;">
+                        <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
+                            <span style="font-size: 1rem;">🏛️</span>
+                            <span style="font-weight: 600; color: #374151; font-size: 0.85rem;">Bundesanstalt für Straßenwesen</span>
                         </div>
-                        <div style="font-size: 0.85rem; color: #6b7280;">
+                        <div style="font-size: 0.8rem; color: #6b7280;">
                             Offentlig infrastrukturmyndighet i Tyskland. Stort projekt med långsiktigt samarbete.
                         </div>
                     </div>
                 </div>
 
-                <!-- TENDER CARD 3 -->
-                <div style="background: white; border-radius: 16px; padding: 20px; margin-bottom: 16px; border: 2px solid #e5e5e5;">
-                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px;">
+                <!-- TENDER CARD 3 - closing soon -->
+                <div style="background: white; border-radius: 16px; padding: 16px; margin-bottom: 14px; border: 2px solid #f59e0b;">
+                    <div style="position: absolute; top: 0; right: 0; background: #ea580c; color: white; padding: 4px 10px; font-size: 0.65rem; font-weight: 700; border-radius: 0 14px 0 12px;">⚠️ 5 DAGAR KVAR</div>
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px; padding-right: 70px;">
                         <div>
-                            <span style="background: #f59e0b; color: white; padding: 4px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase;">MEDIUM</span>
-                            <span style="background: #1a73e8; color: white; padding: 4px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; margin-left: 6px;">🇩🇪 DE</span>
+                            <span style="background: #f59e0b; color: white; padding: 3px 8px; border-radius: 5px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">MEDIUM</span>
+                            <span style="background: #1a73e8; color: white; padding: 3px 8px; border-radius: 5px; font-size: 0.65rem; font-weight: 700; margin-left: 5px;">🇩🇪 DE</span>
                         </div>
                         <div style="text-align: right;">
-                            <div style="font-size: 1.5rem; font-weight: 800; color: #f59e0b;">50%</div>
-                            <div style="font-size: 0.7rem; color: #666;">match</div>
+                            <div style="font-size: 1.4rem; font-weight: 800; color: #f59e0b;">50%</div>
+                            <div style="font-size: 0.65rem; color: #666;">match</div>
                         </div>
                     </div>
-                    <h3 style="margin: 0 0 12px; font-size: 1.1rem; color: #1a1a1a; line-height: 1.4;">
+                    <h3 style="margin: 0 0 10px; font-size: 1rem; color: #1a1a1a; line-height: 1.4;">
                         Installation of windows and door frames and associated fixtures
                     </h3>
-                    <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
-                        <span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem;">✓ Bransch: Building</span>
-                        <span style="background: #dbeafe; color: #1e40af; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem;">📍 Tyskland</span>
+                    <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px;">
+                        <span style="background: #dcfce7; color: #166534; padding: 3px 8px; border-radius: 20px; font-size: 0.7rem;">✓ Building</span>
+                        <span style="background: #dbeafe; color: #1e40af; padding: 3px 8px; border-radius: 20px; font-size: 0.7rem;">📍 Tyskland</span>
                     </div>
-                    <div style="background: #f9fafb; border-radius: 10px; padding: 12px;">
-                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-                            <span style="font-size: 1.2rem;">🏘️</span>
-                            <span style="font-weight: 600; color: #374151;">Gemeinde Henstedt-Ulzburg</span>
+                    <div style="background: #f9fafb; border-radius: 8px; padding: 10px;">
+                        <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
+                            <span style="font-size: 1rem;">🏘️</span>
+                            <span style="font-weight: 600; color: #374151; font-size: 0.85rem;">Gemeinde Henstedt-Ulzburg</span>
                         </div>
-                        <div style="font-size: 0.85rem; color: #6b7280;">
+                        <div style="font-size: 0.8rem; color: #6b7280;">
                             Fönsterinstallation i mindre tyskt samhälle nära Hamburg. Bra för dig med reservkapacitet!
                         </div>
                     </div>
