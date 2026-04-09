@@ -449,7 +449,7 @@
             const isWatched = watchlist.includes(t.id);
             const isSelected = selectedTender?.id === t.id;
             return `
-            <div class="tender-card ${isSelected ? 'selected' : ''}" onclick="selectTender('${t.id}')">
+            <div class="tender-card ${isSelected ? 'selected' : ''}" onclick="selectTender('${t.id}', this)">
                 <div class="card-top">
                     <div class="card-left">
                         <span class="cat-icon">${cat.icon}</span>
@@ -472,14 +472,14 @@
     }
 
     // ============ TENDER SELECTION ============
-    function selectTender(id) {
+    function selectTender(id, cardEl) {
         const t = TENDERS.find(x => x.id === id);
         if (!t) return;
         selectedTender = t;
 
         // Update card selection
         document.querySelectorAll('.tender-card').forEach(c => c.classList.remove('selected'));
-        event.currentTarget.classList.add('selected');
+        if (cardEl) cardEl.classList.add('selected');
 
         // Show AI panel with tender selected
         showAIIdle(t);
