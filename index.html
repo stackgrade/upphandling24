@@ -1245,8 +1245,8 @@
                     <span>50 platser</span>
                 </div>
                 
-                <h1>Få <span class="highlight">intelligence</span> — inte bara notiser</h1>
-                <p class="hero-sub">Vi analyserar upphandlingar åt dig. Vi visar vilka krav som ställs, vem som brukar vinna, och om det är värt din tid — innan du ens öppnar PDF:en.</p>
+                <h1>Sluta gissa.<br><span class="highlight">Börja vinna.</span></h1>
+                <p class="hero-sub">Vi analyserar dokument, räknar ut dina vinstchanser, och visar dig exakt vilka upphandlingar som är värda din tid. Inte 50 mejl — 3-4 du faktiskt kan vinna.</p>
                 
                 <div class="trust-row">
                     <div class="trust-item">
@@ -1326,81 +1326,106 @@
             </div>
 
             <!-- INTELLIGENCE CARDS -->
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; max-width: 1000px; margin: 0 auto;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto;">
 
-                <!-- CARD 1: PDF Requirements Extraction -->
-                <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 28px;">
+                <!-- CARD 1: PDF Requirements + RED FLAGS -->
+                <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 24px;">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                        <div style="background: linear-gradient(135deg, #ef4444, #dc2626); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">🚩</div>
+                        <div>
+                            <h3 style="color: white; margin: 0; font-size: 1.05rem;">Red Flag Detection</h3>
+                            <p style="color: rgba(255,255,255,0.6); margin: 0; font-size: 0.8rem;">Finns det "insyn" på den här?</p>
+                        </div>
+                    </div>
+                    <div style="background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); border-radius: 8px; padding: 14px; font-size: 0.85rem;">
+                        <div style="color: #ef4444; font-weight: 700; margin-bottom: 8px;">⚠️ VARNINGAR VI HITTADE:</div>
+                        <ul style="color: rgba(255,255,255,0.9); margin: 0; padding-left: 18px; line-height: 1.9;">
+                            <li><strong>特定外来生物</strong> — Kravtexten är kopierad rakt från en tidigare vinnares anbud</li>
+                            <li><strong>Mycket kort deadline</strong> — 8 dagar. Ovanligt för denna kommun.</li>
+                            <li><strong>Tidigare vinnare</strong> — Samma firma vunnit 4 av 5 här. Möjlig "incheckning".</li>
+                        </ul>
+                    </div>
+                    <p style="color: rgba(255,255,255,0.5); font-size: 0.75rem; margin-top: 10px;">
+                        Upptäck om upphandlingen är "skriven för någon" INNAN du lägger tid på den.
+                    </p>
+                </div>
+
+                <!-- CARD 2: PDF-krav-analys -->
+                <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 24px;">
                     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
                         <div style="background: #4ade80; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">📄</div>
                         <div>
-                            <h3 style="color: white; margin: 0; font-size: 1.1rem;">PDF-krav-analys</h3>
-                            <p style="color: rgba(255,255,255,0.6); margin: 0; font-size: 0.85rem;">Vi läser dokumenten åt dig</p>
+                            <h3 style="color: white; margin: 0; font-size: 1.05rem;">AI Krav-analys</h3>
+                            <p style="color: rgba(255,255,255,0.6); margin: 0; font-size: 0.8rem;">Vi läser 100-sidiga PDF:er åt dig</p>
                         </div>
                     </div>
-                    <div style="background: rgba(0,0,0,0.3); border-radius: 8px; padding: 16px; font-size: 0.9rem;">
-                        <div style="color: #fbbf24; font-weight: 600; margin-bottom: 8px;">🔍 Vi hittade i dokumentet:</div>
-                        <ul style="color: rgba(255,255,255,0.85); margin: 0; padding-left: 20px; line-height: 1.8;">
-                            <li>Krav: <strong>ISO 9001</strong> certifikat krävs</li>
-                            <li>Krav: <strong>5+ års</strong> erfarenhet av offentliga projekt</li>
-                            <li>Krav: <strong>Offert</strong> måste inkludera tidplan</li>
-                            <li>Viktigt: <strong>Miljökrav</strong> enligt ISO 14001</li>
+                    <div style="background: rgba(0,0,0,0.3); border-radius: 8px; padding: 14px; font-size: 0.85rem;">
+                        <div style="color: #fbbf24; font-weight: 600; margin-bottom: 8px;">🔍 Sammanfattat från dokumentet:</div>
+                        <ul style="color: rgba(255,255,255,0.85); margin: 0; padding-left: 18px; line-height: 1.9;">
+                            <li><strong>ISO 9001</strong> certifikat krävs</li>
+                            <li><strong>5+ års</strong> erfarenhet av offentliga projekt</li>
+                            <li><strong>Tidplan:</strong> 18 månader, start Q3 2026</li>
+                            <li><strong>Miljökrav:</strong> ISO 14001 + leverantörskedja</li>
                         </ul>
                     </div>
-                    <p style="color: rgba(255,255,255,0.5); font-size: 0.8rem; margin-top: 12px;">
-                        Slippa läsa 100-sidiga PDF:er. Vi sammanfattar kraven på 10 sekunder.
+                    <p style="color: rgba(255,255,255,0.5); font-size: 0.75rem; margin-top: 10px;">
+                        10 sekunder istället för 2 timmar. Du fokuserar på att VINNA.
                     </p>
                 </div>
 
-                <!-- CARD 2: Competitor Intelligence -->
-                <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 28px;">
+                <!-- CARD 3: Konkurrentanalys -->
+                <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 24px;">
                     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
                         <div style="background: #f87171; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">⚔️</div>
                         <div>
-                            <h3 style="color: white; margin: 0; font-size: 1.1rem;">Konkurrentanalys</h3>
-                            <p style="color: rgba(255,255,255,0.6); margin: 0; font-size: 0.85rem;">Vem brukar vinna här?</p>
+                            <h3 style="color: white; margin: 0; font-size: 1.05rem;">Konkurrentkollen</h3>
+                            <p style="color: rgba(255,255,255,0.6); margin: 0; font-size: 0.8rem;">Vem har vunnit här förut?</p>
                         </div>
                     </div>
-                    <div style="background: rgba(0,0,0,0.3); border-radius: 8px; padding: 16px; font-size: 0.9rem;">
+                    <div style="background: rgba(0,0,0,0.3); border-radius: 8px; padding: 14px; font-size: 0.85rem;">
                         <div style="color: #fbbf24; font-weight: 600; margin-bottom: 8px;">📊 Historik hos denna köpare:</div>
-                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
                             <span style="color: rgba(255,255,255,0.85);">ByggAB</span>
-                            <span style="background: #4ade80; color: #065f46; padding: 2px 10px; border-radius: 10px; font-size: 0.75rem; font-weight: 600;">Vunnit 4/5</span>
+                            <span style="background: #4ade80; color: #065f46; padding: 2px 8px; border-radius: 8px; font-size: 0.7rem; font-weight: 600;">4/5 vunna</span>
                         </div>
-                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
                             <span style="color: rgba(255,255,255,0.85);">Nordic Construction</span>
-                            <span style="background: #fbbf24; color: #92400e; padding: 2px 10px; border-radius: 10px; font-size: 0.75rem; font-weight: 600;">Vunnit 1/3</span>
+                            <span style="background: #fbbf24; color: #92400e; padding: 2px 8px; border-radius: 8px; font-size: 0.7rem; font-weight: 600;">1/3 vunna</span>
                         </div>
-                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0;">
                             <span style="color: rgba(255,255,255,0.85);">Svenska Hus</span>
-                            <span style="background: #ef4444; color: white; padding: 2px 10px; border-radius: 10px; font-size: 0.75rem; font-weight: 600;">0/2</span>
+                            <span style="background: #ef4444; color: white; padding: 2px 8px; border-radius: 8px; font-size: 0.7rem; font-weight: 600;">0/2 vunna</span>
                         </div>
                     </div>
-                    <p style="color: rgba(255,255,255,0.5); font-size: 0.8rem; margin-top: 12px;">
-                        Slipp gissa — se vem som brukar vinna och varför.
+                    <p style="color: rgba(255,255,255,0.5); font-size: 0.75rem; margin-top: 10px;">
+                        Slipp gissa. Nu vet du EXAKT vem du konkurrerar med.
                     </p>
                 </div>
 
-                <!-- CARD 3: Win Probability -->
-                <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 28px;">
+                <!-- CARD 4: Vinstchans + Auto-Draft -->
+                <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 24px;">
                     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-                        <div style="background: #60a5fa; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">🎯</div>
+                        <div style="background: linear-gradient(135deg, #4ade80, #22c55e); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">🎯</div>
                         <div>
-                            <h3 style="color: white; margin: 0; font-size: 1.1rem;">Vinstchans</h3>
-                            <p style="color: rgba(255,255,255,0.6); margin: 0; font-size: 0.85rem;">Ska du ens räkna på det?</p>
+                            <h3 style="color: white; margin: 0; font-size: 1.05rem;">Vinstchans + Bud</h3>
+                            <p style="color: rgba(255,255,255,0.6); margin: 0; font-size: 0.8rem;">Ska du ens räkna? Och hur?</p>
                         </div>
                     </div>
-                    <div style="text-align: center; padding: 20px 0;">
-                        <div style="font-size: 4rem; font-weight: 800; color: #4ade80; line-height: 1;">73%</div>
-                        <div style="color: rgba(255,255,255,0.6); font-size: 0.9rem; margin-top: 8px;">chans att vinna</div>
-                        <div style="margin-top: 16px; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;">
-                            <span style="background: rgba(74,222,128,0.2); color: #4ade80; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem;">✓ Din bransch</span>
-                            <span style="background: rgba(74,222,128,0.2); color: #4ade80; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem;">✓ Storlek passar</span>
-                            <span style="background: rgba(251,113,133,0.2); color: #f87171; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem;">⚠️ Finns stark rival</span>
+                    <div style="text-align: center; padding: 12px 0;">
+                        <div style="display: inline-flex; align-items: baseline; gap: 8px;">
+                            <span style="font-size: 3.5rem; font-weight: 800; color: #4ade80; line-height: 1;">73%</span>
+                            <span style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">chans</span>
+                        </div>
+                        <div style="margin-top: 12px; display: flex; justify-content: center; gap: 6px; flex-wrap: wrap;">
+                            <span style="background: rgba(74,222,128,0.2); color: #4ade80; padding: 3px 10px; border-radius: 16px; font-size: 0.7rem;">✓ Bransch</span>
+                            <span style="background: rgba(74,222,128,0.2); color: #4ade80; padding: 3px 10px; border-radius: 16px; font-size: 0.7rem;">✓ Storlek</span>
+                            <span style="background: rgba(251,191,36,0.2); color: #fbbf24; padding: 3px 10px; border-radius: 16px; font-size: 0.7rem;">⚠️ Stark rival</span>
                         </div>
                     </div>
-                    <p style="color: rgba(255,255,255,0.5); font-size: 0.8rem; margin-top: 12px;">
-                        Vi räknar ut din vinstchans baserat på 10+ faktorer.
-                    </p>
+                    <div style="margin-top: 12px; padding: 10px; background: rgba(74,222,128,0.1); border-radius: 8px; text-align: center;">
+                        <div style="color: #4ade80; font-size: 0.8rem; font-weight: 600;">✨ Auto-Draft: Klart för 2 timmar</div>
+                        <div style="color: rgba(255,255,255,0.5); font-size: 0.7rem; margin-top: 2px;">Baserat på dina tidigare anbud</div>
+                    </div>
                 </div>
             </div>
 
@@ -1408,6 +1433,96 @@
                 <a href="#signup" style="display: inline-block; background: #fbbf24; color: #0f1f35; padding: 16px 40px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 1.1rem; box-shadow: 0 4px 20px rgba(251,191,36,0.3);">
                     Få tillgång till Intelligence →
                 </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PRICING SECTION - TRANSPARENT! ===== -->
+    <section style="background: #fafafa; padding: 80px 0;">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 48px;">
+                <span style="background: rgba(30,58,95,0.1); color: #1e3a5f; padding: 6px 16px; border-radius: 50px; font-size: 0.85rem; font-weight: 600;">Prissättning</span>
+                <h2 style="font-size: 2.25rem; margin-top: 16px; color: var(--text);">Inga dolda kostnader. Inga säljsamtal.</h2>
+                <p style="color: var(--text-secondary); max-width: 500px; margin: 12px auto 0;">
+                    Du betalar för värde. Om du inte vinner en upphandling inom 30 dagar — pengarna tillbaka.
+                </p>
+            </div>
+
+            <!-- PRICING CARDS -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; max-width: 900px; margin: 0 auto;">
+
+                <!-- FREE TIER -->
+                <div style="background: white; border: 2px solid #e5e5e5; border-radius: 20px; padding: 32px; text-align: center;">
+                    <div style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;">GRATIS</div>
+                    <div style="font-size: 2.5rem; font-weight: 800; color: var(--text);">0 kr</div>
+                    <div style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 24px;">för alltid</div>
+                    <ul style="list-style: none; padding: 0; text-align: left; margin-bottom: 32px;">
+                        <li style="padding: 8px 0; color: var(--text-secondary); font-size: 0.9rem;">✓ <strong>5</strong> upphandlingar per månad</li>
+                        <li style="padding: 8px 0; color: var(--text-secondary); font-size: 0.9rem;">✓ <strong>Bara rubriker</strong> — ingen analys</li>
+                        <li style="padding: 8px 0; color: var(--text-secondary); font-size: 0.9rem;">✓ Sök i databasen</li>
+                        <li style="padding: 8px 0; color: #d1d5db; font-size: 0.9rem; text-decoration: line-through;">✗ Red Flag Detection</li>
+                        <li style="padding: 8px 0; color: #d1d5db; font-size: 0.9rem; text-decoration: line-through;">✗ AI Krav-analys</li>
+                        <li style="padding: 8px 0; color: #d1d5db; font-size: 0.9rem; text-decoration: line-through;">✗ Konkurrentdata</li>
+                        <li style="padding: 8px 0; color: #d1d5db; font-size: 0.9rem; text-decoration: line-through;">✗ Vinstchans</li>
+                    </ul>
+                    <a href="#signup" style="display: block; background: #f3f4f6; color: var(--text); padding: 14px; border-radius: 10px; text-decoration: none; font-weight: 600;">Kom igång gratis</a>
+                </div>
+
+                <!-- PAY-PER-INSIGHT -->
+                <div style="background: white; border: 2px solid #fbbf24; border-radius: 20px; padding: 32px; text-align: center; position: relative;">
+                    <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #fbbf24; color: #0f1f35; padding: 4px 16px; border-radius: 20px; font-size: 0.75rem; font-weight: 700;">POPULÄRAST</div>
+                    <div style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;">PER INSIKT</div>
+                    <div style="font-size: 2.5rem; font-weight: 800; color: var(--text);">499 kr</div>
+                    <div style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 24px;">per upphandling</div>
+                    <ul style="list-style: none; padding: 0; text-align: left; margin-bottom: 32px;">
+                        <li style="padding: 8px 0; color: var(--text-secondary); font-size: 0.9rem;">✓ <strong>Full AI-analys</strong> av en upphandling</li>
+                        <li style="padding: 8px 0; color: var(--text-secondary); font-size: 0.9rem;">✓ Red Flag Detection</li>
+                        <li style="padding: 8px 0; color: var(--text-secondary); font-size: 0.9rem;">✓ Krav sammanfattade</li>
+                        <li style="padding: 8px 0; color: var(--text-secondary); font-size: 0.9rem;">✓ Konkurrenthistorik</li>
+                        <li style="padding: 8px 0; color: var(--text-secondary); font-size: 0.9rem;">✓ Vinstchans-betyg</li>
+                        <li style="padding: 8px 0; color: var(--text-secondary); font-size: 0.9rem;">✓ <strong>Auto-Draft</strong> utkast</li>
+                    </ul>
+                    <a href="#signup" style="display: block; background: #fbbf24; color: #0f1f35; padding: 14px; border-radius: 10px; text-decoration: none; font-weight: 700;">Köp analys nu</a>
+                </div>
+
+                <!-- WINNER TIER -->
+                <div style="background: linear-gradient(160deg, #0f1f35, #1e3a5f); border: none; border-radius: 20px; padding: 32px; text-align: center; color: white;">
+                    <div style="font-size: 0.85rem; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;">WINNER</div>
+                    <div style="font-size: 2.5rem; font-weight: 800;">1,997 kr</div>
+                    <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-bottom: 24px;">/månad</div>
+                    <ul style="list-style: none; padding: 0; text-align: left; margin-bottom: 32px;">
+                        <li style="padding: 8px 0; color: rgba(255,255,255,0.9); font-size: 0.9rem;">✓ <strong>Obegränsad</strong> bevakning</li>
+                        <li style="padding: 8px 0; color: rgba(255,255,255,0.9); font-size: 0.9rem;">✓ Allt i Pay-per-Insight</li>
+                        <li style="padding: 8px 0; color: rgba(255,255,255,0.9); font-size: 0.9rem;">✓ <strong>Dagliga</strong> intelligens-mail</li>
+                        <li style="padding: 8px 0; color: rgba(255,255,255,0.9); font-size: 0.9rem;">✓ Skräddarsydd kompetensprofil</li>
+                        <li style="padding: 8px 0; color: rgba(255,255,255,0.9); font-size: 0.9rem;">✓ Vinnarstatistik</li>
+                        <li style="padding: 8px 0; color: rgba(255,255,255,0.9); font-size: 0.9rem;">✓ <strong>Priority</strong> support</li>
+                    </ul>
+                    <a href="#signup" style="display: block; background: #fbbf24; color: #0f1f35; padding: 14px; border-radius: 10px; text-decoration: none; font-weight: 700;">Starta gratis (beta)</a>
+                    <p style="color: rgba(255,255,255,0.5); font-size: 0.75rem; margin-top: 12px;">I beta: Gratis tills vi lanserar officiellt</p>
+                </div>
+            </div>
+
+            <!-- ROI CALCULATOR TEASER -->
+            <div style="margin-top: 48px; text-align: center; padding: 32px; background: linear-gradient(135deg, #fef3c7, #fde68a); border-radius: 16px; max-width: 700px; margin-left: auto; margin-right: auto;">
+                <div style="font-size: 1.5rem; font-weight: 700; color: #92400e; margin-bottom: 8px;">💡 Räkna på din ROI</div>
+                <p style="color: #92400e; font-size: 0.95rem; margin-bottom: 16px;">
+                    En genomsnittlig upphandling är <strong>2-5 miljoner</strong>. Om du vinner 1 av 10 du räknar på — är vår kostnad ubefintlig.
+                </p>
+                <div style="display: flex; justify-content: center; gap: 24px; flex-wrap: wrap;">
+                    <div style="background: white; padding: 12px 20px; border-radius: 10px;">
+                        <div style="font-size: 1.5rem; font-weight: 800; color: #1e3a5f;">1 av 10</div>
+                        <div style="font-size: 0.8rem; color: #666;">Vinstfrekvens</div>
+                    </div>
+                    <div style="background: white; padding: 12px 20px; border-radius: 10px;">
+                        <div style="font-size: 1.5rem; font-weight: 800; color: #1e3a5f;">3M kr</div>
+                        <div style="font-size: 0.8rem; color: #666;">Snittvärde</div>
+                    </div>
+                    <div style="background: white; padding: 12px 20px; border-radius: 10px;">
+                        <div style="font-size: 1.5rem; font-weight: 800; color: #1e3a5f;">300x</div>
+                        <div style="font-size: 0.8rem; color: #666;">ROI på 1,997 kr/mån</div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
