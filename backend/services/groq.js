@@ -9,7 +9,7 @@ import Groq from 'groq-sdk';
 class GroqService {
   constructor(apiKey) {
     this.client = new Groq({ apiKey });
-    this.model = 'mixtral-8x7b-32768';
+    this.model = 'llama-3.3-70b-versatile'; // Free, strong Swedish performance
   }
 
   /**

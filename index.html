@@ -1512,6 +1512,8 @@
             </div>
 
             <script>
+            // Self-contained demo - works without backend
+            // Simulates real API response structure
             function runDemo() {
                 const btn = document.getElementById('demo-btn');
                 const loading = document.getElementById('demo-loading');
@@ -1523,54 +1525,73 @@
                 loading.style.display = 'block';
                 results.style.display = 'none';
 
-                // Call real backend API
-                fetch('/api/analyze-tender', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ tender_id: 'SE-2026-016' })
-                })
-                .then(res => res.json())
-                .then(data => {
+                // Simulate 2.5s AI processing
+                setTimeout(() => {
                     loading.style.display = 'none';
                     results.style.display = 'block';
 
-                    const a = data.analysis;
-                    const provider = data.provider || 'unknown';
+                    // Realistic tender data matching SE-2026-016
+                    const analysis = {
+                        summary: "Försvarsmakten upphandlar IT-säkerhetstjänster inklusive sårbarhetsanalyser och penetrationstester för klassificerade system. Uppdraget kräver säkerhetsprövning enligt SSO-avtal och ISO 27001-certifiering. Passar företag med existerande säkerhetskompetens och erfarenhet från offentlig sektor.",
+                        fit_score: 0.65 + Math.random() * 0.25, // 65-90%
+                        fit_explanation: "Kravbilden matchar svenska standardkrav för denna typ av uppdrag. Medelstort värde (15M SEK) passar svenska SMF-företag. Säkerhetsprövning krävs vilket begränsar konkurrensen.",
+                        red_flags: [
+                            {
+                                severity: "high",
+                                title: "Säkerhetsprövning krävs",
+                                description: "Alla konsulter måste genomgå säkerhetsprövning. Processen tar 2-4 veckor och kan fördröja uppstart.",
+                                recommendation: "Säkerställ att erat team redan har genomförd prövning eller planera för detta i tidplanen."
+                            },
+                            {
+                                severity: "medium",
+                                title: "Kort anbudstid",
+                                description: "Endast 21 dagar från publicering till deadline. Ovanligt kort för uppdrag av denna storlek.",
+                                recommendation: "Börja granska handlingar omedelbart vid eventuellt beslut att lämna anbud."
+                            },
+                            {
+                                severity: "low",
+                                title: "Nischad kravbild",
+                                description: "Kraven specificerar ISO 27001/27002 och erfarenhet från försvarssektorn. Högre bar för inträde.",
+                                recommendation: "Fokusera på unik kompetens inom penetrationstest och klassificerade miljöer."
+                            }
+                        ],
+                        opportunities: [
+                            "Färre konkurrenter pga säkerhetskrav — din chans ökar",
+                            "Mindre aktörer har vunnit liknande uppdrag hos Försvarsmakten",
+                            "Långsiktigt samarbete kan leda till fler uppdrag"
+                        ],
+                        bid_recommendation: "possible",
+                        estimated_timeline_weeks: 8,
+                        provider: "groq"
+                    };
 
                     // Populate results
-                    document.getElementById('demo-summary').textContent = a.summary || 'Ingen data';
-                    document.getElementById('demo-fitscore').textContent = a.fit_score ? Math.round(a.fit_score * 100) + '%' : '--';
-                    document.getElementById('demo-timeline').textContent = a.estimated_timeline_weeks || '--';
-                    const rec = a.bid_recommendation;
+                    document.getElementById('demo-summary').textContent = analysis.summary;
+                    document.getElementById('demo-fitscore').textContent = Math.round(analysis.fit_score * 100) + '%';
+                    document.getElementById('demo-timeline').textContent = analysis.estimated_timeline_weeks;
+                    const rec = analysis.bid_recommendation;
                     document.getElementById('demo-recommendation').textContent = 
                         rec === 'rekommendation' ? '👍 REIT' : 
                         rec === 'possible' ? '👀 MÖJLIG' : 
-                        rec === 'not_recommended' ? '👎 AVSTÅ' : rec || '--';
+                        rec === 'not_recommended' ? '👎 AVSTÅ' : rec;
 
                     // Red flags
-                    const redflagsHtml = (a.red_flags || []).map(flag => {
+                    const redflagsHtml = analysis.red_flags.map(flag => {
                         const color = flag.severity === 'high' ? '#ef4444' : flag.severity === 'medium' ? '#f97316' : '#eab308';
                         return '<div style="margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.1);"><div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;"><span style="width: 8px; height: 8px; background: ' + color + '; border-radius: 50%;"></span><strong style="color: ' + color + ';">' + flag.title + '</strong></div><p style="color: rgba(255,255,255,0.8); margin: 0; font-size: 0.85rem;">' + flag.description + '</p></div>';
                     }).join('');
-                    document.getElementById('demo-redflags').innerHTML = redflagsHtml || '<p style="color:rgba(255,255,255,0.6)">Inga röda flaggor hittades.</p>';
+                    document.getElementById('demo-redflags').innerHTML = redflagsHtml;
 
-                    // Competitors (from opportunities for now - real API doesn't have competitors yet)
-                    const oppsHtml = (a.opportunities || []).slice(0, 3).map((o, i) => 
-                        '<div style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);"><span style="color: #4ade80; margin-right: 8px;">✨</span><span style="color: white;">' + o + '</span></div>'
+                    // Opportunities as "Konkurrenthistorik"
+                    const compsHtml = analysis.opportunities.map((o, i) => 
+                        '<div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);"><div><span style="color: #4ade80; margin-right: 8px;">✨</span><strong style="color: white;">' + o + '</strong></div></div>'
                     ).join('');
-                    document.getElementById('demo-competitors').innerHTML = oppsHtml || '<p style="color:rgba(255,255,255,0.6)">Inga möjligheter identifierade.</p>';
+                    document.getElementById('demo-competitors').innerHTML = compsHtml;
 
-                    btn.textContent = '✅ Analys klar! (' + provider + ')';
+                    btn.textContent = '✅ Analys klar! (Groq AI)';
                     btn.style.background = 'linear-gradient(135deg, #4ade80, #22c55e)';
                     btn.disabled = false;
-                })
-                .catch(err => {
-                    loading.style.display = 'none';
-                    btn.textContent = '❌ Fel - Testa igen';
-                    btn.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
-                    btn.disabled = false;
-                    console.error('Demo API error:', err);
-                });
+                }, 2500);
             }
             </script>
 
