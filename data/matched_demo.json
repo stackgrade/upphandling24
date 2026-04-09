@@ -1,0 +1,80 @@
+[
+  {
+    "tender_title": "Construction work for buildings relating to education and research",
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243840-2026",
+    "relevance_score": 1,
+    "match_reasons": [
+      "Bransch: Construction",
+      "Bransch: Building",
+      "Keyword: construction",
+      "Keyword: building"
+    ],
+    "country": "EU",
+    "buyer": "МЕДИЦИНСКИ УНИВЕРСИТЕТ - ПЛОВДИВ"
+  },
+  {
+    "tender_title": "Construction work",
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243835-2026",
+    "relevance_score": 1,
+    "match_reasons": [
+      "Bransch: Construction",
+      "Bransch: Building",
+      "Keyword: construction",
+      "Keyword: building"
+    ],
+    "country": "EU",
+    "buyer": "Kilkenny Abbey Quarter Development Ltd"
+  },
+  {
+    "tender_title": "Architectural, construction, engineering and inspection services",
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243831-2026",
+    "relevance_score": 0.7000000000000001,
+    "match_reasons": [
+      "Bransch: Construction",
+      "Keyword: construction"
+    ],
+    "country": "DE",
+    "buyer": "Gemeinde Isernhagen"
+  },
+  {
+    "tender_title": "Construction, foundation and surface works for highways, roads",
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243830-2026",
+    "relevance_score": 0.7000000000000001,
+    "match_reasons": [
+      "Bransch: Construction",
+      "Keyword: construction"
+    ],
+    "country": "ES",
+    "buyer": "Dirección General de Carreteras"
+  },
+  {
+    "tender_title": "Architectural, construction, engineering and inspection services",
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243818-2026",
+    "relevance_score": 0.7000000000000001,
+    "match_reasons": [
+      "Bransch: Construction",
+      "Keyword: construction"
+    ],
+    "country": "DE",
+    "buyer": "Gemeinde Sternenfels"
+  },
+  {
+    "tender_title": "Insurance services",
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243796-2026",
+    "relevance_score": 0.7000000000000001,
+    "match_reasons": [
+      "Bransch: Construction",
+      "Keyword: construction"
+    ],
+    "country": "FR",
+    "buyer": "UGECAM Ile-de-France"
+  },
+  {
+    "tender_title": "Medical consumables",
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243815-2026",
+    "relevance_score": 0.4,
+    "match_reasons": [],
+    "country": "SE",
+    "buyer": "REGION HALLAND"
+  }
+]
