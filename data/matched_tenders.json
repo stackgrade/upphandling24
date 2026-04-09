@@ -1,0 +1,90 @@
+[
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243843-2026",
+    "tender_title": "Installation of windows",
+    "relevance_score": 0.5,
+    "match_reasons": [],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243842-2026",
+    "tender_title": "Hospital and related services",
+    "relevance_score": 0.6,
+    "match_reasons": [
+      "Industry match: IT"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243841-2026",
+    "tender_title": "Research and development services and related consultancy services",
+    "relevance_score": 0.6,
+    "match_reasons": [
+      "Industry match: IT"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243840-2026",
+    "tender_title": "Construction work for buildings relating to education and research",
+    "relevance_score": 0.6,
+    "match_reasons": [
+      "Industry match: Construction"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243839-2026",
+    "tender_title": "This site uses cookies. Visit our cookies policy page or click the link in any footer for more infor",
+    "relevance_score": 0.6,
+    "match_reasons": [
+      "Industry match: IT"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243838-2026",
+    "tender_title": "Air-traffic control systems",
+    "relevance_score": 0.6,
+    "match_reasons": [
+      "Industry match: IT"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243837-2026",
+    "tender_title": "Sports facilities operation services",
+    "relevance_score": 0.6,
+    "match_reasons": [
+      "Industry match: IT"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243836-2026",
+    "tender_title": "This site uses cookies. Visit our cookies policy page or click the link in any footer for more infor",
+    "relevance_score": 0.6,
+    "match_reasons": [
+      "Industry match: IT"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243835-2026",
+    "tender_title": "This site uses cookies. Visit our cookies policy page or click the link in any footer for more infor",
+    "relevance_score": 0.6,
+    "match_reasons": [
+      "Industry match: IT"
+    ],
+    "filter_reason": null
+  },
+  {
+    "tender_url": "https://ted.europa.eu/en/notice/-/detail/243834-2026",
+    "tender_title": "This site uses cookies. Visit our cookies policy page or click the link in any footer for more infor",
+    "relevance_score": 0.6,
+    "match_reasons": [
+      "Industry match: IT"
+    ],
+    "filter_reason": null
+  }
+]

@@ -1,0 +1,29 @@
+# Module 04: Scraper Configuration
+
+scraper:
+  name: "TendAlert Tender Scraper"
+  version: "1.0"
+  enabled: true
+
+sources:
+  ted_europa:
+    name: "TED - Tenders Electronic Daily"
+    url: "https://ted.europa.eu/en/search/main"
+    enabled: true
+    rate_limit: 2  # seconds between requests
+    
+  mercell_se:
+    name: "Mercell Sweden"
+    url: "https://www.mercell.se/upphandlingar/sverige/"
+    enabled: true
+    rate_limit: 3
+
+output:
+  format: "json"
+  cache_file: "data/tenders_cache.json"
+  max_results: 100
+
+schedule:
+  # Run daily at 06:00 via GitHub Actions
+  cron: "0 6 * * *"
+  timezone: "Europe/Stockholm"
