@@ -10,6 +10,7 @@ import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import GeminiService from './services/gemini.js';
+import GroqService from './services/groq.js';
 
 // Load environment variables
 config();
@@ -29,8 +30,10 @@ const tendersData = JSON.parse(
   readFileSync(join(__dirname, 'data', 'swedish-tenders.json'), 'utf-8')
 );
 
-// Initialize Gemini service (lazy - only when needed)
+// Initialize AI services (lazy - only when needed)
 let geminiService = null;
+let groqService = null;
+
 function getGeminiService() {
   if (!geminiService) {
     const apiKey = process.env.GEMINI_API_KEY;
@@ -40,6 +43,17 @@ function getGeminiService() {
     geminiService = new GeminiService(apiKey);
   }
   return geminiService;
+}
+
+function getGroqService() {
+  if (!groqService) {
+    const apiKey = process.env.GROQ_API_KEY;
+    if (!apiKey) {
+      throw new Error('GROQ_API_KEY not configured');
+    }
+    groqService = new GroqService(apiKey);
+  }
+  return groqService;
 }
 
 // ============================================
@@ -54,7 +68,9 @@ app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
     timestamp: new Date().toISOString(),
+    groq_configured: !!process.env.GROQ_API_KEY,
     gemini_configured: !!process.env.GEMINI_API_KEY,
+    ai_provider: process.env.GROQ_API_KEY ? 'groq' : (process.env.GEMINI_API_KEY ? 'gemini' : 'mock'),
     tenders_loaded: tendersData.length
   });
 });
@@ -114,7 +130,7 @@ app.get('/api/tenders/:id', (req, res) => {
 
 /**
  * POST /api/analyze-tender
- * Analyze a tender using Gemini AI
+ * Analyze a tender using AI (Groq if configured, else Gemini)
  * 
  * Request body:
  * {
@@ -145,21 +161,49 @@ app.post('/api/analyze-tender', async (req, res) => {
       });
     }
     
-    // Check if Gemini is configured
-    if (!process.env.GEMINI_API_KEY) {
-      return res.status(503).json({
-        error: 'Gemini API not configured',
-        message: 'Set GEMINI_API_KEY environment variable to enable AI analysis',
-        mock_available: true
+    // Use Groq if available (free tier), otherwise Gemini
+    let analysis;
+    let provider = 'mock';
+    
+    if (process.env.GROQ_API_KEY) {
+      provider = 'groq';
+      analysis = await getGroqService().analyzeTender(tender);
+    } else if (process.env.GEMINI_API_KEY) {
+      provider = 'gemini';
+      analysis = await getGeminiService().analyzeTender(tender);
+    } else {
+      // Return mock analysis for demo purposes
+      return res.json({
+        tender_id: tender.id,
+        tender_title: tender.title,
+        provider: 'mock',
+        mock: true,
+        analysis: {
+          summary: `Analys av ${tender.title} — ${tender.buyer}. Uppdraget passar medelstora konsultbolag med erfarenhet av offentlig upphandling.`,
+          fit_score: 0.65 + Math.random() * 0.25,
+          fit_explanation: 'Kravbilden matchar svenska standardkrav för denna typ av uppdrag. Medelstort värde som passar svenska SMF-företag.',
+          red_flags: [
+            { severity: 'medium', title: 'Standard upphandling', description: 'Vanlig upphandling utan uppenbara röda flaggor, men konkurrens kan vara hög.', recommendation: 'Fokusera på unik kompetens och referenser.' },
+            { severity: 'low', title: 'Ingen tidigare relation', description: 'Köparen har inte tidigare samarbetat med er bransch.', recommendation: 'Säkerställ att anbudet är väl genomarbetat.' }
+          ],
+          requirements_analysis: {
+            technical: 'Tekniska krav framgår av handlingarna. Kontrollera CPV-koder mot er kompetens.',
+            financial: 'Ekonomiska krav inom normal nivå för denna storlek.',
+            qualification: 'Kvalifikationskrav: Relevans för offentlig sektor.',
+            sustainability: 'Hållbarhetskrav bedöms vara standard enligt svenska regler.'
+          },
+          opportunities: ['Nischad kompetens kan ge konkurrensfördel', 'Mindre aktörer har vunnit liknande uppdrag'],
+          bid_recommendation: 'possible',
+          estimated_timeline_weeks: 8
+        },
+        analyzed_at: new Date().toISOString()
       });
     }
-    
-    // Perform analysis
-    const analysis = await getGeminiService().analyzeTender(tender);
     
     res.json({
       tender_id: tender.id || tender_id,
       tender_title: tender.title,
+      provider,
       analysis,
       analyzed_at: new Date().toISOString()
     });
